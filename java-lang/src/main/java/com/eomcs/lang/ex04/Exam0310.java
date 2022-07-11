@@ -15,6 +15,6 @@ public class Exam0310 {
     //- 사용법
     //    System.out.println(리터럴 또는 변수, 결과가 생성되는 명령문)
     //
-    System.out.println(age); 
+    System.out.println(age); // println을 실행할때 age 변수를 넘기는 것이 아니라 age 변수에 들어있는 값을 넘기는 것이다.
   }
 }

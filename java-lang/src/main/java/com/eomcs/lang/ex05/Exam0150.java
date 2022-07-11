@@ -58,7 +58,7 @@ public class Exam0150 {
     // boolean + int = 컴파일 오류!
     // => 산술 연산자는 정수 타입(byte, short, char, int, long)과
     //    부동소수점 타입(float, double)에 대해서만 
-    //    실행할 수 있다. 
+    //    실행할 수 있다. 아예 안되는 부분이여~~
     //    int r12 = bool + i; // 컴파일 오류!
   }
 }

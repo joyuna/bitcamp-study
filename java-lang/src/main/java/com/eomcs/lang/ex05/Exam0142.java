@@ -32,7 +32,7 @@ public class Exam0142 {
     // - long 변수의 값이 -2가 된다.
 
     // 진정한 해결책?
-    // - int와 int 연산 결과가 int 크기를 넘어갈 것 같으면 
+    // - *** int와 int 연산 결과가 int 크기를 넘어갈 것 같으면 
     //   형변환하여 계산하라!
     r2 = (long)x + (long)y;
     System.out.println(r2);

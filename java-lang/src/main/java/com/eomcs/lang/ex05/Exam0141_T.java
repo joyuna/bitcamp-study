@@ -18,8 +18,9 @@ public class Exam0141 {
 
     // 해결책!
     // - 변수에 들어 있는 값을 다른 타입으로 바꿔라.
-    //   "형변환(type conversion=type casting)"하라!
+    //   "형변환(type conversion=type casting)"하라!  
     r = (float)i / (float)j; // float / float = float
+    //float 임시메모리에 i, j을 넣어놓고 명확하게 지시해서 계산하면
     // i / j의 값은 2.5가 되고
     // r에 저장되는 것은 2.5이다.
     System.out.println(r);
@@ -28,6 +29,7 @@ public class Exam0141 {
     // 왜? 
     // => 연산을 수행할 때 나머지 변수가 암시적 형변환이 이루어지기 때문이다.
     r = i / (float)j;
+    // 같은 타입의 메모리가 아니면 계산을 할 수가 없다.
     System.out.println(r);
   }
 }

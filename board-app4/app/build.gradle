@@ -16,7 +16,6 @@ application {
     mainClass = 'com.bitcamp.board.App'
 }
 
-
 // 자바 소스를 컴파일 할 때 적용할 옵션
 tasks.withType(JavaCompile) {
     // 프로젝트의 소스 파일 인코딩을 gradle에게 알려준다.
