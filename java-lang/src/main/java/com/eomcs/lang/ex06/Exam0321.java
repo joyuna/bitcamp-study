@@ -28,8 +28,7 @@ public class Exam0321 {
     while (count < 100) {
       count++;
       if (count % 2 == 1)
-        continue; // 다음 문장을 실행하지 않고 즉시 조건 검사로 이동한다.
-      sum += count;
+        continue; // continue 다음 문장을 실행하지 않고 즉시 조건 검사로 이동한다. 밑으로 가지말고 다시 조건문으로 가라는 소리
     }
     System.out.printf("count=%d, sum=%d\n", count, sum);
   }

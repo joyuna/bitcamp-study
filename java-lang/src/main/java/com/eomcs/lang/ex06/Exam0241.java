@@ -7,11 +7,11 @@ public class Exam0241 {
   public static void main(String[] args) {
     int level = 1;
 
-    // 상수를 사용하면 주석없이 바로 이해할 수 있다.
+    // 상수를 사용하면 주석없이 바로 이해할 수 있다. => 변수이름이 대문자면 상수다.(변하지 않는 값)
     // => case 문자의 값으로 변수를 사용할 수 없다.
     // => 단 값이 변경되지 않는 final 변수라면 사용할 수 있다.
-    //
-    final int GUEST = 0, MEMBER = 1, ADMIN = 2;
+    // 
+    final int GUEST = 0, MEMBER = 1, ADMIN = 2; // final이 빠지면 case문자 값이 돼서 변수를 사용할 수 없다.
 
     switch (level) {
       case GUEST:

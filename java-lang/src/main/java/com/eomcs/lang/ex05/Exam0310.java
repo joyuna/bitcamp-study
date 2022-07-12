@@ -29,7 +29,7 @@ public class Exam0310 {
 
     System.out.println("-----------------------");
 
-    // exclusive-OR(XOR)연산자 
+    // exclusive-OR(XOR)연산자 => 논리 연산자
     // - 배타적 비교 연산자라 부른다.
     // - 두 개의 값이 다를 때 true이다.
     System.out.println(true ^ true);

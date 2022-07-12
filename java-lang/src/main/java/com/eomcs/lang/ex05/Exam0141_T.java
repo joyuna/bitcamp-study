@@ -2,7 +2,7 @@ package com.eomcs.lang.ex05;
 
 //# 산술 연산자 : 연산의 결과 타입
 //
-public class Exam0141 {
+public class Exam0141_T {
   public static void main(String[] args) {
 
     // 연산을 수행한 후 생성된 결과도 피연산자와 같은 타입이다.

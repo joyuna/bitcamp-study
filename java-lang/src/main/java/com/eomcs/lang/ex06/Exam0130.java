@@ -24,7 +24,7 @@ public class Exam0130 {
     //    if (a = 100) System.out.println("6666"); // 컴파일 오류! 
 
     boolean b;
-    if (b = true) System.out.println("된다!");
+    if (b = true) System.out.println("된다!");  // if (b = true)는 할당문이야
   }
 }
 

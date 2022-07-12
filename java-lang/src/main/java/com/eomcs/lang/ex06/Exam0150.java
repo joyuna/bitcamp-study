@@ -12,7 +12,7 @@ public class Exam0150 {
     if (age >= 19)
       if (age >= 70) 
         System.out.println("지하철 무임승차 가능합니다.");
-      else  
+      else  //=> 요 else는 13줄의 if에 속한다.
         System.out.println("미성년입니다.");
 
     System.out.println("------------------------------");

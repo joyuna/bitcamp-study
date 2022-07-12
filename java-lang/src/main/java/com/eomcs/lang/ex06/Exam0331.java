@@ -17,7 +17,7 @@ public class Exam0331 {
         while (y <= 9) {
           System.out.printf("%d * %d = %d\n", x, y, x * y);
           if (x == 5 && y == 5)
-            break myloop; // myloop 라벨에 소속된 문장을 나간다.
+            break myloop; // myloop 라벨에 소속된 문장을 나간다. break 라벨명 이렇게 쓰면 됩니당.
           y++;
         }
 
