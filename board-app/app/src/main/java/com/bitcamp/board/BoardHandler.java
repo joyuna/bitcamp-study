@@ -7,7 +7,7 @@ public class BoardHandler {
 
   static int boardCount = 0; // 저장된 게시글의 개수
 
-  static final int SIZE = 3;
+  static final int SIZE = 4;
 
   // Board 인스턴스의 주소를 저장할 레퍼런스 배열을 만든다.
   static Board[] boards = new Board[SIZE];
@@ -89,5 +89,43 @@ public class BoardHandler {
     boards[boardCount] = board;
 
     boardCount++;
+
+    System.out.println("게시글을 등록했습니다.");
+
+  }
+
+  static void processDelete() {
+    System.out.println("[게시글 삭제]");
+
+    int boardNo = Prompt.inputInt("삭제할 게시글 번호? ");
+
+    // 해당 번호의 게시글이 몇 번 배열에 들어 있는지 알아내기
+    Board board = null;
+    for (int i = 0; i < boardCount; i++) {
+      if (boards[i].no == boardNo) {
+        board = boards[i];
+        break;
+      }
+    }
+
+    // 사용자가 입력한 번호에 해당하는 게시글을 못 찾았다면
+    if (board == null) {
+      System.out.println("해당 번호의 게시글이 없습니다!");
+      return;
+    }
+
+    System.out.printf("번호: %d\n", board.no);
+    System.out.printf("제목: %s\n", board.title);
+    System.out.printf("내용: %s\n", board.content);
+    System.out.printf("조회수: %d\n", board.viewCount);
+    System.out.printf("작성자: %s\n", board.writer);
+    java.util.Date date = new java.util.Date(board.createdDate);
+    System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
+
+  }
+
+  public static void processUpdate() {
+
+
   }
 }
