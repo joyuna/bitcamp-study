@@ -29,7 +29,7 @@ public class Exam0270 {
   // 예) m2("aaaa");
   //  static void m2(String... names, String a) {} // 컴파일 오류!
   //  static void m2(boolean b, String... names, int a) {} // 컴파일 오류!
-  static void m2(int a, String... names) {} // OK!
+  static void m2(int a, String... names) {} // OK!가변 파라미터는 맨 뒤에만 올수 있다.
 
   public static void main(String[] args) {
     // 컴파일 확인하라!
