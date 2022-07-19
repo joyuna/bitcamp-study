@@ -22,7 +22,6 @@ public class Exam0111 {
     //
     printScore(name, kor, eng, math);
 
-
     name = "임꺽정";
     kor = 90;
     eng = 80;
@@ -30,11 +29,10 @@ public class Exam0111 {
 
     printScore(name, kor, eng, math);
 
-
     name = "유관순";
-    kor = 90;
-    eng = 80;
-    math = 75;
+    kor = 80;
+    eng = 70;
+    math = 65;
 
     printScore(name, kor, eng, math);
   }

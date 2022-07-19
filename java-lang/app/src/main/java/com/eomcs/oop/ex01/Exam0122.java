@@ -2,7 +2,7 @@ package com.eomcs.oop.ex01;
 
 // # 클래스 사용 : 5) 메서드 활용 II
 //
-public class Exam0114 {
+public class Exam0122 {
 
   static class Score {
     String name;
@@ -17,20 +17,14 @@ public class Exam0114 {
 
     // 클래스를 이용하면 성적 정보와 같은 여러 개의 값을 한 번에 리턴 받을 수 있다.
     Score s = createScore("홍길동", 100, 100, 100);
-
     printScore(s);
 
-
-
     Score s2 = createScore("임꺽정", 90, 80, 70);
-    printScore(s2);
-
-
+    printScore(s);
 
     Score s3 = createScore("유관순", 80, 70, 60);
-    printScore(s3);
+    printScore(s);
   }
-
 
   static void printScore(Score s) {
     System.out.printf("%s: %d, %d, %d, %d, %.1f\n",
