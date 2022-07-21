@@ -8,22 +8,48 @@ public class App {
 
   public static void main(String[] args) {
     welcome();
+
     loop: while (true) {
-      displayMenu();
-      int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 종료) ");
-      displayLine();
 
-      switch (menuNo) {
+      // 메인 메뉴 출력
+      System.out.println("메뉴:");
+      System.out.println("  1: 게시판");
+      System.out.println("  2: 독서록");
+      System.out.println("  3: 방명록");
+      System.out.println("  4: 공지사항");
+      System.out.println();
+      int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..4](0: 종료) ");
+
+
+      switch (mainMenuNo) {
         case 0: break loop;
-        case 1: BoardHandler.processList(); break;
-        case 2: BoardHandler.processDetail(); break;
-        case 3: BoardHandler.processInput(); break;
-        case 4: BoardHandler.processDelete(); break;
-        case 5: BoardHandler.processUpdate(); break;
-        default: System.out.println("메뉴 번호가 옳지 않습니다!");
-      }
+        case 1: // 게시판
+          board_loop: while (true) {
+            displayMenu();
+            int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
+            displayLine();
 
-      displayBlankLine();
+            switch (menuNo) {
+              case 0: break board_loop;
+              case 1: BoardHandler.processList(); break;
+              case 2: BoardHandler.processDetail(); break;
+              case 3: BoardHandler.processInput(); break;
+              case 4: BoardHandler.processDelete(); break;
+              case 5: BoardHandler.processUpdate(); break;
+              default: System.out.println("메뉴 번호가 옳지 않습니다!");
+            }
+
+            displayBlankLine();
+          } // 게시판 while            
+          break;
+        case 2: 
+          break;
+        case 3: 
+          break;
+        case 4: 
+          break;
+        default: System.out.println("메뉴 번호가 옳지 않습니다!");
+      }// switch
     } // while
 
     System.out.println("안녕히 가세요!");
@@ -38,12 +64,12 @@ public class App {
   }
 
   static void displayMenu() {
-    System.out.println("메뉴:");
-    System.out.println("  1: 게시글 목록");
-    System.out.println("  2: 게시글 상세보기");
-    System.out.println("  3: 게시글 등록");
-    System.out.println("  4: 게시글 삭제");
-    System.out.println("  5: 게시글 변경");
+    System.out.println("게시판:");
+    System.out.println("  1: 목록");
+    System.out.println("  2: 상세보기");
+    System.out.println("  3: 등록");
+    System.out.println("  4: 삭제");
+    System.out.println("  5: 변경");
     System.out.println();
   }
 
