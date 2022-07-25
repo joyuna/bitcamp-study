@@ -24,6 +24,20 @@ public class Test03 {
 
   static int swapBits(int value, int i, int j) {
     // 이 메서드를 완성하시오!
+    // 해당 위치의 비트 값을 알아낸다.
+
+    int iBit = (Value >>> i) & 1;  // 어떤 결과값에 대해서 맨오른쪽으로 이동시킨다는 것은 맨끝에 1비트만 통과시킨다.
+    int jBit = (Value >>> j) & 1;
+    
+    // 두 비트의 값이 다를 경우에만 비트 맞교환을 수행한다. 그래서  if문을 준다.
+    it (iBit ! = jBit) {
+    // 아래 2번째 13번째 맞교환 예정
+    // 두 비트의 값만 투과시킬 마스크를 만든다. 두마스크를 만들어보자
+    int iMask = 1 << i;  //iBitMask  <= i번째 비트가 1인 마스크
+    int jMask = 1 << j;  //jBitMask  <= j번째 비트가 1인 마스크
+    int bitMask = iMask | jMask;  // <= i번째와 j번째가 1인 마스크
+    value = value ^ bitMask;  // 두 비트를 맞교환하려는 값에 마스크를 XOR 한다.
+    }
     return 0;
   }
 
