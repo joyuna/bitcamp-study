@@ -7,25 +7,47 @@ public class BoardHandler {
 
   static int boardCount = 0; // 저장된 게시글의 개수
 
-  static final int SIZE = 3;
+  static final int SIZE = 4;
 
   // Board 인스턴스의 주소를 저장할 레퍼런스 배열을 만든다.
   static Board[] boards = new Board[SIZE];
 
+  static void execute() { // 메서드 이름은 동사구형태를 주로 쓰지만 0.01%확률로 명사구로도 쓰이고, 0.04% 는 전치사구로 씀.
+    while (true) { 
+      System.out.println("게시판:");
+      System.out.println("  1: 목록");
+      System.out.println("  2: 상세보기");
+      System.out.println("  3: 등록");
+      System.out.println("  4: 삭제");
+      System.out.println("  5: 변경");
+      System.out.println();
 
+      //displayMenu(); -바깥에 게시판 디스플레이 메서드를 따로 두지말고 온보드메뉴에 넣고 디스플레이..삭제?ㅎ
+      // 쪼개는만 리팩토링이 아니라 합치는것도 리팩토링이다.
+      int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
+      displayHeadline();
 
+      switch (menuNo) {
+        case 0: return; //나가는게 아니라 반복하니까 리턴을 쓴다.
+        case 1: BoardHandler.processList(); break;
+        case 2: BoardHandler.processDetail(); break;
+        case 3: BoardHandler.processInput(); break;
+        case 4: BoardHandler.processDelete(); break;
+        case 5: BoardHandler.processUpdate(); break;
+        default: System.out.println("메뉴 번호가 옳지 않습니다!");
+      }
 
+      displayBlankLine();
+    } // 게시판 while 
+  }
 
+  static void displayHeadline() {
+    System.out.println("=========================================");
+  }
 
-
-
-
-
-
-
-
-
-
+  static void displayBlankLine() {
+    System.out.println(); // 메뉴를 처리한 후 빈 줄 출력
+  }
 
 
   static void processList() {
@@ -90,14 +112,14 @@ public class BoardHandler {
       return;
     }
 
-    Board board = new Board();
+    Board board =new Board();
 
     board.title = Prompt.inputString("제목? ");
     board.content = Prompt.inputString("내용? ");
     board.writer = Prompt.inputString("작성자? ");
     board.password = Prompt.inputString("암호? ");
 
-    board.no = boardCount == 0 ? 1 : boards[boardCount - 1].no + 1;
+    board.no = boardCount == 0 ? 1 : boards[boardCount - 1].no + 1; //새게시글의 번호
     board.viewCount = 0;
     board.createdDate = System.currentTimeMillis();
 
@@ -107,44 +129,13 @@ public class BoardHandler {
     boardCount++;
 
     System.out.println("게시글을 등록했습니다.");
+
   }
 
   static void processDelete() {
     System.out.println("[게시글 삭제]");
 
     int boardNo = Prompt.inputInt("삭제할 게시글 번호? ");
-
-    // 해당 번호의 게시글이 몇 번 배열에 들어 있는지 알아내기
-    int boardIndex = -1;
-    for (int i = 0; i < boardCount; i++) {
-      if (boards[i].no == boardNo) {
-        boardIndex = i;
-        break;
-      }
-    }
-
-    // 사용자가 입력한 번호에 해당하는 게시글을 못 찾았다면
-    if (boardIndex == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다!");
-      return;
-    }
-
-    // 삭제할 게시글의 다음 항목을 앞으로 당긴다.
-    for (int i = boardIndex + 1; i < boardCount; i++) {
-      boards[i - 1] = boards[i];
-    }
-
-    // 게시글 개수를 1개 줄이고 맨 마지막 레퍼런스는 null 로 비운다.
-    boards[--boardCount] = null;
-
-    System.out.println("삭제하였습니다.");
-
-  }
-
-  public static void processUpdate() {
-    System.out.println("[게시글 변경]");
-
-    int boardNo = Prompt.inputInt("변경할 게시글 번호? ");
 
     // 해당 번호의 게시글이 몇 번 배열에 들어 있는지 알아내기
     Board board = null;
@@ -161,20 +152,18 @@ public class BoardHandler {
       return;
     }
 
-    String newTitle = Prompt.inputString("제목?(" + board.title + ") ");
-    String newContent = Prompt.inputString(String.format("내용?(%s) ", board.content));
+    System.out.printf("번호: %d\n", board.no);
+    System.out.printf("제목: %s\n", board.title);
+    System.out.printf("내용: %s\n", board.content);
+    System.out.printf("조회수: %d\n", board.viewCount);
+    System.out.printf("작성자: %s\n", board.writer);
+    java.util.Date date = new java.util.Date(board.createdDate);
+    System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
 
-    String input = Prompt.inputString("변경하시겠습니까?(y/n) ");
-    if (input.equals("y")) {
-      board.title = newTitle;
-      board.content = newContent;
-      System.out.println("변경했습니다.");
-    } else {
-      System.out.println("변경 취소했습니다.");
-    }
+  }
+
+  public static void processUpdate() {
+
+
   }
 }
-
-
-
-

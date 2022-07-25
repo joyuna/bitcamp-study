@@ -16,12 +16,16 @@ public class Test04 {
 
   static int countEvenNumber(int value) {
     int result = 0;
+<<<<<<< HEAD
     while (value ! = 0) {
     if ((value % 2) == 0) { // 짝수인지 여부의 검사
       result++;
     }
      value = value / 10; // 10진수의 맨 뒷자리를 제거
   }
+=======
+    // 이 메서드를 완성하시오!
+>>>>>>> f0ffe98 (22.07.21)
     return result;
   }
 }
