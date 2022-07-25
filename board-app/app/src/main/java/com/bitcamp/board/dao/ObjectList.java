@@ -6,12 +6,11 @@ public class ObjectList {
 
   private static final int DEFAULT_SIZE = 3;
 
-  private int length; 
 
   // 서브 클래스에서 직접 접근 할 수 있도록 접근 범위를 넓힌다.
-  private Object[] list;   // protected : 같은 패키지 + 서브 클래스인 경우 접근할 수 있다.
+  protected  int length; 
+  protected  Object[] list;   // protected : 같은 패키지 + 서브 클래스인 경우 접근할 수 있다.
 
-  // 생성자
   public ObjectList() {
     this.list = new Object[DEFAULT_SIZE];
   }

@@ -18,6 +18,7 @@ public class MemberList extends ObjectList{
     member.no = nextNo();
     super.add(obj);
 
+
   }
 }
 

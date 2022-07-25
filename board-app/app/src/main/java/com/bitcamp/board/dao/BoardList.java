@@ -8,12 +8,11 @@ public class BoardList extends ObjectList{
 
   private int no = 0;
 
-  // 수퍼 클래스의 get() 메서드는 인덱스로 항목을 찾는다.
-  // 그래서 Board 객체를 다루기에 적합하지 않다.
-  // 따라서 다음 메서드처럼 Board 객체를 조회하는데 적합한 메서드를 추가한다.
-  // 이 메서드는 게시글 번호에 해당하는 Board 인스턴스를 찾아 리턴한다.
-  public Board getByBoardNo(int boardNo) {
-
+  // 수퍼 클래스의 get() 메서드를 BoardList에 맞게 재정의 한다.
+  // => 파라미터는 인덱스가 아닌 게시글 번호가 되게 한다.
+  // => Overriding 이라 부른다.
+  @Override
+  public Board get(int boardNo) {
     for (int i = 0; i < this.length; i++) {
       //Object 배열에 실제 들어 있는 것은 Board 라고 컴파일러에게 알린다.
       Board board = (Board) this.list[i]; 
@@ -25,13 +24,13 @@ public class BoardList extends ObjectList{
     return null;
   }
 
-  // 수퍼 클래스의 add(Object) 대신 Board 객체를 저장할 수 있도록
-  // 같은 이름의 유사 기능을 수행하는 메서드를 추가 정의한다. => Overloading 이라 부른다.
+  // 수퍼 클래스의 add()를 BoardList에 맞게끔 재정의한다.
+  // => 파라미터로 받은 Board 인스턴스의 no 변수값을 설정한 다음 배열에 추가한다.
+  // => 수퍼 Overriding 이라 부른다.
 
-  public void add(Board board) {
-    if (this.boardCount == this.boards.length) {
-      grow();
-    }
+  @Override
+  public void add(Object obj) {
+    Board board = (Board) obj;
     board.no = nextNo();
     // 수퍼 클래스의 add()를 사용하여 처리
     super.add(board);

@@ -17,7 +17,13 @@ public class Test01 {
 
   static int maxDiff(int[] values) {
     int answer = 1;
-    // 이 메서드를 완성하시오!
+
+    //배열에서 두개의 수를 꺼내 차를 구한다.
+    // 이때 배열은 마지막 전 항목까지 반복한다.
+    for (int i = i; i < values.length; i++) {
+      // 두수의 차는 양수여야 하기 때문에 절대값으로 변환한다.
+      int diff = Math.abs(values[i] - values[i - 1]);
+    }
     return answer;
   }
 }

@@ -29,5 +29,19 @@ public class Test02 {
 
   static void changeValuePosition(int[] values) {
     // 이 메서드를 완성하시오!
+
+    for (int i = 0; i < halfIndex; i++) {
+
+      // 맞바꿀 항목의 인덱스를 구한다.
+      int target = i + halfIndex;
+
+      // 두 항목의 값을 바꾸기 전에 i번째 
+      int temp = values[i];
+      values[i] = values[target];
+
+      values[target] = temp;
+
+
+    }
   }
 }

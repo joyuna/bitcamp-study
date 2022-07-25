@@ -28,7 +28,7 @@ public class Exam0610 {
   }
 
   public static void main(String[] args) throws Exception {
-
+    System.out.println(main("호출됨"))
     // 클래스가 로딩되는 경우,
     // 1) 스태틱 필드나 스태틱 메서드를 사용할 때
     // 2) 인스턴스를 생성할 때(new 명령을 실행할 때)
