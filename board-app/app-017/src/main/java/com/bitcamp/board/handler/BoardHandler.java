@@ -53,7 +53,7 @@ public class BoardHandler {
         displayBlankLine();
 
       } catch (Throwable ex) {
-        System.out.printf("예외 발생: %s\n", ex.getMessage());
+        System.out.println("입력 값이 옳지 않습니다!");
       }
     } // 게시판 while
   }
@@ -85,7 +85,7 @@ public class BoardHandler {
 
   }
 
-  private void onDetail() throws Throwable {
+  private void onDetail() {
     System.out.printf("[%s 상세보기]\n", this.title);
 
     int boardNo = 0;
@@ -134,7 +134,7 @@ public class BoardHandler {
     System.out.println("게시글을 등록했습니다.");
   }
 
-  private void onDelete() throws Throwable {
+  private void onDelete() {
     System.out.printf("[%s 삭제]\n", this.title);
 
     int boardNo = 0;
@@ -154,8 +154,7 @@ public class BoardHandler {
     }
   }
 
-  private void onUpdate() throws Throwable {
-
+  private void onUpdate() {
     System.out.printf("[%s 변경]\n", this.title);
 
     int boardNo = 0;
