@@ -5,7 +5,7 @@ package com.bitcamp.board.handler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.dao.BoardList;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.util.Prompt;
 
@@ -14,7 +14,7 @@ public class BoardHandler {
   private String title; // 게시판의 제목
 
   // 게시글 목록을 관리할 객체 준비
-  private BoardDao boardList = new BoardDao();
+  private BoardList boardList = new BoardList();
 
   public BoardHandler() {
     this.title = "게시판";
@@ -129,7 +129,7 @@ public class BoardHandler {
     board.viewCount = 0;
     board.createdDate = System.currentTimeMillis();
 
-    this.boardList.insert(board);
+    this.boardList.add(board);
 
     System.out.println("게시글을 등록했습니다.");
   }

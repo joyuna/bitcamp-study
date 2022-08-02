@@ -4,13 +4,13 @@
 package com.bitcamp.board.handler;
 
 import java.util.Date;
-import com.bitcamp.board.dao.MemberDao;
+import com.bitcamp.board.dao.MemberList;
 import com.bitcamp.board.domain.Member;
 import com.bitcamp.util.Prompt;
 
 public class MemberHandler {
 
-  private MemberDao memberList = new MemberDao();
+  private MemberList memberList = new MemberList();
 
   public void execute() {
     while (true) {
