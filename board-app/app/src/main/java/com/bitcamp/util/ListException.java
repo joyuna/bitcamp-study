@@ -1,7 +1,6 @@
 package com.bitcamp.util;
 
-public class ListException extends RuntimeException{
-
+public class ListException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
@@ -25,7 +24,4 @@ public class ListException extends RuntimeException{
   public ListException(Throwable cause) {
     super(cause);
   }
-
-
-
 }

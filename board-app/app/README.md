@@ -1,36 +1,21 @@
-# 018. 예외를 발생시키는 방법
+# 021. 상속 대신 연관공통 코드(필드,메서드)를 공유하는 방법 : 연관(association)
+
 
 ## 작업 내용
 
-### 1단계 - 예외 상황이 발생했을 때 특정 값을 리턴하는 대신 오류 정보를 던진다.
+### 0단계 - 프로젝트 소스 준비
 
-- com.bitcamp.util.ObjectList 클래스 변경
-  - get() 변경: 오류 상황일 때(인덱스가 무효할 때) 예외를 발생시킨다.
-  - remove() 변경: 오류 상황일 때(인덱스가 무효할 때) 예외를 발생시킨다.
-  - 이 메서드를 호출하는 쪽에서 좀 더 정교하게 제어할 수 있도록 도와 준다.
+- 019 버전 소스를 가져온다.
 
-### 2단계 - 메서드에서 예외를 던졌을 때 직접 처리하는 대신 호출자에게 위임한다.
+### 1단계 - ObjectList를 상속하는 대신 연관(포함) 관계로 바꾼다.
 
 - com.bitcamp.board.dao.BoardList 클래스 변경
-  - ObjectList의 get(), remove() 메서드가 예외를 던질 때 처리하지 말고 호출자에게 위임한다.
+  - ObjectList를 포함하는 관계로 바꾼다.
+  - 기능을 ObjectList 로 위임할 수 있도록 메서드를 추가, 변경한다.
+  - 서브 클래스가 아닌 관계로 클래스 이름을 BoardDao로 변경한다.
+  - 메서드 이름도 데이터를 다루는 이름으로 적절하게 변경한다.
+    - 기존의 ObjectList 는 인스턴스를 다룬다는 의미로 메서드 이름도 그에 맞춰서 지었다.
+    - BoardDao은 인스턴스라는 기술적인 용어 대신 데이터에 초점을 맞춘다.
+    - 따라서 데이터에 초점을 맞춘 메서드 이름으로 변경한다.
 - com.bitcamp.board.dao.MemberList 클래스 변경
-  - ObjectList의 get(), remove() 메서드가 예외를 던질 때 처리하지 말고 호출자에게 위임한다
-
-### 3단계 - XxxList 가 던진 예외를 XxxHandler에서 처리한다.
-
-- com.bitcamp.board.handler.BoardHandler 클래스 변경
-  - onDetail(), onUpdate(), onDelete() 메서드 각각에서 예외를 처리한다.
-  - BoardHandler01.java
-- com.bitcamp.board.handler.MemberHandler 클래스 변경
-  - onDetail(), onUpdate(), onDelete() 메서드 각각에서 예외를 처리한다.
-    - 메서드 안의 코드를 통째로 try {} 안에 둔다.
-  - MemberHandler01.java
-
-### 4단계 - 메서드에서 발생한 예외를 한 곳에서 처리한다.
-
-- com.bitcamp.board.handler.BoardHandler 클래스 변경
-  - onDetail(), onUpdate(), onDelete() 메서드에서 예외를 처리하는 대신 
-    execute() 메서드에서 예외를 몰아 처리한다.
-- com.bitcamp.board.handler.MemberHandler 클래스 변경
-  - onDetail(), onUpdate(), onDelete() 메서드에서 예외를 처리하는 대신 
-    execute() 메서드에서 예외를 몰아 처리한다.
+  - BoardList를 변경한 것과 똑같이 처리한다.

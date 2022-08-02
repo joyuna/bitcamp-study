@@ -31,37 +31,31 @@ public class ObjectList {
     return arr;
   }
 
-  // 개발자가 예외 클래스 이름만 보고도
-  // 어떤 작업을 하다가 예외가 발생했는지
-  // 직관적으로 알수 있도록 사용자 정의 예외를 던진다!!!
+  // 개발자가 예외 클래스 이름만 보고도 
+  // 어떤 작업을 하다가 예외가 발생했는지 
+  // 직관적으로 알 수 있도록 사용자 정의 예외를 던진다!!!
   // => RuntimeException 계열의 예외는 메서드 선언부에 표시할 필요가 없다.
+  /**
+   * 목록에서 인덱스에 해당 하는 항목을 찾아 리턴한다. 
+   * @param index 목록에 저장된 항목의 인덱스
+   * @return index에 저장된 항목
+   * @throws ListException 인덱스가 무효함 
+   */
   public Object get(int index) /*throws ListException*/ {
     if (index < 0 || index >= size) {
       throw new ListException("인덱스가 무효함!");
     }
-
     return elementData[index];
   }
 
-  // 예외를 보고하는 메서드인 경우 
-  // 메서드 선언부에 어떤 예외를 보고하는지 표시해야 한다.
   public boolean remove(int index) /*throws ListException*/ {
     if (index < 0 || index >= size) {
-      // 인덱스가 무효할 때 false를 리턴하는 대신
-      // 예외 정보를 호출자에게 던진다.
-      // 예외 상황을 호출자에게 보고한다.
       throw new ListException("인덱스가 무효합니다!");
     }
-
-    // 삭제할 항목의 다음 항목을 앞으로 당긴다.
     for (int i = index + 1; i < size; i++) {
       elementData[i - 1] = elementData[i];
     }
-
-    // 목록의 개수를 한 개 줄인 후 
-    // 맨 뒤의 있던 항목의 주소를 0으로 설정한다.
     elementData[--size] = null;
-
     return true;
   }
 
