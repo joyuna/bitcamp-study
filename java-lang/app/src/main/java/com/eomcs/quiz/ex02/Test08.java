@@ -40,6 +40,20 @@ public class Test08 {
 
   static int avoidObstacles(int[] inputArray) {
     // 이 메서드를 완성하시오!
-    return 0;
+    xc
+    // 한 칸부터 점프를 한다.
+    for (int jumping = 1; ; jumping++) {
+
+      // 배열에 주어진 장애물들의 좌표 중에서 점프하는 칸 수의 배수가 있으면 안된다.
+      for (int i = 0; i < inputArray.length; i++) {
+        if (inputArray[i] % jumping == 0) { // 장애물의 좌표가 점프하는 칸 수의 배수라면,
+          break; // 더 이상 계산할 필요가 없다. 왜? 점프하다가 걸리는 장애물 좌표다.
+        }
+
+        // 장애물의 좌표 중에 점프칸수의 배수가 없다면 그 점프하는 수가 답이다.
+        if (i == inputArray.length -1)
+          return jumping;
+      }
+    }
   }
 }

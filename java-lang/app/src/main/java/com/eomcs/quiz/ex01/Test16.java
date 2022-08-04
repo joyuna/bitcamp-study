@@ -35,6 +35,6 @@ public class Test16 {
 
   static boolean leapYear(int year) {
     // 이 메서드를 완성하시오!
-    return false;
+    return (year % 4 == 0 && year % 100 != 0 || year % 400 == 0);
   }
 }
