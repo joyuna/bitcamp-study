@@ -41,6 +41,15 @@ public class Test18 {
 
   static int maxDivisor(int left, int right, int divisor) {
     // 이 메서드를 완성하시오!
+
+    // 큰 수를 찾는 것이기 때문에 반복문을 돌릴 때 큰 수에서 작은 수로 돌린다.
+    for (int i = right; i >= left; i--) {
+
+      // 주어진 수가 나누는 수의 배수인지 검사
+      if (i % divisor == 0) {
+        return i;
+      }
+    }
     return -1;
   }
 }
