@@ -38,7 +38,14 @@ public class BoardDao {
   }
 
   public Board[] findAll() {
-    return list.toArray(new Board[0]);
+    Board[] arr = list.toArray(new Board[0]);
+
+    // 역순으로 정렬하여 리턴한다.
+    Board[] arr2 = new Board[arr.length];
+    for (int i = 0; i < arr2.length; i++) {
+      arr2[i] = arr[arr.length - i - 1];
+    }
+    return arr2;
   }
 
   private int nextNo() {
