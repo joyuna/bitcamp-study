@@ -8,15 +8,12 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
-
     implementation 'com.google.guava:guava:30.1.1-jre'
 }
 
 application {
-    mainClass = 'com.bitcamp.board.BoardDetailApp'
+    mainClass = 'com.bitcamp.board.App'
 }
-
-
 
 // 자바 소스를 컴파일 할 때 적용할 옵션
 tasks.withType(JavaCompile) {
