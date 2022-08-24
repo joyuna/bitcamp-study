@@ -4,12 +4,11 @@ package com.eomcs.net.ex04;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Server0130 {
+public class Server140 {
   public static void main(String[] args) {
     try (Scanner keyboard = new Scanner(System.in);
         ServerSocket serverSocket = new ServerSocket(8888)) {
@@ -24,27 +23,20 @@ public class Server0130 {
 
           System.out.println("클라이언트가 연결되었음!");
 
-          // 접속한 클라이언트의 IP 주소 알아내기
-          InetAddress inetAddr = socket.getInetAddress();
-          System.out.printf("접속자: %s\n", inetAddr.getHostAddress());
-          if (inetAddr.getHostAddress().equals("127.0.0.1"));
-
           while (true) {
             String name = in.readLine();
             if (name.equalsIgnoreCase("quit")) { // 클라이언트와 연결 끊기
               out.println("Goodbye!");
               out.flush();
               break;
-            } else if (name.equalsIgnoreCase("stop")
-                // localhost 에서만 서버를 멈출 수 있다.
-                && inetAddr.getHostAddress().equals("127.0.0.1")); { // 서버 종료하기
+            } else if (name.equalsIgnoreCase("stop")) { // 서버 종료하기
+              out.println("Goodbye!");
+              out.flush();
+              break loop;
+            }
 
-                  out.println("Goodbye!");
-                  out.flush();
-                  break loop;
-                }
-                out.printf("%s 님 반갑습니다!\n", name);
-                out.flush();
+            out.printf("%s 님 반갑습니다!\n", name);
+            out.flush();
           }
         } catch (Exception e) {
           System.out.println("클라이언트와 통신 도중 오류 발생!");
