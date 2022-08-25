@@ -14,7 +14,7 @@ import java.net.InetAddress;
 public class Client0210 {
   public static void main(String[] args) throws Exception {
     // connectionless 방식으로 통신을 수행할 소켓 생성
-    // - 클라이언트 쪽은 포트 번호를 지정하지 않는다.
+    // - 클라이언트 쪽은 포트 번호를 지정하지 않는다. -> 데이터를 보내는 용도기 때문에 
     // - 물론 OS가 자동으로 부여할 것이다.
     DatagramSocket socket = new DatagramSocket();
 
@@ -26,7 +26,7 @@ public class Client0210 {
     //    String message = new String("Hello"); // Heap에 String 객체 생성
     //    String message = "Hello"; // constant pool에 String 객체 생성
     //    byte[] bytes = message.getBytes("UTF-8");
-    byte[] bytes = "Hello".getBytes("UTF-8");
+    byte[] bytes = "Hello".getBytes("UTF-8"); // "Hello" => 스트링객체(스트링 객체는 리터럴로도 만들수 있다.). 상수풀에 스트링객체를 만들어서 그 객체의 주소를 넘긴다.
 
     // 보낼 데이터를 패킷에 담는다.
     // => 패킷 = 데이터 + 데이터크기 + 받는이의 주소 + 받는이의 포트번호

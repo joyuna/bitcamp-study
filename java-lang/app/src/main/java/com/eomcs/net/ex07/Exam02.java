@@ -8,7 +8,8 @@ public class Exam02 {
   public static void main(String[] args) throws Exception {
     // 포트번호 명시
     // - http://서버주소:포트번호/자원경로?파라미터명=값&파라미터명=값&파라미터명=값 
-    URL url = new URL("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=bitcamp");
+    // URL url = new URL("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=bitcamp");
+    URL url = new URL("https://search.naver.com/search.naver");// ? 뒤에 내용을 지우면 QueryString값이 null로 나옴
 
     // URL 분석
     System.out.printf("프로토콜: %s\n", url.getProtocol());

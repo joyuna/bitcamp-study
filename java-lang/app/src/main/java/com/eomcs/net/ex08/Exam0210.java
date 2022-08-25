@@ -1,4 +1,4 @@
-// URL 요청하기 - URLConnection 사용
+// URL 요청하기 - URLConnection 사용 => 좀 더 복잡한 요청을 할때 사용함 
 package com.eomcs.net.ex08;
 
 import java.io.BufferedReader;
@@ -12,7 +12,7 @@ public class Exam0210 {
   public static void main(String[] args) throws Exception {
 
     // => URL 주소를 준비한다.
-    URL url = new URL("http://itempage3.auction.co.kr/DetailView.aspx?itemno=C204190906");
+    URL url = new URL("https://sports.news.naver.com/index6");
 
     // => URL 정보를 가지고 HTTP 요청을 수행할 객체를 얻는다.
     URLConnection con = url.openConnection();
