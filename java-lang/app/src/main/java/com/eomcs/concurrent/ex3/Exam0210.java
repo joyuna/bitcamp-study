@@ -9,7 +9,7 @@ public class Exam0210 {
     // => 실무에서 스레드를 만들 때 많이 사용한다.
     // => 인터페이스를 구현하는 것이기 때문에 다른 클래스를 상속 받을 수 있다.
     // => 직접적으로 스레드가 아니기 때문에 실행할 때는 Thread의 도움을 받아야 한다.
-    class MyRunnable implements Runnable {
+    class MyRunnable implements Runnable {  // Runnable스레드가 실행할 run메서드를 실행할 객체
       @Override
       public void run() {
         // 별도로 분리해서 병행으로 실행할 코드를 두는 곳!
