@@ -81,6 +81,9 @@ public class MariaDBMemberDao implements MemberDao {
 
       // 현재까지 작업한 데이터 변경 결과를 실제 테이블에 적용해달라고 요청한다.
       con.commit();
+
+      return count;
+
     } catch (Exception e) {
       // 예외가 발생하면 마지막 커밋 상태로 돌린다.
       // => 임시 데이터베이스에 보관된 이전 작업 결과를 모두 취소한다.
