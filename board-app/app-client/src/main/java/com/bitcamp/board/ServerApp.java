@@ -17,6 +17,11 @@ public class ServerApp {
 
   public static Stack<String> breadcrumbMenu = new Stack<>();
 
+  //8-4)중복되는 코드 밖으로 꺼내 & 
+  // -> 8-5)static 붙여// 7-2) 메인메뉴 자리이동 -> 메인 메뉴 목록 준비 
+  static String[] menus = {"게시판", "회원"};    
+
+
   public static void main(String[] args) { // 2) 메인 메서드 생성 
     try (ServerSocket serverSocket = new ServerSocket(8888)) { // 3) 
 
@@ -38,51 +43,46 @@ public class ServerApp {
               DataInputStream in = new DataInputStream(socket.getInputStream())) {  
             System.out.println("클라이언트 접속!");
 
-
-
-            // welcome(tempOut); // 4)) 프린트라이터를 웰컴 메소드에 연결 118줄쯤 ?
-
-            // 5) 클라이언트로 출력하기 데이터는 스트링라이터 객체의 버퍼에 쌓여있다.
-            // 버퍼에서 꺼내기 
-            out.writeUTF(strOut.toString()); 
-
-            boolean first = true;
-
-            while (true) {
-              StringWriter strOut = new StringWriter();  // 7-6) // 1))
-              PrintWriter tempOut = new PrintWriter(strOut); //7-6) // 2))스트링라이터를 프린라이터와 연결
-
-              if (first) {
-                welcome(tempOut);
-                first = false;
-              }
-
-
-              // 메인메뉴 출력
+            // 8-6) 대이동 & 대삭제 & 추가
+            // 접속 후 환영 메세지와 메인 메뉴 출력
+            try (StringWriter strOut = new StringWriter();  // 7-6) // 1))
+                PrintWriter tempOut = new PrintWriter(strOut);) { //7-6) // 2))스트링라이터를 프린라이터와 연결
+              welcome(tempOut);
               printMainMenus(tempOut); // 7-4)
               out.writeUTF(strOut.toString()); // 7-5) 버퍼에 출력내용이 쌓여 있는 상태 
-              // 7-6)클라이언트로 응답한 후에 새 출력 스트림으로 교체한다.
+            }
 
-
-
+            while (true) {
               //4-1))) 클라이언트가 보낸 값을 그대로 돌려준다.
               String request = in.readUTF();
               if (request.equals("quit")) { // 6-1)
                 break; 
               }
-              //8-3) 추가 입력
-              int mainMenuNo = Integer.parseInt(request);
-              //8-2) 이동
-              if (mainMenuNo < 0 || mainMenuNo > menus.length) {
-                System.out.println("메뉴 번호가 옳지 않습니다!");
-                continue; // while 문의 조건 검사로 보낸다.
 
-              } else if (mainMenuNo == 0) {
-                break loop;
+              // 8-7) 응답 내용을 출력할 임시 출력 스트림 준비,// 클라이언트에게 응답한다.
+              try (
+                  StringWriter strOut = new StringWriter();  
+                  PrintWriter tempOut = new PrintWriter(strOut);) { 
+
+
+                try { // 8-10) 예외 발생을 처리하기 위해
+                  //8-3) 추가 입력
+                  int mainMenuNo = Integer.parseInt(request);
+                  //8-2) 이동
+                  if (mainMenuNo >= 1 && mainMenuNo <= menus.length) {
+                    tempOut.println("해당 기능을 준비 중입니다.");
+                  } else { //8-9)
+                    tempOut.println("해당 번호의 메뉴가 옳지 않습니다!");
+                  }
+
+                } catch (Exception e) {
+                  tempOut.println("입력 값이 옳지 않습니다.");
+                }
+
+                tempOut.println();
+                printMainMenus(tempOut);// 8-8)
+                out.writeUTF(strOut.toString());
               }
-
-
-              out.writeUTF(request);
             }
 
             System.out.println("클라이언트와 접속 종료!"); //5-2)주석막아버리기 -> 6-2) 내용변
@@ -169,15 +169,13 @@ public class ServerApp {
   }
 
   static void printMainMenus(PrintWriter out) { // 7-1) 프린트메뉴로 이름 병
-    // 7-2) 메인메뉴 자리이동 -> 메인 메뉴 목록 준비 
-    String[] menus = {"게시판", "회원"};    
 
     // 7-3 자리는 그대로 -> 메인 목록 출력 
     for (int i = 0; i < menus.length; i++) {
       out.printf("  %d: %s\n", i + 1, menus[i]); // system은 지워버리
     }
     // 7-3) 자리이동후 -> 소스 정정 -> 메인 메뉴 번호 입력을 요구하는 문장 출
-    out.printf("메뉴를 선택하세요[1..%d](0: 종료) ", menus.length);
+    out.printf("메뉴를 선택하세요[1..%d](quit: 종료) ", menus.length);
   }
 
   protected static void printTitle() {
