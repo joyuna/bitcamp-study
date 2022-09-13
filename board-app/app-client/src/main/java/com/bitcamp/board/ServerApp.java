@@ -43,10 +43,13 @@ public class ServerApp {
             while (true) {
               //4-1))) 클라이언트가 보낸 값을 그대로 돌려준다.
               String request = in.readUTF();
+              if (request.equals("quit")) { // 6-1)
+                break; 
+              }
               out.writeUTF(request);
             }
 
-            // System.out.println("클라이언트에게 응답!"); //5-2)주석막아버리
+            System.out.println("클라이언트와 접속 종료!"); //5-2)주석막아버리기 -> 6-2) 내용변
 
           } catch (Exception e) {//6) 
             System.out.println("클라이언트와 통신하는 중 오류 발생!");

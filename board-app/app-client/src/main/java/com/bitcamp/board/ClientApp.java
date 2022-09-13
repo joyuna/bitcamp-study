@@ -22,7 +22,7 @@ public class ClientApp {
       // 5-3) 제거가능해서       line = in.readUTF();  // 6)
       System.out.println(response);
 
-      // 5-1) 응답 요청 무한 받
+      // 5-1) 응답 요청 무한 반복 
       while (true) {
         //4-1)))) 사용자의 입력값을 서버에 전달한 후 서버의 응답을 출력한다.
         response = in.readUTF();  // 6) -> //5-2)자리이
@@ -31,6 +31,9 @@ public class ClientApp {
         String input = Prompt.inputString("> "); 
         out.writeUTF(input);
 
+        if (input.equals("quit")) { // 6-1)
+          break;
+        }
 
       } 
 
