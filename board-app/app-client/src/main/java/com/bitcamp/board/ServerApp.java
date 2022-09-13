@@ -23,43 +23,36 @@ public class ServerApp {
       while (true ) {
         Socket socket = serverSocket.accept();
 
-        // 2-1))) 스래드 생성자를 러너블 구현체에 넣어야함
-        // 2-2))))익명클래스 정의했다고 가정하고 인스턴스 생성하고 호출할 생성자 호
-        new Thread(new Runnable() {
-          @Override
-          public void run() { // 3))) 메인스레드와 달리 별도 스레드로 실행 됨 
+        new Thread(() -> {
+          // 스레드를 시작하는 순간, 별도의 실행 흐름에서 병행으로 실행된다.
+          try ( // 5) 
+              // 7) 입력받는거 클라이언트에서 복붙 
+              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+              DataInputStream in = new DataInputStream(socket.getInputStream())) {  
+            System.out.println("클라이언트 접속!");
 
+            StringWriter strOut = new StringWriter();  // 1))
+            PrintWriter tempOut = new PrintWriter(strOut); // 2))스트링라이터를 프린라이터와 연결
 
+            welcome(tempOut); // 4)) 프린트라이터를 웰컴 메소드에 연결 118줄쯤 ?
 
+            // 5) 클라이언트로 출력하기 데이터는 스트링라이터 객체의 버퍼에 쌓여있다.
+            // 버퍼에서 꺼내기 
+            out.writeUTF(strOut.toString()); 
+
+            System.out.println("클라이언트에게 응답!");
+
+          } catch (Exception e) {//6) 
+            System.out.println("클라이언트와 통신하는 중 오류 발생!");
+            e.printStackTrace();
           }
         }).start(); 
-
-
-        // Thread t = new Thread();// 1))) 스레드 객체 생성하고 스타트를 호출하면 런메서드를 별도로 만들거야 그걸 생성자에 주면 스사트를 하라하면 스타트는 파라미터를 받아 별도로 실행된다.
-        // t.start();
-
-        try ( // 5) 
-            // 7) 입력받는거 클라이언트에서 복붙 
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            DataInputStream in = new DataInputStream(socket.getInputStream())) {  
-          System.out.println("클라이언트 접속!");
-
-          StringWriter strOut = new StringWriter();  // 1))
-          PrintWriter tempOut = new PrintWriter(strOut); // 2))스트링라이터를 프린라이터와 연결
-
-          welcome(tempOut); // 4)) 프린트라이터를 웰컴 메소드에 연결 118줄쯤 ?
-
-          // 5) 클라이언트로 출력하기 데이터는 스트링라이터 객체의 버퍼에 쌓여있다.
-          // 버퍼에서 꺼내기 
-          out.writeUTF(strOut.toString()); 
-
-          System.out.println("클라이언트에게 응답!");
-
-        } catch (Exception e) {//6) 
-          System.out.println("클라이언트와 통신하는 중 오류 발생!");
-          e.printStackTrace();
-        }
       }// while
+
+
+      // Thread t = new Thread();// 1))) 스레드 객체 생성하고 스타트를 호출하면 런메서드를 별도로 만들거야 그걸 생성자에 주면 스사트를 하라하면 스타트는 파라미터를 받아 별도로 실행된다.
+      // t.start();
+
 
       //  System.out.println("서버 종료!");
     } catch (Exception e) { //4) 
