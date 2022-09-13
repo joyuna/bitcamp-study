@@ -6,9 +6,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Stack;
-import java.util.logging.Handler;
 
 
 
@@ -26,11 +24,6 @@ public class ServerApp {
     try (ServerSocket serverSocket = new ServerSocket(8888)) { // 3) 
 
       System.out.println("서버 실행 중...");
-
-      // 핸들러를 담을 컬렉션을 준비한다. // 8-1)
-      ArrayList<Handler> handlers = new ArrayList<>();
-      handlers.add(new BoardHandler(null));
-      handlers.add(new MemberHandler(null));
 
       while (true ) { // 5-1) 무한반복을 위해 삽입
         Socket socket = serverSocket.accept();
