@@ -28,7 +28,7 @@ public class ClientApp {
         response = in.readUTF();  // 6) -> //5-2)자리이
         System.out.println(response);
 
-        String input = Prompt.inputString("> "); 
+        String input = Prompt.inputString("> ");  // 클라이언트가 명령을 보내면 그대로 응답하게
         out.writeUTF(input);
 
         if (input.equals("quit")) { // 6-1)
