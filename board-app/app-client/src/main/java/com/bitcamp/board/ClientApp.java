@@ -18,29 +18,24 @@ public class ClientApp {
 
       String response = null; // 5)
 
-
-      // 5-3) 제거가능해서       line = in.readUTF();  // 6)
-      System.out.println(response);
-
-      // 5-1) 응답 요청 무한 반복 
       while (true) {
         //4-1)))) 사용자의 입력값을 서버에 전달한 후 서버의 응답을 출력한다.
-        response = in.readUTF();  // 6) -> //5-2)자리이
+        response = in.readUTF();  // 6) -> //5-2)자리이동 
         System.out.println(response);
 
         String input = Prompt.inputString("> ");  // 클라이언트가 명령을 보내면 그대로 응답하게
-        out.writeUTF(input);
+        out.writeUTF(input); 
 
-        if (input.equals("quit")) { // 6-1)
+        if (input.equals("quit")) {
           break;
         }
-
-      } 
+      }
 
     } catch (Exception e) { //2)
       System.out.println("서버와 통신 중 오류 발생!");
       e.printStackTrace(); //3)
     }
+
 
     //    loop: while (true) {
     //

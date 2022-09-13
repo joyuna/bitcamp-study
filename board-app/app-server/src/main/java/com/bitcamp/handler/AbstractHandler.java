@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import com.bitcamp.util.BreadCrumb;
 
 // Handler 규격에 맞춰 서브 클래스에게 물려줄 공통 필드나 메서드를 구현한다.
 // 
@@ -41,12 +42,14 @@ public abstract class AbstractHandler implements Handler {
   @Override
   public void execute(DataInputStream in, DataOutputStream out) throws Exception { // 9-1) 실행할때 입출력 스트림을 받을게요홍!
 
-
+    // 현재 스레드를 위해 보관된Breadcrumb 객체를 꺼낸다.
+    BreadCrumb breadcrumb = BreadCrumb.getBreadCrumbOfCurrentThread();
 
     // 핸들러 메뉴를 클라이언트에게 보낸다.
     try (StringWriter strOut = new StringWriter();
         PrintWriter tempOut = new PrintWriter(strOut)) {
 
+      tempOut.println(breadcrumb.toString());
       // printTitle(out); 하위 메뉴에 집중하기 위해 우선 주석 처리
       printMenus(tempOut);
       out.writeUTF(strOut.toString());
@@ -65,10 +68,10 @@ public abstract class AbstractHandler implements Handler {
         tempOut.println("해당 메뉴를 준비 중 입니다.");
 
         printBlankLine(tempOut);
+        tempOut.println(breadcrumb.toString());
         printMenus(tempOut);
         out.writeUTF(strOut.toString());
       } 
-
 
       /*
       try {

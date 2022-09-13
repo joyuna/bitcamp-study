@@ -10,7 +10,7 @@ public class BreadCrumb {
   //10-3) 스레드 마다 BreadCrumb 객체를 따로 관리해주는 관리자를 준비한다.
   static ThreadLocal<BreadCrumb> localManager = new ThreadLocal<>();
 
-  public static BreadCrumb getBreadCrumb() {
+  public static BreadCrumb getBreadCrumbOfCurrentThread() {
     // 10-4) 스레드 로컬 관리자를 통해 현재 스레드 보관소에 저장되어 있는 Breadcrumb객체를 달라고 요청한다.    
     return localManager.get();
   }
@@ -21,7 +21,7 @@ public class BreadCrumb {
     localManager.set(this);
   }
 
-  public void push(String menu) {
+  public void put(String menu) {
     menuStack.push(menu);
   }
 

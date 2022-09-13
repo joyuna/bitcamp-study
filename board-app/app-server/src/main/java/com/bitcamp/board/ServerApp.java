@@ -7,9 +7,9 @@ import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Handler;
 import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.MemberHandler;
+import com.bitcamp.handler.Handler;
 import com.bitcamp.util.BreadCrumb;
 
 
@@ -17,7 +17,6 @@ import com.bitcamp.util.BreadCrumb;
 
 
 public class ServerApp {
-
 
 
   //8-4)중복되는 코드 밖으로 꺼내 & 
@@ -33,8 +32,7 @@ public class ServerApp {
       handlers.add(new BoardHandler(null));
       handlers.add(new MemberHandler(null));
 
-
-      while (true ) { // 5-1) 무한반복을 위해 삽입
+      while (true) { // 5-1) 무한반복을 위해 삽입
         Socket socket = serverSocket.accept();
 
         new Thread(() -> {
@@ -45,8 +43,8 @@ public class ServerApp {
               DataInputStream in = new DataInputStream(socket.getInputStream())) {  
             System.out.println("클라이언트 접속!");
 
-            BreadCrumb breadcrumb = new BreadCrumb();//
-
+            BreadCrumb breadcrumb =new BreadCrumb(); // 현재 스레드 보관소에 저장된다.
+            breadcrumb.put("메인");
 
             boolean first = true;
             String errorMessage = null;            
@@ -67,6 +65,7 @@ public class ServerApp {
                   errorMessage = null;
                 }
 
+                tempOut.println(breadcrumb.toString());
                 printMainMenus(tempOut); // 7-4)
                 out.writeUTF(strOut.toString()); // 7-5) 버퍼에 출력내용이 쌓여 있는 상태 
               }
@@ -82,7 +81,12 @@ public class ServerApp {
                 int mainMenuNo = Integer.parseInt(request);
                 //8-2) 이동
                 if (mainMenuNo >= 1 && mainMenuNo <= menus.length) {
+                  breadcrumb.put(menus[mainMenuNo - 1]);
+
                   handlers.get(mainMenuNo -1).execute(in, out);
+
+                  breadcrumb.pickUp();
+
                 } else { //8-9)
                   throw new Exception("해당 번호의 메뉴가 없습니다.");
                 }
@@ -98,14 +102,10 @@ public class ServerApp {
             e.printStackTrace();
           }
         }).start(); 
-      }// while
 
-
-      // Thread t = new Thread();// 1))) 스레드 객체 생성하고 스타트를 호출하면 런메서드를 별도로 만들거야 그걸 생성자에 주면 스사트를 하라하면 스타트는 파라미터를 받아 별도로 실행된다.
-      // t.start();
-
-
+      }
       //  System.out.println("서버 종료!");
+
     } catch (Exception e) { //4) 
       System.out.println("서버 실행 중 오류 발생!");
       e.printStackTrace();
@@ -181,16 +181,5 @@ public class ServerApp {
     }
     // 7-3) 자리이동후 -> 소스 정정 -> 메인 메뉴 번호 입력을 요구하는 문장 출
     out.printf("메뉴를 선택하세요[1..%d](quit: 종료) ", menus.length);
-  }
-
-  protected static void printTitle() {
-    StringBuilder builder = new StringBuilder();
-    for (String title : breadcrumbMenu) {
-      if (!builder.isEmpty()) {
-        builder.append(" > ");
-      }
-      builder.append(title);
-    }
-    System.out.printf("%s:\n", builder.toString());
   }
 }
