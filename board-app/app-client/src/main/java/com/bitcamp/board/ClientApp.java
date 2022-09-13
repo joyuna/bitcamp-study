@@ -16,19 +16,23 @@ public class ClientApp {
         DataInputStream in = new DataInputStream(socket.getInputStream());  // 4) 스캐너나 버퍼드리더를 통해 한줄씩 읽는다.
         DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
 
-      String line = null; // 5)
+      String response = null; // 5)
 
 
-      line = in.readUTF();  // 6)
-      System.out.println(line);
+      // 5-3) 제거가능해서       line = in.readUTF();  // 6)
+      System.out.println(response);
 
-      //4-1)))) 사용자의 입력값을 서버에 전달한 후 서버의 응답을 출력한다.
-      String input = Prompt.inputString("> "); 
-      out.writeUTF(input);
+      // 5-1) 응답 요청 무한 받
+      while (true) {
+        //4-1)))) 사용자의 입력값을 서버에 전달한 후 서버의 응답을 출력한다.
+        response = in.readUTF();  // 6) -> //5-2)자리이
+        System.out.println(response);
 
-      line = in.readUTF();  // 6)
-      System.out.println(line);
+        String input = Prompt.inputString("> "); 
+        out.writeUTF(input);
 
+
+      } 
 
     } catch (Exception e) { //2)
       System.out.println("서버와 통신 중 오류 발생!");

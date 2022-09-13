@@ -20,7 +20,7 @@ public class ServerApp {
 
       System.out.println("서버 실행 중...");
 
-      while (true ) {
+      while (true ) { // 5-1) 무한반복을 위해 삽입
         Socket socket = serverSocket.accept();
 
         new Thread(() -> {
@@ -40,11 +40,13 @@ public class ServerApp {
             // 버퍼에서 꺼내기 
             out.writeUTF(strOut.toString()); 
 
-            //4-1))) 클라이언트가 보낸 값을 그대로 돌려준다.
-            String request = in.readUTF();
-            out.writeUTF(request);
+            while (true) {
+              //4-1))) 클라이언트가 보낸 값을 그대로 돌려준다.
+              String request = in.readUTF();
+              out.writeUTF(request);
+            }
 
-            System.out.println("클라이언트에게 응답!");
+            // System.out.println("클라이언트에게 응답!"); //5-2)주석막아버리
 
           } catch (Exception e) {//6) 
             System.out.println("클라이언트와 통신하는 중 오류 발생!");
