@@ -18,8 +18,17 @@ public class ClientApp {
 
       String line = null; // 5)
 
+
       line = in.readUTF();  // 6)
       System.out.println(line);
+
+      //4-1)))) 사용자의 입력값을 서버에 전달한 후 서버의 응답을 출력한다.
+      String input = Prompt.inputString("> "); 
+      out.writeUTF(input);
+
+      line = in.readUTF();  // 6)
+      System.out.println(line);
+
 
     } catch (Exception e) { //2)
       System.out.println("서버와 통신 중 오류 발생!");

@@ -40,6 +40,10 @@ public class ServerApp {
             // 버퍼에서 꺼내기 
             out.writeUTF(strOut.toString()); 
 
+            //4-1))) 클라이언트가 보낸 값을 그대로 돌려준다.
+            String request = in.readUTF();
+            out.writeUTF(request);
+
             System.out.println("클라이언트에게 응답!");
 
           } catch (Exception e) {//6) 
