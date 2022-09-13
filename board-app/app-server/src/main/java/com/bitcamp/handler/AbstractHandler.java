@@ -1,7 +1,9 @@
 package com.bitcamp.handler;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.PrintWriter;
-import com.bitcamp.board.ServerApp;
+import java.io.StringWriter;
 
 // Handler 규격에 맞춰 서브 클래스에게 물려줄 공통 필드나 메서드를 구현한다.
 // 
@@ -25,6 +27,7 @@ public abstract class AbstractHandler implements Handler {
     for (int i = 0; i < menus.length; i++) {
       out.printf("  %d: %s\n", i + 1, menus[i]);
     }
+    out.printf("메뉴를 선택하세요[1..%d](0: 이전) ", menus.length);// 10-2 ㅜ
   }
 
   protected static void printHeadline(PrintWriter out) {
@@ -35,30 +38,51 @@ public abstract class AbstractHandler implements Handler {
     out.println(); // 메뉴를 처리한 후 빈 줄 출력
   }
 
-  protected static void printTitle(PrintWriter out) {
-    StringBuilder builder = new StringBuilder();
-    for (String title : ServerApp.breadcrumbMenu) {
-      if (!builder.isEmpty()) {
-        builder.append(" > ");
-      }
-      builder.append(title);
-    }
-    out.printf("%s:\n", builder.toString());
-  }
-
   @Override
-  public void execute(PrintWriter out) throws Exception { // 9-1) 실행할때 입출력 스트림을 받을게요홍!
-    while (true) {
+  public void execute(DataInputStream in, DataOutputStream out) throws Exception { // 9-1) 실행할때 입출력 스트림을 받을게요홍!
+
+
+
+    // 핸들러 메뉴를 클라이언트에게 보낸다.
+    try (StringWriter strOut = new StringWriter();
+        PrintWriter tempOut = new PrintWriter(strOut)) {
+
       // printTitle(out); 하위 메뉴에 집중하기 위해 우선 주석 처리
-      printMenus(out);
-      printBlankLine(out);
+      printMenus(tempOut);
+      out.writeUTF(strOut.toString());
+    } 
+
+    while (true) {
+      //4-1))) 클라이언트가 보낸 요청을 읽는다.
+      String request = in.readUTF();
+      if (request.equals("0")) { // 6-1)
+        break; 
+      }
+
+      try (StringWriter strOut = new StringWriter();
+          PrintWriter tempOut = new PrintWriter(strOut)) {
+
+        tempOut.println("해당 메뉴를 준비 중 입니다.");
+
+        printBlankLine(tempOut);
+        printMenus(tempOut);
+        out.writeUTF(strOut.toString());
+      } 
+
 
       /*
       try {
-        int menuNo = Prompt.inputInt(String.format(
-            "메뉴를 선택하세요[1..%d](0: 이전) ", menus.length));
+
 
         if (menuNo < 0 || menuNo > menus.length) {
+
+        // 10-4) 핸들러에 들어가기 전에 breadcrumb 메뉴에 하위 메뉴 이름을 추가한다.
+         breadcrumb.put(memus[mainMenuNo - 1]);
+
+
+        // 다시 메인 메뉴로 돌아왔다면 ㅍ
+       * 
+       * 
           System.out.println("메뉴 번호가 옳지 않습니다!");
           continue; // while 문의 조건 검사로 보낸다.
 
