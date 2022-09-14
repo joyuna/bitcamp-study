@@ -71,19 +71,18 @@ public abstract class AbstractHandler implements Handler {
       }
 
       int menuNo = Integer.parseInt(request);
-      try (StringWriter strOut = new StringWriter();
-          PrintWriter tempOut = new PrintWriter(strOut)) {
-        if (menuNo < 0 || menuNo > menus.length) {
-          message = "메뉴 번호가 옳지 않습니다!";
-          continue; // while 문의 조건 검사로 보낸다.
 
-        }
+      if (menuNo < 0 || menuNo > menus.length) {
+        message = "메뉴 번호가 옳지 않습니다!";
+        continue; // while 문의 조건 검사로 보낸다.
+
       }
 
-      message = "해당 메뉴를 준비 중 입니다.";
-    } 
 
-    /*
+      message = "해당 메뉴를 준비 중 입니다.";
+
+
+      /*
       try {
 
 
@@ -94,8 +93,8 @@ public abstract class AbstractHandler implements Handler {
 
 
         // 다시 메인 메뉴로 돌아왔다면 ㅍ
-     * 
-     * 
+       * 
+       * 
           System.out.println("메뉴 번호가 옳지 않습니다!");
           continue; // while 문의 조건 검사로 보낸다.
 
@@ -122,14 +121,14 @@ public abstract class AbstractHandler implements Handler {
         System.out.printf("예외 발생: %s\n", ex.getMessage());
         ex.printStackTrace();
       }*/
-  } // while
+    } // while
 
-}
+  }
 
-// 서브 클래스가 반드시 만들어야 할 메서드
-// => 메뉴 번호를 받으면 그 메뉴에 해당하는 작업을 수행한다.
-// => 서브 클래스에게 구현을 강제하기 위해 추상 메서드로 선언한다.
-public abstract void service(int menuNo);
+  // 서브 클래스가 반드시 만들어야 할 메서드
+  // => 메뉴 번호를 받으면 그 메뉴에 해당하는 작업을 수행한다.
+  // => 서브 클래스에게 구현을 강제하기 위해 추상 메서드로 선언한다.
+  public abstract void service(int menuNo);
 }
 
 
