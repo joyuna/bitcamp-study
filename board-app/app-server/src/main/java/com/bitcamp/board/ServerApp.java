@@ -6,7 +6,13 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.dao.MariaDBBoardDao;
+import com.bitcamp.board.dao.MariaDBMemberDao;
+import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.MemberHandler;
 import com.bitcamp.handler.Handler;
@@ -26,15 +32,28 @@ public class ServerApp {
   ArrayList<Handler> handlers = new ArrayList<>();
 
   public static void main(String[] args) { 
-    ServerApp app = new ServerApp(8888);
-    app.execute();
+    try {
+      ServerApp app = new ServerApp(8888);
+      app.execute();
+
+    } catch (Exception e) {
+      System.out.println("서버 실행 오류!");
+    }
   }
 
-  public ServerApp(int port) {
+  public ServerApp(int port) throws Exception {
     this.port = port;
 
-    handlers.add(new BoardHandler(null));
-    handlers.add(new MemberHandler(null));
+    // DAO 가 사용할 커넥션 객체 준비
+    Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb","study","1111");
+
+    // DAO 객체를 준비한다.
+    BoardDao boardDao = new MariaDBBoardDao(con);
+    MemberDao memberDao = new MariaDBMemberDao(con);
+
+    handlers.add(new BoardHandler(boardDao));
+    handlers.add(new MemberHandler(memberDao));
   }
 
   public void execute() { //11)리팩토링 ing //2) 메인 메서드 생성 
@@ -55,17 +74,11 @@ public class ServerApp {
   }
   /* 메인2 메서드 모두 막아 버리기
   public static void main2(String[] args) { // 1) main -> main2 로 바꾸면서 메인메서드가 아니게 
-    try (// DAO 가 사용할 커넥션 객체 준비
-        Connection con = DriverManager.getConnection(
-            "jdbc:mariadb://localhost:3306/studydb","study","1111");
-        ) {
+
       System.out.println("[게시글 관리 클라이언트]");
 
       welcome();
 
-      // DAO 객체를 준비한다.
-      MariaDBMemberDao memberDao = new MariaDBMemberDao(con);
-      MariaDBBoardDao boardDao = new MariaDBBoardDao(con);
 
 
 
@@ -133,6 +146,9 @@ public class ServerApp {
   void printMainMenus(DataOutputStream out) throws Exception { // 7-1) 프린트메뉴로 이름 병
     try (StringWriter strOut = new StringWriter();  // 7-6) // 1))
         PrintWriter tempOut = new PrintWriter(strOut)) {
+
+      tempOut.println(BreadCrumb.getBreadCrumbOfCurrentThread().toString()); // ** 요런코드에 계속 노출돼야행~
+
       // 7-3 자리는 그대로 -> 메인 목록 출력 
       for (int i = 0; i < menus.length; i++) {
         tempOut.printf("  %d: %s\n", i + 1, menus[i]); // system은 지워버리
@@ -156,6 +172,9 @@ public class ServerApp {
       handlers.get(menuNo -1).execute(in, out);
 
       breadcrumb.pickUp();
+
+      // 11-?) 하위 메뉴에서 빠져 나오면 현재의 경로를 출력한다.
+      out.writeUTF(breadcrumb.toString());
 
     } catch (Exception e) {
       error(out, e);
@@ -204,7 +223,6 @@ public class ServerApp {
         e.printStackTrace();
       }
     }
-
   }
 }
 
