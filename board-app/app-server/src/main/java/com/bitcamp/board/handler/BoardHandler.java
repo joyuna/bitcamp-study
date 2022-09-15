@@ -41,7 +41,7 @@ public class BoardHandler extends AbstractHandler {
   }
 
   private void onList(DataInputStream in, DataOutputStream out) throws Exception {
-    try (StringWriter strOut = new StringWriter();  // 7-6) // 1))
+    try (StringWriter strOut = new StringWriter();
         PrintWriter tempOut = new PrintWriter(strOut)) {
 
       List<Board> boards = boardDao.findAll();
@@ -51,6 +51,7 @@ public class BoardHandler extends AbstractHandler {
         tempOut.printf("%d\t%s\t%d\t%d\t%s\n",
             board.no, board.title, board.viewCount, board.memberNo, board.createdDate);
       }
+
       out.writeUTF(strOut.toString());
     }
   }
@@ -92,8 +93,6 @@ public class BoardHandler extends AbstractHandler {
   }
 
   private void onInput(DataInputStream in, DataOutputStream out) throws Exception {
-    Board board = new Board();
-
 
     Prompt prompt = new Prompt(in, out);
 
@@ -117,14 +116,14 @@ public class BoardHandler extends AbstractHandler {
         boardNo = prompt.inputInt("삭제할 게시글 번호? ");
         break;
       } catch (Exception ex) {
-        System.out.println("입력 값이 옳지 않습니다!");
+        out.writeUTF("입력 값이 옳지 않습니다!");
       }
     }
 
     if (boardDao.delete(boardNo) == 1) {
-      System.out.println("삭제하였습니다.");
+      out.writeUTF("삭제하였습니다.");
     } else {
-      System.out.println("해당 번호의 게시글이 없습니다!");
+      out.writeUTF("해당 번호의 게시글이 없습니다!");
     }
   }
 
@@ -161,7 +160,7 @@ public class BoardHandler extends AbstractHandler {
       }
 
     } else {
-      out.writeUTF"변경 취소했습니다.");
+      out.writeUTF("변경 취소했습니다.");
     }
   }
 }
