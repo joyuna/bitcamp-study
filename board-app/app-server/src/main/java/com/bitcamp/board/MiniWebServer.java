@@ -2,7 +2,10 @@ package com.bitcamp.board;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.InetSocketAddress;
+import com.bitcamp.board.handler.WelcomeHandler;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -19,9 +22,16 @@ public class MiniWebServer {
         // 1-4) 클라이언트 요청이 들어왔을 때 마다 호출된다.
         System.out.println("클라이언트가 요청함!");
 
+        WelcomeHandler welcomeHandler = new WelcomeHandler();
+
+        byte[] bytes = null;
+
         //1-5) 응답할 콘텐트 준비
-        String response = "ABCabc123가각간"; //2-1)
-        byte[] bytes = response.getBytes("UTF-8"); // 2-2)
+        try (StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter)) {
+          welcomeHandler.service(printWriter);
+          bytes = stringWriter.toString().getBytes("UTF-8"); 
+        }
 
         // 1-9) 보내는 콘텐트의 MIME 타입이 무엇인지 응답 헤더에 추가한다.
         Headers responseHeaders =exchange.getResponseHeaders();
