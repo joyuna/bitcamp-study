@@ -6,7 +6,16 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import org.xml.sax.ErrorHandler;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Map;
+import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.dao.MariaDBBoardDao;
+import com.bitcamp.board.dao.MariaDBMemberDao;
+import com.bitcamp.board.dao.MemberDao;
+import com.bitcamp.board.handler.BoardHandler;
+import com.bitcamp.board.handler.ErrorHandler;
 import com.bitcamp.board.handler.WelcomeHandler;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -16,6 +25,16 @@ import com.sun.net.httpserver.HttpServer;
 public class MiniWebServer {
 
   public static void main(String[] args) throws Exception {
+    Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb","study","1111");
+
+    BoardDao boardDao = new MariaDBBoardDao(con);
+    MemberDao memberDao = new MariaDBMemberDao(con);
+
+    WelcomeHandler welcomeHandler = new WelcomeHandler();
+    ErrorHandler errorHandler = new ErrorHandler();
+    BoardHandler boardHandler = new BoardHandler(boardDao);
+
     // 클라이언트 요청을 처리하는 객체
     class MyHttpHandler implements HttpHandler {
       @Override
@@ -26,24 +45,45 @@ public class MiniWebServer {
 
 
         URI requestUri = exchange.getRequestURI();
-
         String path = requestUri.getPath();
-
-        WelcomeHandler welcomeHandler = new WelcomeHandler();
-        ErrorHandler errorHandler = new ErrorHandler();
+        String query = requestUri.getQuery();
         byte[] bytes = null;
 
         //1-5) 응답할 콘텐트 준비
         try (StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter)) {
 
+          Map<String,String> paramMap = new HashMap<>();
+          if (query != null && query.length() > 0) { // 예) no=1&title=aaaa&content=bbb
+            String[] entries = query.split("&");
+            for (String entry : entries) { // 예) no=1
+              String[] kv = entry.split("=");
+              paramMap.put(kv[0], kv[1]);
+            }
+          }
+
+          System.out.println(paramMap);
+
           if (path.equals("/")) {
-            welcomeHandler.service(printWriter);
+            welcomeHandler.service(paramMap, printWriter);
+          } else if (path.equals("/board/list")) {
+            boardHandler.list(paramMap,  printWriter);
+          } else if (path.equals("/board/detail")) {
+            boardHandler.detail(paramMap,  printWriter);
+          } else if (path.equals("/board/update")) {
+            boardHandler.update(paramMap,  printWriter);
+          } else if (path.equals("/board/delete")) {
+            boardHandler.delete(paramMap,  printWriter);
+          } else if (path.equals("/board/list")) {
+            boardHandler.delete(paramMap,  printWriter);
           } else {
-            errorHandler.error(printWriter);
+            errorHandler.error(paramMap,  printWriter);
           }
 
           bytes = stringWriter.toString().getBytes("UTF-8"); 
+        } catch (Exception e) {
+          bytes = "요청 처리 중 오류 발생!!".getBytes("UTF-8"); 
+          e.printStackTrace(); 
         }
 
         // 1-9) 보내는 콘텐트의 MIME 타입이 무엇인지 응답 헤더에 추가한다.
@@ -55,7 +95,6 @@ public class MiniWebServer {
         OutputStream out = exchange.getResponseBody();// 1-8)
         out.write(bytes);
         out.close();
-
       }
     }
 
