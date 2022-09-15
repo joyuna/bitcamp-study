@@ -20,8 +20,8 @@ public class MiniWebServer {
         System.out.println("클라이언트가 요청함!");
 
         //1-5) 응답할 콘텐트 준비
-        String response = "ABCabc123가각간";
-        byte[] bytes = response.getBytes("UTF-8");
+        String response = "ABCabc123가각간"; //2-1)
+        byte[] bytes = response.getBytes("UTF-8"); // 2-2)
 
         // 1-9) 보내는 콘텐트의 MIME 타입이 무엇인지 응답 헤더에 추가한다.
         Headers responseHeaders =exchange.getResponseHeaders();
@@ -30,7 +30,7 @@ public class MiniWebServer {
         exchange.sendResponseHeaders(200, bytes.length);
         // 1-7) 콘텐트 출력 스트림 준비
         OutputStream out = exchange.getResponseBody();// 1-8)
-        out.write(response.getBytes());
+        out.write(bytes);
         out.close();
 
       }
