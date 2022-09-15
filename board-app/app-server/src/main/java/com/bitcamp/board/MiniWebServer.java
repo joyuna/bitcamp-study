@@ -5,6 +5,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.InetSocketAddress;
+import java.net.URI;
+import org.xml.sax.ErrorHandler;
 import com.bitcamp.board.handler.WelcomeHandler;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -22,14 +24,25 @@ public class MiniWebServer {
         // 1-4) 클라이언트 요청이 들어왔을 때 마다 호출된다.
         System.out.println("클라이언트가 요청함!");
 
-        WelcomeHandler welcomeHandler = new WelcomeHandler();
 
+        URI requestUri = exchange.getRequestURI();
+
+        String path = requestUri.getPath();
+
+        WelcomeHandler welcomeHandler = new WelcomeHandler();
+        ErrorHandler errorHandler = new ErrorHandler();
         byte[] bytes = null;
 
         //1-5) 응답할 콘텐트 준비
         try (StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter)) {
-          welcomeHandler.service(printWriter);
+
+          if (path.equals("/")) {
+            welcomeHandler.service(printWriter);
+          } else {
+            errorHandler.error(printWriter);
+          }
+
           bytes = stringWriter.toString().getBytes("UTF-8"); 
         }
 
