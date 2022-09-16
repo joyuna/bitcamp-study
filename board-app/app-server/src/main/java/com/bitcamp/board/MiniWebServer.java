@@ -96,48 +96,11 @@ public class MiniWebServer {
           System.out.println(query);
           System.out.println(paramMap);
 
-          if (path.equals("/")) {
-            welcomeHandler.service(paramMap, printWriter);
-
-          } else if (path.equals("/board/list")) {
-            boardListHandler.list(paramMap, printWriter);
-
-          } else if (path.equals("/board/detail")) {
-            boardDetailHandler.detail(paramMap, printWriter);
-
-          } else if (path.equals("/board/update")) {
-            boardUpdateHandler.update(paramMap, printWriter);
-
-          } else if (path.equals("/board/form")) {
-            boardFormHandler.form(paramMap, printWriter);
-
-          } else if (path.equals("/board/add")) {
-            boardAddHandler.add(paramMap, printWriter);
-
-          } else if (path.equals("/board/delete")) {
-            boardDeleteHandler.delete(paramMap, printWriter);
+          Servlet servlet = servletMap.get(path);
 
 
-          } else if (path.equals("/member/list")) {
-            memberListHandler.list(paramMap, printWriter);
-
-          } else if (path.equals("/member/detail")) {
-            memberDetailHandler.detail(paramMap, printWriter);
-
-          } else if (path.equals("/member/update")) {
-            memberUpdateHandler.update(paramMap, printWriter);
-
-          } else if (path.equals("/member/form")) {
-            memberFormHandler.form(paramMap, printWriter);
-
-          } else if (path.equals("/member/add")) {
-            memberAddHandler.add(paramMap, printWriter);
-
-          } else if (path.equals("/member/delete")) {
-            memberDeleteHandler.delete(paramMap, printWriter);
-
-
-
+          if (servlet != null) {
+            servlet.service(paramMap, printWriter);
 
           } else {
             errorHandler.error(paramMap, printWriter);
