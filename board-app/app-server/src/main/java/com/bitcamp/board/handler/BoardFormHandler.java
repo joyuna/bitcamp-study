@@ -5,10 +5,11 @@ package com.bitcamp.board.handler;
 
 import java.io.PrintWriter;
 import java.util.Map;
+import com.bitcamp.servlet.Servlet;
 
-public class BoardFormHandler {
+public class BoardFormHandler implements Servlet{
 
-  public void form(Map<String, String> paramMap, PrintWriter out) {
+  public void service(Map<String, String> paramMap, PrintWriter out) {
     // TODO Auto-generated method stub
 
     out.println("<!DOCTYPE html>");
