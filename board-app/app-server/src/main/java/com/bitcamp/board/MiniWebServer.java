@@ -103,7 +103,7 @@ public class MiniWebServer {
             servlet.service(paramMap, printWriter);
 
           } else {
-            errorHandler.error(paramMap, printWriter);
+            errorHandler.service(paramMap, printWriter);
           }
 
           bytes = stringWriter.toString().getBytes("UTF-8");
