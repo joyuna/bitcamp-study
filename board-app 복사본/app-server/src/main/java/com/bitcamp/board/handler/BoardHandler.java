@@ -1,20 +1,20 @@
 /*
- * 회원 메뉴 처리 클래스
+ * 게시글 메뉴 처리 클래스
  */
 package com.bitcamp.board.handler;
 
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
-import com.bitcamp.board.dao.MemberDao;
-import com.bitcamp.board.domain.Member;
+import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.domain.Board;
 
-public class MemberHandler {
+public class BoardHandler {
 
-  private MemberDao memberDao;
+  private BoardDao boardDao;
 
-  public MemberHandler(MemberDao memberDao) {
-    this.memberDao = memberDao;
+  public BoardHandler(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
   public void list(Map<String,String> paramMap, PrintWriter out) throws Exception {
@@ -32,26 +32,29 @@ public class MemberHandler {
     out.println("</style>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원</h1>");
-    out.println("<a href='form'>새 회원</a>");
+    out.println("<h1>게시글</h1>");
+    out.println("<a href='form'>새 글</a>");
     out.println("<table border='1'>");
     out.println("  <tr>");
     out.println("    <th>번호</th>");
-    out.println("    <th>이름</th>");
-    out.println("    <th>이메일</th>");
+    out.println("    <th>제목</th>");
+    out.println("    <th>조회수</th>");
+    out.println("    <th>작성자</th>");
+    out.println("    <th>등록일</th>");
     out.println("  </tr>");
 
-    List<Member> members = memberDao.findAll();
-    for (Member member : members) {
+    List<Board> boards = boardDao.findAll();
+    for (Board board : boards) {
       out.println("<tr>");
-      out.printf("  <td>%d</td>", member.no);
-      out.printf("  <td><a href='detail?no=%d'>%s</a></td>", member.no, member.name);
-      out.printf("  <td>%s</td>", member.email);
+      out.printf("  <td>%d</td>", board.no);
+      out.printf("  <td><a href='detail?no=%d'>%s</a></td>", board.no, board.title);
+      out.printf("  <td>%d</td>", board.viewCount);
+      out.printf("  <td>%d</td>", board.memberNo);
+      out.printf("  <td>%s</td>", board.createdDate);
       out.println("</tr>");
     }
 
     out.println("</table>");
-    out.println("<p><a href='/'>메인</a></p>");
     out.println("</body>");
     out.println("</html>");
   }
@@ -65,36 +68,39 @@ public class MemberHandler {
     out.println("<title>bitcamp</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 상세 정보</h1>");
+    out.println("<h1>게시글 상세 정보</h1>");
 
-    int no = Integer.parseInt(paramMap.get("no"));
-    Member member = memberDao.findByNo(no);
+    int boardNo = Integer.parseInt(paramMap.get("no"));
+    Board board = boardDao.findByNo(boardNo);
 
-    if (member == null) {
-      out.println("<p>해당 번호의 회원이 없습니다.</p>");
+    if (board == null) {
+      out.println("<p>해당 번호의 게시글이 없습니다.</p>");
 
     } else {
       out.println("<form action='update'>");
       out.println("<table border='1'>");
       out.println("  <tr>");
-      out.printf("    <th>번호</th><td><input name='no' type='number' value='%d' readonly></td>", member.no);
+      out.printf("    <th>번호</th><td><input name='no' type='number' value='%d' readonly></td>", board.no);
       out.println("  </tr>");
       out.println("  <tr>");
-      out.printf("    <th>이름</th><td><input name='name' type='text' value='%s' size='60'></td>", member.name);
+      out.printf("    <th>제목</th><td><input name='title' type='text' value='%s' size='60'></td>", board.title);
       out.println("  </tr>");
       out.println("  <tr>");
-      out.printf("    <th>이메일</th><td><input name='email' type='email' value='%s' size='60'></td>", member.email);
+      out.printf("    <th>내용</th><td><textarea name='content' rows='10' cols='60'>%s</textarea></td>", board.content);
       out.println("  </tr>");
       out.println("  <tr>");
-      out.println("    <th>암호</th><td><input name='password' type='password' size='10'></td>");
+      out.printf("    <th>조회수</th><td>%d</td>", board.viewCount);
       out.println("  </tr>");
       out.println("  <tr>");
-      out.printf("    <th>등록일</th><td>%s</td>", member.createdDate);
+      out.printf("    <th>작성자</th><td>%d</td>", board.memberNo);
+      out.println("  </tr>");
+      out.println("  <tr>");
+      out.printf("    <th>등록일</th><td>%s</td>", board.createdDate);
       out.println("  </tr>");
       out.println("</table>");
       out.println("<p>");
       out.println("  <button type='submit'>변경</button>");
-      out.printf("  <a href='delete?no=%d'>삭제</a>", member.no);
+      out.printf("  <a href='delete?no=%d'>삭제</a>", board.no);
       out.println("</p>");
       out.println("</form>");
     }
@@ -110,18 +116,18 @@ public class MemberHandler {
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>bitcamp</title>");
-    out.println("<meta http-equiv='Refresh' content='1; url=list'>");
+    out.println("<meta http-equiv='Refresh' content='3; url=list'>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 삭제</h1>");
+    out.println("<h1>게시글 삭제</h1>");
 
     int no = Integer.parseInt(paramMap.get("no"));
 
-    if (memberDao.delete(no) == 0) {
-      out.println("<p>해당 번호의 회원이 없습니다.</p>");
+    if (boardDao.delete(no) == 0) {
+      out.println("<p>해당 번호의 게시글이 없습니다.</p>");
 
     } else {
-      out.println("<p>해당 회원을 삭제했습니다.</p>");
+      out.println("<p>해당 게시글을 삭제했습니다.</p>");
     }
 
     out.println("</body>");
@@ -136,22 +142,21 @@ public class MemberHandler {
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>bitcamp</title>");
-    out.println("<meta http-equiv='Refresh' content='1; url=list'>");
+    out.println("<meta http-equiv='Refresh' content='3; url=list'>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 변경</h1>");
+    out.println("<h1>게시글 변경</h1>");
 
-    Member member = new Member();
-    member.no = Integer.parseInt(paramMap.get("no"));
-    member.name = paramMap.get("name");
-    member.email = paramMap.get("email");
-    member.password = paramMap.get("password");
+    Board board = new Board();
+    board.no = Integer.parseInt(paramMap.get("no"));
+    board.title = paramMap.get("title");
+    board.content = paramMap.get("content");
 
-    if (memberDao.update(member) == 0) {
-      out.println("<p>해당 번호의 회원이 없습니다.</p>");
+    if (boardDao.update(board) == 0) {
+      out.println("<p>해당 번호의 게시글이 없습니다.</p>");
 
     } else {
-      out.println("<p>해당 회원을 변경했습니다.</p>");
+      out.println("<p>해당 게시글을 변경했습니다.</p>");
     }
 
     out.println("</body>");
@@ -159,6 +164,7 @@ public class MemberHandler {
   }
 
   public void form(Map<String, String> paramMap, PrintWriter out) {
+    // TODO Auto-generated method stub
 
     out.println("<!DOCTYPE html>");
     out.println("<html>");
@@ -167,18 +173,19 @@ public class MemberHandler {
     out.println("<title>bitcamp</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 입력</h1>");
+    out.println("<h1>게시글 입력</h1>");
+
 
     out.println("<form action='add'>");
     out.println("<table border='1'>");
     out.println("  <tr>");
-    out.println("    <th>이름</th><td><input name='name' type='text' size='60'></td>");
+    out.println("    <th>제목</th><td><input name='title' type='text' size='60'></td>");
     out.println("  </tr>");
     out.println("  <tr>");
-    out.println("    <th>이메일</th><td><input name='email' type='email' size='60'></td>");
+    out.printf("    <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>");
     out.println("  </tr>");
     out.println("  <tr>");
-    out.println("    <th>암호</th><td><input name='password' type='password' size='10'></td>");
+    out.println("    <th>작성자</th><td><input name='writerNo' type='number' size='5'></td>");
     out.println("  </tr>");
     out.println("</table>");
     out.println("<p>");
@@ -187,9 +194,9 @@ public class MemberHandler {
     out.println("</p>");
     out.println("</form>");
 
+
     out.println("</body>");
     out.println("</html>");
-
   }
 
   public void add(Map<String,String> paramMap, PrintWriter out) throws Exception {
@@ -199,28 +206,31 @@ public class MemberHandler {
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>bitcamp</title>");
-    out.println("<meta http-equiv='Refresh' content='1; url=list'>");
+    out.println("<meta http-equiv='Refresh' content='3; url=list'>"); // 같은 주소내면 그
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 입력</h1>");
+    out.println("<h1>게시글 입력</h1>");
 
-    Member member = new Member();
-    member.name = paramMap.get("name");
-    member.email = paramMap.get("email");
-    member.password = paramMap.get("password");
+    Board board = new Board();
+    board.title = paramMap.get("title");
+    board.content = paramMap.get("content");
+    board.memberNo = Integer.parseInt(paramMap.get("writerNo"));
 
-    if (memberDao.insert(member) == 0) {
-      out.println("<p>회원을 등록할 수 없습니다!</p>");
+
+    if (boardDao.insert(board) == 0) {
+      out.println("<p>게시글을 등록할 수 없습니다!</p>");
 
     } else {
-      out.println("<p>회원을 등록했습니다.</p>");
+      out.println("<p>게시글을 등록했습니다.</p>");
     }
 
     out.println("</body>");
     out.println("</html>");
 
   }
+
 }
+
 
 
 

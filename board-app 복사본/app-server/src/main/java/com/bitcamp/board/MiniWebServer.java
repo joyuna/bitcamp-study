@@ -19,10 +19,8 @@ import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.ErrorHandler;
 import com.bitcamp.board.handler.MemberHandler;
 import com.bitcamp.board.handler.WelcomeHandler;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 
 // 1) 기본 웹 서버 만들기
 // 2) 한글 콘텐트를 출력하기
@@ -43,7 +41,7 @@ public class MiniWebServer {
     WelcomeHandler welcomeHandler = new WelcomeHandler();
     ErrorHandler errorHandler = new ErrorHandler();
     BoardHandler boardHandler = new BoardHandler(boardDao);
-    MemberHandler memberHandler = new MemberHandler(memberDao);
+    MemberHandler memberHandler = new MemberHandler(boardDao);
 
     class MyHttpHandler implements HttpHandler {
       @Override
