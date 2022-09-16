@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(value=ElementType.TYPE) // 1-1) 애노테이션을 붙일 수 있는 범위를 설정
 @Retention(value=RetentionPolicy.RUNTIME) // 1-2) 애노테이션 값을 추출할 때를 지
+
+// 2-1) 다음 애노테이션은 HTTP 요청을 처리하는 객체에 대해 경로를 설정할 때 사용한다.
 public @interface WebServlet {
   String value(); // 1-3) 애노테이션의 필수 속성을 설정한다.
 }

@@ -3,8 +3,13 @@ package com.bitcamp.board.handler;
 import java.io.PrintWriter;
 import java.util.Map;
 import com.bitcamp.servlet.Servlet;
+import com.bitcamp.servlet.annotation.WebServlet;
 
+@WebServlet(value="/") // 애노테이션을 붙일 수 있는 범위를 설정해두었기 때문에 이자리에만 올수 있다.
 public class WelcomeHandler implements Servlet{
+
+  @Override
+
   public void service(Map<String,String>paramMap, PrintWriter out) {
     out.println("<!DOCTYPE html>");
     out.println("<html>");

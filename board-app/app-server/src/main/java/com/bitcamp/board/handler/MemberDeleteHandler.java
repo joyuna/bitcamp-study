@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.util.Map;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.servlet.Servlet;
+import com.bitcamp.servlet.annotation.WebServlet;
 
+@WebServlet(value="/member/delete")
 public class MemberDeleteHandler implements Servlet{
 
   private MemberDao memberDao;
@@ -16,6 +18,7 @@ public class MemberDeleteHandler implements Servlet{
     this.memberDao = memberDao;
   }
 
+  @Override
   public void service(Map<String,String> paramMap, PrintWriter out) throws Exception {
 
     out.println("<!DOCTYPE html>");

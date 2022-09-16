@@ -8,7 +8,9 @@ import java.util.Map;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.servlet.Servlet;
+import com.bitcamp.servlet.annotation.WebServlet;
 
+@WebServlet(value="/board/add") // 애노테이션 붙이고 경로 설정까지 !!
 public class BoardAddHandler implements Servlet{
 
   private BoardDao boardDao;
@@ -18,6 +20,7 @@ public class BoardAddHandler implements Servlet{
   }
 
 
+  @Override
   public void service(Map<String,String> paramMap, PrintWriter out) throws Exception {
 
     out.println("<!DOCTYPE html>");
