@@ -11,8 +11,8 @@ import com.bitcamp.board.domain.Member;
 import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
-@WebServlet(value="/member/list")
-public class MemberListHandler implements Servlet {
+@WebServlet(value="/member/List")
+public class MemberListHandler implements Servlet{
 
   private MemberDao memberDao;
 
@@ -59,7 +59,6 @@ public class MemberListHandler implements Servlet {
     out.println("</body>");
     out.println("</html>");
   }
-
 }
 
 

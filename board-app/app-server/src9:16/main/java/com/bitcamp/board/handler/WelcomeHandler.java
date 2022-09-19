@@ -5,11 +5,12 @@ import java.util.Map;
 import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
-@WebServlet(value="/")
-public class WelcomeHandler implements Servlet {
+@WebServlet(value="/") // 애노테이션을 붙일 수 있는 범위를 설정해두었기 때문에 이자리에만 올수 있다.
+public class WelcomeHandler implements Servlet{
 
   @Override
-  public void service(Map<String,String> paramMap, PrintWriter out) {
+
+  public void service(Map<String,String>paramMap, PrintWriter out) {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
@@ -24,6 +25,6 @@ public class WelcomeHandler implements Servlet {
     out.println("  <li><a href='/member/list'>회원</a></li>");
     out.println("</ul>");
     out.println("</body>");
-    out.println("</html>");
+    out.println("</html> ");
   }
 }

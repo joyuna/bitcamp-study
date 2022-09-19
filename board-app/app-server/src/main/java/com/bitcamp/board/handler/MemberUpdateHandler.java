@@ -11,7 +11,7 @@ import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
 @WebServlet(value="/member/update")
-public class MemberUpdateHandler implements Servlet{
+public class MemberUpdateHandler implements Servlet {
 
   private MemberDao memberDao;
 
@@ -48,6 +48,7 @@ public class MemberUpdateHandler implements Servlet{
     out.println("</body>");
     out.println("</html>");
   }
+
 }
 
 

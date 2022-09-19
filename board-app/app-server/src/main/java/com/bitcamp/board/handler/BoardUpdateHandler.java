@@ -11,7 +11,7 @@ import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
 @WebServlet(value="/board/update")
-public class BoardUpdateHandler implements Servlet{
+public class BoardUpdateHandler implements Servlet {
 
   private BoardDao boardDao;
 
@@ -27,7 +27,7 @@ public class BoardUpdateHandler implements Servlet{
     out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>bitcamp</title>");
-    out.println("<meta http-equiv='Refresh' content='3; url=list'>");
+    out.println("<meta http-equiv='Refresh' content='1; url=list'>");
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시글 변경</h1>");
@@ -47,8 +47,8 @@ public class BoardUpdateHandler implements Servlet{
     out.println("</body>");
     out.println("</html>");
   }
-}
 
+}
 
 
 

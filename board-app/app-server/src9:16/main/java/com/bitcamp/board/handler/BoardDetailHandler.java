@@ -11,14 +11,13 @@ import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
 @WebServlet(value="/board/detail")
-public class BoardDetailHandler implements Servlet {
+public class BoardDetailHandler implements Servlet{
 
   private BoardDao boardDao;
 
   public BoardDetailHandler(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
-
 
   @Override
   public void service(Map<String,String> paramMap, PrintWriter out) throws Exception {
@@ -70,8 +69,8 @@ public class BoardDetailHandler implements Servlet {
     out.println("</body>");
     out.println("</html>");
   }
-
 }
+
 
 
 

@@ -9,10 +9,11 @@ import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
 @WebServlet(value="/board/form")
-public class BoardFormHandler implements Servlet {
+public class BoardFormHandler implements Servlet{
 
   @Override
   public void service(Map<String, String> paramMap, PrintWriter out) {
+    // TODO Auto-generated method stub
 
     out.println("<!DOCTYPE html>");
     out.println("<html>");
@@ -23,13 +24,14 @@ public class BoardFormHandler implements Servlet {
     out.println("<body>");
     out.println("<h1>게시글 입력</h1>");
 
+
     out.println("<form action='add'>");
     out.println("<table border='1'>");
     out.println("  <tr>");
     out.println("    <th>제목</th><td><input name='title' type='text' size='60'></td>");
     out.println("  </tr>");
     out.println("  <tr>");
-    out.println("    <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>");
+    out.printf("    <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>");
     out.println("  </tr>");
     out.println("  <tr>");
     out.println("    <th>작성자</th><td><input name='writerNo' type='number' size='5'></td>");
@@ -41,13 +43,12 @@ public class BoardFormHandler implements Servlet {
     out.println("</p>");
     out.println("</form>");
 
+
     out.println("</body>");
     out.println("</html>");
-
   }
-
-
 }
+
 
 
 

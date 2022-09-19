@@ -12,7 +12,7 @@ import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
 @WebServlet(value="/board/list")
-public class BoardListHandler implements Servlet{
+public class BoardListHandler implements Servlet {
 
   private BoardDao boardDao;
 
@@ -59,11 +59,12 @@ public class BoardListHandler implements Servlet{
     }
 
     out.println("</table>");
+    out.println("<p><a href='/'>메인</a></p>");
     out.println("</body>");
     out.println("</html>");
   }
-}
 
+}
 
 
 

@@ -11,7 +11,7 @@ import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
 
 @WebServlet(value="/member/add")
-public class MemberAddHandler implements Servlet{
+public class MemberAddHandler implements Servlet {
 
   private MemberDao memberDao;
 
