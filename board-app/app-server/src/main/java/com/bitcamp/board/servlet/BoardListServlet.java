@@ -24,6 +24,10 @@ public class BoardListServlet extends HttpServlet {
 
   private BoardDao boardDao;
   public BoardListServlet() throws Exception { // (BoardDao boardDao)기본생성자 못받는다.
+    // 톰캣 서버를 실행 때는
+    // WEB-INF/lib/폴더에 있는 JAR 파일에 대해 service provider 실행 정책이 적용되지 않기 때문
+    // JDBC Driver 클래스가 자동으로 로딩되지 않기 때문에
+    // 따라서 개발자가 직접 로딩해야 한다.
     Class.forName("org.mariadb.jdbc.Driver");
 
     Connection con = DriverManager.getConnection(
