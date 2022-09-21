@@ -16,18 +16,20 @@ import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.domain.Board;
 
+
+
 @WebServlet(value="/board/detail")
 public class BoardDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   private BoardDao boardDao;
 
-  public BoardDetailServlet() throws Exception {
+  public BoardDetailServlet() throws Exception { // (BoardDao boardDao)기본생성자 못받는다.
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost:3306/studydb","study","1111");
     boardDao = new MariaDBBoardDao(con);
-  }
+  } 
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -17,24 +17,23 @@ import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.domain.Board;
 
+
 @WebServlet(value="/board/list")
 public class BoardListServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   private BoardDao boardDao;
-
-  public BoardListServlet() throws Exception {
-    // 톰캣 서버를 실행할 때는 
-    // WEB-INF/lib/ 폴더에 있는 JAR 파일에 대해 service provider 실행 정책이 적용되지 않기 때문에 
-    // JDBC Driver 클래스가 자동으로 로딩되지 않는다.
+  public BoardListServlet() throws Exception { // (BoardDao boardDao)기본생성자 못받는다.
+    // 톰캣 서버를 실행 때는
+    // WEB-INF/lib/폴더에 있는 JAR 파일에 대해 service provider 실행 정책이 적용되지 않기 때문
+    // JDBC Driver 클래스가 자동으로 로딩되지 않기 때문에
     // 따라서 개발자가 직접 로딩해야 한다.
     Class.forName("org.mariadb.jdbc.Driver");
 
     Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost:3306/studydb","study","1111");
     boardDao = new MariaDBBoardDao(con);
-  }
-
+  } 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -70,6 +69,7 @@ public class BoardListServlet extends HttpServlet {
       out.println("    <th>등록일</th>");
       out.println("  </tr>");
 
+
       for (Board board : boards) {
         out.println("<tr>");
         out.printf("  <td>%d</td>", board.no);
@@ -84,7 +84,7 @@ public class BoardListServlet extends HttpServlet {
     } catch (Exception e) {
       out.println("<p>실행 중 오류 발생!</p>");
     }
-    out.println("<p><a href='../welcome'>메인</a></p>");
+    out.println("<p><a href='/'>메인</a></p>");
     out.println("</body>");
     out.println("</html>");
   }

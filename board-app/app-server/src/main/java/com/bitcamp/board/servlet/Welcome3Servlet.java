@@ -25,7 +25,7 @@ public class Welcome3Servlet extends HttpServlet {
 
     out.println("<!DOCTYPE html>");
     out.println("<html>");
-    out.println("<head>"); 
+    out.println("<head>");
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>bitcamp</title>");
     out.println("</head>");
@@ -39,7 +39,4 @@ public class Welcome3Servlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
-
-
-
 }

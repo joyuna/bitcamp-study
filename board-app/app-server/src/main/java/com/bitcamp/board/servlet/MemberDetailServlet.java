@@ -1,5 +1,5 @@
 /*
- * 게시글 메뉴 처리 클래스
+ * 회원 메뉴 처리 클래스
  */
 package com.bitcamp.board.servlet;
 
@@ -12,22 +12,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.dao.MariaDBBoardDao;
-import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.dao.MariaDBMemberDao;
+import com.bitcamp.board.dao.MemberDao;
+import com.bitcamp.board.domain.Member;
 
-@WebServlet(value="/board/detail")
-public class BoardDetailServlet extends HttpServlet {
+@WebServlet(value="/member/detail")
+public class MemberDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  private BoardDao boardDao;
 
-  public BoardDetailServlet() throws Exception {
+  private MemberDao memberDao;
+
+  public MemberDetailServlet() throws Exception {
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost:3306/studydb","study","1111");
-    boardDao = new MariaDBBoardDao(con);
+    memberDao = new MariaDBMemberDao(con);
   }
+
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -43,41 +45,37 @@ public class BoardDetailServlet extends HttpServlet {
     out.println("<title>bitcamp</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글 상세 정보</h1>");
-
-    int boardNo = Integer.parseInt(req.getParameter("no"));
+    out.println("<h1>회원 상세 정보</h1>");
 
     try {
-      Board board = boardDao.findByNo(boardNo);
+      int no = Integer.parseInt(req.getParameter("no"));
+      Member member = memberDao.findByNo(no);
 
-      if (board == null) {
-        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
+      if (member == null) {
+        out.println("<p>해당 번호의 회원이 없습니다.</p>");
 
       } else {
         out.println("<form action='update'>");
         out.println("<table border='1'>");
         out.println("  <tr>");
-        out.printf("    <th>번호</th><td><input name='no' type='number' value='%d' readonly></td>", board.no);
+        out.printf("    <th>번호</th><td><input name='no' type='number' value='%d' readonly></td>", member.no);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>제목</th><td><input name='title' type='text' value='%s' size='60'></td>", board.title);
+        out.printf("    <th>이름</th><td><input name='name' type='text' value='%s' size='60'></td>", member.name);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>내용</th><td><textarea name='content' rows='10' cols='60'>%s</textarea></td>", board.content);
+        out.printf("    <th>이메일</th><td><input name='email' type='email' value='%s' size='60'></td>", member.email);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>조회수</th><td>%d</td>", board.viewCount);
+        out.println("    <th>암호</th><td><input name='password' type='password' size='10'></td>");
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>작성자</th><td>%d</td>", board.memberNo);
-        out.println("  </tr>");
-        out.println("  <tr>");
-        out.printf("    <th>등록일</th><td>%s</td>", board.createdDate);
+        out.printf("    <th>등록일</th><td>%s</td>", member.createdDate);
         out.println("  </tr>");
         out.println("</table>");
         out.println("<p>");
         out.println("  <button type='submit'>변경</button>");
-        out.printf("  <a href='delete?no=%d'>삭제</a>", board.no);
+        out.printf("  <a href='delete?no=%d'>삭제</a>", member.no);
         out.println("</p>");
         out.println("</form>");
       }

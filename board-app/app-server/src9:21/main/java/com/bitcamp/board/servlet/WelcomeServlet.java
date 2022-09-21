@@ -19,23 +19,23 @@ public class WelcomeServlet implements Servlet {
       throws ServletException, IOException {
 
     // 콘텐트를 출력하는 출력 스트림을 준비하기 전에
-    // 어떤 인코딩으로 콘텐트를 출력할 것인지 먼저 설정해야 한다.
+    // 어떤 인코딩으로 콘텐트를 출력할 것인지 먼저 설정해å야 한다.
     res.setContentType("text/html; charset=UTF-8");
 
     PrintWriter out = res.getWriter();
 
     out.println("<!DOCTYPE html>");
     out.println("<html>");
-    out.println("<head>");
+    out.println("<head>"); 
     out.println("<meta charset=\"UTF-8\">");
     out.println("<title>bitcamp</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>환영합니다!1</h1>");
+    out.println("<h1>환영합니다!</h1>");
     out.println("<p>비트캠프 게시판 관리 시스템 프로젝트입니다.</p>");
     out.println("<ul>");
-    out.println("  <li><a href='board/list'>게시글</a></li>");
-    out.println("  <li><a href='member/list'>회원</a></li>");
+    out.println("  <li><a href='/app/board/list'>게시글</a></li>");
+    out.println("  <li><a href='/app/member/list'>회원</a></li>");
     out.println("</ul>");
     out.println("</body>");
     out.println("</html>");
@@ -49,18 +49,18 @@ public class WelcomeServlet implements Servlet {
 
   @Override
   public void destroy() {
-    System.out.println("WelcomeServlet.destory()");
+    System.out.println("WelcomeServlet.destroy()");
   }
 
   @Override
   public String getServletInfo() {
     System.out.println("WelcomeServlet.getServletInfo()");
-    return "환영인사를 하는 서블릿";
+    return " 환영 인사를 하는 서블릿";
   }
 
   @Override
   public ServletConfig getServletConfig() {
-    System.out.println("WelcomeServlet.getServletConfig()");
+    System.out.println("WelcomeServlet.ServletConfig()");
     return this.config;
   }
 }
