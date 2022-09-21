@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(value="/welcome")
 public class WelcomeServlet implements Servlet {
 
+  ServletConfig config;
+
   @Override
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
@@ -41,19 +43,24 @@ public class WelcomeServlet implements Servlet {
 
   @Override
   public void init(ServletConfig config) throws ServletException {
+    System.out.println("WelcomeServlet.init()");
+    this.config = config;
   }
 
   @Override
   public void destroy() {
+    System.out.println("WelcomeServlet.destroy()");
   }
 
   @Override
   public String getServletInfo() {
-    return null;
+    System.out.println("WelcomeServlet.getServletInfo()");
+    return " 환영 인사를 하는 서블릿";
   }
 
   @Override
   public ServletConfig getServletConfig() {
-    return null;
+    System.out.println("WelcomeServlet.ServletConfig()");
+    return this.config;
   }
 }
