@@ -8,7 +8,7 @@ import java.util.List;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.servlet.annotation.Repository;
 
-@Repository("boardDao")
+@Repository("boardDao") //톰캣서버는 우리가 만든 레파지토리는 모른다.
 public class MariaDBBoardDao implements BoardDao {
 
   Connection con;
