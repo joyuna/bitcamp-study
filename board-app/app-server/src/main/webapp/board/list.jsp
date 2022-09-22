@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-import java.util.List;
-import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.domain.Board;
+<%@ page import = "java.util.List" %>
+<%@ page import = "com.bitcamp.board.dao.BoardDao"%>
+<%@ page import = "com.bitcamp.board.domain.Board"%>
 
 @WebServlet(value="/board/list")
 public class BoardListServlet extends HttpServlet {
