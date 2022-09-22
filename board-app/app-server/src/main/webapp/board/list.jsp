@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-/*
- * 게시글 메뉴 처리 클래스
- */
-package com.bitcamp.board.servlet;
-
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
 
