@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import com.bitcamp.board.dao.MariaDBBoardDao;
+import com.bitcamp.board.dao.MariaDBMemberDao;
 
 // 이 서블릿은 다른 서블릿이 사용할 객체를 준비하는 일을 한다.
 // 
@@ -38,7 +39,7 @@ public class AppInitServlet extends HttpServlet {
       //
       ServletContext ctx = this.getServletContext();
       ctx.setAttribute("boardDao", new MariaDBBoardDao(con));
-      ctx.setAttribute("memberDao", new MariaDBBoardDao(con));
+      ctx.setAttribute("memberDao", new MariaDBMemberDao(con));
     } catch (Exception e) {
       throw new ServletException(e);
     }
