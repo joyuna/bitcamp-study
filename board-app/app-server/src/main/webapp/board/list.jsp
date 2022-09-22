@@ -1,77 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java"
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List" %>
 <%@ page import = "com.bitcamp.board.dao.BoardDao"%>
 <%@ page import = "com.bitcamp.board.domain.Board"%>
 
-@WebServlet(value="/board/list")
-public class BoardListServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
-
+<%!
   BoardDao boardDao;
 
-  @Override
   public void init() throws ServletException {
     boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-
   }
-
-
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-
-    resp.setContentType("text/html; charset=UTF-8");
-    PrintWriter out = resp.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset=\"UTF-8\">");
-    out.println("<title>bitcamp</title>");
-    out.println("<style>");
-    out.println("tr:hover {");
-    out.println("  background-color: navy;");
-    out.println("  color: white;");
-    out.println("}");
-    out.println("</style>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>게시글</h1>");
-    out.println("<a href='form'>새 글</a>");
-
-    try {
-      List<Board> boards = boardDao.findAll();
-
-      out.println("<table border='1'>");
-      out.println("  <tr>");
-      out.println("    <th>번호</th>");
-      out.println("    <th>제목</th>");
-      out.println("    <th>조회수</th>");
-      out.println("    <th>작성자</th>");
-      out.println("    <th>등록일</th>");
-      out.println("  </tr>");
-
-      for (Board board : boards) {
-        out.println("<tr>");
-        out.printf("  <td>%d</td>", board.no);
-        out.printf("  <td><a href='detail?no=%d'>%s</a></td>", board.no, board.title);
-        out.printf("  <td>%d</td>", board.viewCount);
-        out.printf("  <td>%d</td>", board.memberNo);
-        out.printf("  <td>%s</td>", board.createdDate);
-        out.println("</tr>");
-      }
-
-      out.println("</table>");
-    } catch (Exception e) {
-      out.println("<p>실행 중 오류 발생!</p>");
-    }
-    out.println("<p><a href='../welcome'>메인</a></p>");
-    out.println("</body>");
-    out.println("</html>");
-  }
-
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>bitcamp</title>
+<style>
+tr:hover {
+  background-color: navy;
+  color: white;
 }
+</style>
+</head>
+<body>
+    <h1>게시글-JSP!!</h1>
+    <a href='form'>새 글</a>
+<%
+try {
+  List<Board> boards = boardDao.findAll();
+%>
+  <table border='1'>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>조회수</th>
+      <th>등록일</th>
+    </tr>
+<%
+  for (Board board : boards) {
+%>
+    <tr>
+      <td><%=board.no%></td>
+      <td><a href='detail?no=<%=board.no%>'><%= board.title%></a></td>
+      <td><%=board.viewCount%></td>
+      <td><%=board.memberNo%></td>
+      <td><%=board.createdDate%></td>
+<%
+  }
+%>
+  </table>
+<%
+} catch (Exception e) {
+%>
+  <p>실행 중 오류 발생!</p>;
+<%
+}
+%>cd
+  <p><a href='../welcome'>메인</a></p>;
+</body>
+</html>
 
 
 
