@@ -5,17 +5,28 @@ package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
 
 @WebServlet(value="/board/add")
 public class BoardAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+
+
+  BoardDao boardDao;
+
+  @Override
+  public void init() throws ServletException {
+    ServletContext ctx = this.getServletContext();
+    boardDao = (BoardDao) ctx.getAttribute("boardDao");
+  }
 
 
   @Override
@@ -41,7 +52,7 @@ public class BoardAddServlet extends HttpServlet {
       board.content = req.getParameter("content");
       board.memberNo = Integer.parseInt(req.getParameter("writerNo"));
 
-      if (AppInitServlet.boardDao.insert(board) == 0) {
+      if (boardDao.insert(board) == 0) {
         out.println("<p>게시글을 등록할 수 없습니다!</p>");
 
       } else {
