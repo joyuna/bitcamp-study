@@ -5,7 +5,6 @@ package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +23,8 @@ public class BoardAddServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    ServletContext ctx = this.getServletContext();
-    boardDao = (BoardDao) ctx.getAttribute("boardDao");
+    boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+
   }
 
 
