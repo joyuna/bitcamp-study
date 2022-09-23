@@ -39,6 +39,16 @@
       <url-pattern>/board/add</url-pattern>
     </servlet-mapping>
     
+                <servlet>
+      <servlet-name>board/update</servlet-name>
+      <jsp-file>/board/update.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>board/update</servlet-name>
+      <url-pattern>/board/update</url-pattern>
+    </servlet-mapping>
+    
+    
     
 
     <welcome-file-list>
