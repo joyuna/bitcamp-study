@@ -60,8 +60,8 @@ try {
   <p>실행 중 오류 발생!</p>;
 <%
 }
-%>cd
-  <p><a href='../welcome'>메인</a></p>;
+%>
+  <p><a href='../welcome'>메인</a></p>
 </body>
 </html>
 
