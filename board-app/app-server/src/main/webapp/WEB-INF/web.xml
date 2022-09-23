@@ -21,7 +21,7 @@
       <url-pattern>/board/list</url-pattern>
     </servlet-mapping>
     
-        <servlet>
+    <servlet>
       <servlet-name>board/form</servlet-name>
       <jsp-file>/board/form.jsp</jsp-file>
     </servlet>
@@ -30,7 +30,7 @@
       <url-pattern>/board/form</url-pattern>
     </servlet-mapping>
     
-            <servlet>
+    <servlet>
       <servlet-name>board/add</servlet-name>
       <jsp-file>/board/add.jsp</jsp-file>
     </servlet>
@@ -39,7 +39,7 @@
       <url-pattern>/board/add</url-pattern>
     </servlet-mapping>
     
-                <servlet>
+    <servlet>
       <servlet-name>board/update</servlet-name>
       <jsp-file>/board/update.jsp</jsp-file>
     </servlet>
@@ -48,7 +48,14 @@
       <url-pattern>/board/update</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet>
+      <servlet-name>board/delete</servlet-name>
+      <jsp-file>/board/delete.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>board/delete</servlet-name>
+      <url-pattern>/board/delete</url-pattern>
+    </servlet-mapping>
     
 
     <welcome-file-list>
