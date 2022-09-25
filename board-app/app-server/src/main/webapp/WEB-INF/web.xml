@@ -76,8 +76,8 @@
     </servlet-mapping>
     
         <servlet>
-      <servlet-name>member/list</servlet-name>
-      <jsp-file>/member/list.jsp</jsp-file>
+      <servlet-name>member/form</servlet-name>
+      <jsp-file>/member/form.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
       <servlet-name>member/form</servlet-name>
