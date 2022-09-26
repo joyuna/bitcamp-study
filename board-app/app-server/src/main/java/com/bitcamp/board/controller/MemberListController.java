@@ -8,34 +8,35 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.dao.MemberDao;
+import com.bitcamp.board.domain.Member;
 
-@WebServlet("/board/list")
+@WebServlet("/member/list")
 public class MemberListController extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  BoardDao boardDao;
+  MemberDao memberDao;
 
 
   @Override
   public void init() {
-    boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try  {
-      List<Board> boards = boardDao.findAll();
+      List<Member> members = memberDao.findAll();
 
       // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
-      req.setAttribute("boards",boards);
+      req.setAttribute("members",members);
 
       // JSP에게 UI 생성을 위임한다.
       resp.setContentType("text/html;charset=UTF-8"); //  JSP가 출력할 콘텐트의 MiMe 타입 설
-      RequestDispatcher 요청배달자 = req.getRequestDispatcher("/board/list.jsp");
+      RequestDispatcher 요청배달자 = req.getRequestDispatcher("/member/list.jsp");
       요청배달자.include(req, resp); // JSP 실행후 리턴된다.
 
     } catch (Exception e) {

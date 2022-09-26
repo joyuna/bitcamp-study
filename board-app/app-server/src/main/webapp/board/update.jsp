@@ -9,6 +9,5 @@
     </head>
     <body>
     <h1>게시글 변경 - (JSP + Servlet)</h1>
-  <p>실행 중 오류 발생!</p>
 </body>
 </html>
