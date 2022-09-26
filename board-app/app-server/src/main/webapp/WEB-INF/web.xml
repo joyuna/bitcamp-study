@@ -99,6 +99,24 @@
       <welcome-file>index.jsp</welcome-file>
       <welcome-file>welcome.jsp</welcome-file>
     </welcome-file-list>
+    
+    <servlet>
+      <servlet-name>member/delete</servlet-name>
+      <jsp-file>/board/delete.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>board/delete</servlet-name>
+      <url-pattern>/board/delete</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+      <servlet-name>board/detail</servlet-name>
+      <jsp-file>/board/detail.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>board/detail</servlet-name>
+      <url-pattern>/board/detail</url-pattern>
+    </servlet-mapping>
 
 </web-app>
 
