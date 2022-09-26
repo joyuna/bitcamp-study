@@ -75,7 +75,7 @@
       <url-pattern>/member/list</url-pattern>
     </servlet-mapping>
     
-        <servlet>
+    <servlet>
       <servlet-name>member/form</servlet-name>
       <jsp-file>/member/form.jsp</jsp-file>
     </servlet>
@@ -84,7 +84,14 @@
       <url-pattern>/member/form</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet>
+      <servlet-name>member/add</servlet-name>
+      <jsp-file>/member/add.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>member/add</servlet-name>
+      <url-pattern>/member/add</url-pattern>
+    </servlet-mapping>
     
 
     <welcome-file-list>
