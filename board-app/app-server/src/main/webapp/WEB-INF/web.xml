@@ -13,15 +13,6 @@
     <display-name>board-app</display-name>
     
     <servlet>
-      <servlet-name>board/list</servlet-name>
-      <jsp-file>/board/list.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-      <servlet-name>board/list</servlet-name>
-      <url-pattern>/board/list</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
       <servlet-name>board/form</servlet-name>
       <jsp-file>/board/form.jsp</jsp-file>
     </servlet>
@@ -91,6 +82,15 @@
     <servlet-mapping>
       <servlet-name>member/add</servlet-name>
       <url-pattern>/member/add</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+      <servlet-name>member/update</servlet-name>
+      <jsp-file>/member/update.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>member/update</servlet-name>
+      <url-pattern>/member/update</url-pattern>
     </servlet-mapping>
     
 
