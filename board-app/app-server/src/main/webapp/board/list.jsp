@@ -22,10 +22,6 @@ tr:hover {
 <body>
     <h1>게시글-JSP!!</h1>
     <a href='form'>새 글</a>
-<%
-try {
-  List<Board> boards = boardDao.findAll();
-%>
   <table border='1'>
     <tr>
       <th>번호</th>
@@ -47,13 +43,6 @@ List<Board> boards = (List<Board>)request.getAttribute("boards");
   }
 %>
   </table>
-<%
-} catch (Exception e) {
-%>
-  <p>실행 중 오류 발생!</p>;
-<%
-}
-%>
   <p><a href='../welcome'>메인</a></p>
 </body>
 </html>
