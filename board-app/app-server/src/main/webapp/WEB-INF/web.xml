@@ -105,17 +105,17 @@
       <jsp-file>/board/delete.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-      <servlet-name>board/delete</servlet-name>
-      <url-pattern>/board/delete</url-pattern>
+      <servlet-name>member/delete</servlet-name>
+      <url-pattern>/member/delete</url-pattern>
     </servlet-mapping>
     
         <servlet>
-      <servlet-name>board/detail</servlet-name>
-      <jsp-file>/board/detail.jsp</jsp-file>
+      <servlet-name>member/detail</servlet-name>
+      <jsp-file>/member/detail.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-      <servlet-name>board/detail</servlet-name>
-      <url-pattern>/board/detail</url-pattern>
+      <servlet-name>member/detail</servlet-name>
+      <url-pattern>/member/detail</url-pattern>
     </servlet-mapping>
 
 </web-app>
