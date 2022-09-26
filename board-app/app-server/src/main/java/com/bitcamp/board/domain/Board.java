@@ -18,6 +18,14 @@ public class Board {
         + memberNo + ", password=" + password + ", viewCount=" + viewCount + ", createdDate="
         + createdDate + "]";
   }
+  // 프로퍼티(setter/getter): 이름은 no
+  public void setNo(int no) {
+    this.no = no;
+  }
+
+  public int getNo() {
+    return this.no;
+  }
 }
 
 
