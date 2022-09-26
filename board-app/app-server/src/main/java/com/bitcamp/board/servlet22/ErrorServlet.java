@@ -1,4 +1,4 @@
-package com.bitcamp.board.servlet;
+package com.bitcamp.board.servlet22;
 
 import java.io.IOException;
 import java.io.PrintWriter;
