@@ -6,7 +6,6 @@
 <%@ page import = "com.bitcamp.board.domain.Board"%>
 
 <%!
-List<Board> boards = request.getAttribute("boards");
 %>
 <!DOCTYPE html>
 <html>
@@ -35,6 +34,7 @@ try {
       <th>등록일</th>
     </tr>
 <%
+List<Board> boards = (List<Board>)request.getAttribute("boards");
   for (Board board : boards) {
 %>
     <tr>
