@@ -36,8 +36,15 @@ public class BoardAddController extends HttpServlet {
       }
 
 
+      // Refresh:
+      // - 응답 헤더 또는 HTML 문서에 refresh 
       response.setContentType("text/html;charset=UTF-8"); 
       request.getRequestDispatcher("/board/add.jsp").include(request, response);
+
+      // Redirect:
+      //- 클라이언트에게 콘텐트를 보내지 않는다.
+      //- 응답 프로토콜
+      //      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
