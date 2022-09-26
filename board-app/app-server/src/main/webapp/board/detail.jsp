@@ -1,5 +1,4 @@
 <%@page import="com.bitcamp.board.domain.Board"%>
-<%@page import="com.bitcamp.board.dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,18 +8,9 @@
 <title>bitcamp</title>
 </head>
 <body>
-  <h1>게시글 상세 정보 - JSP!! 셀프똬!!</h1>
+  <h1>게시글 상세 정보 - JSP+Servlet!!</h1>
   <%
-  int boardNo = Integer.parseInt(request.getParameter("no"));
-
-  try {
-    Board board = boardDao.findByNo(boardNo);
-
-    if (board == null) {
-  %>
-  <p>해당 번호의 게시글이 없습니다.</p>
-  <%
-} else {
+Board board = (Board) request.getAttribute("board");
 %>
   <form action='update'>
     <table border='1'>
@@ -28,7 +18,6 @@
         <th>번호</th>
         <td><input name='no' type='number' value='<%=board.no%>'
           readonly></td>
-
       </tr>
       <tr>
         <th>제목</th>
@@ -57,19 +46,5 @@
       <a href='delete?no=<%=board.no%>'>삭제</a>
     </p>
   </form>
-  <%
-  }
-  } catch (Exception e) {
-  %>
-  <p>실행 중 오류 발생!</p>
-  <%
-}
-%>
 </body>
 </html>
-
-<%!BoardDao boardDao;
-
-  public void jspInit() {
-    boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-  }%>

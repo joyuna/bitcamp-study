@@ -12,7 +12,7 @@
     <h1>게시글 삭제 -JSP!!! 혼자했오용!!</h1>
 <%
 try {
-  int no = Integer.parseInt(request.getParameter("no"));
+ 
 
   if (boardDao.delete(no) == 0) {
 %>

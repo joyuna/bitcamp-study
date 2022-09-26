@@ -12,7 +12,7 @@ import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
 
 @WebServlet("/board/list")
-public class BoardListController extends HttpServlet {
+public class MemberListController extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 

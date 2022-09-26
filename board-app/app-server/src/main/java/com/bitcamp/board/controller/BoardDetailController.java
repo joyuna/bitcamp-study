@@ -1,8 +1,6 @@
 package com.bitcamp.board.controller;
 
 import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,38 +16,32 @@ public class BoardDetailController extends HttpServlet {
 
   BoardDao boardDao;
 
-
   @Override
   public void init() {
     boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
   }
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    try  {
-      List<Board> boards = boardDao.findAll();
 
-      // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
-      req.setAttribute("boards",boards);
+    try {
+      int boardNo = Integer.parseInt(request.getParameter("no"));
 
-      // JSP에게 UI 생성을 위임한다.
-      resp.setContentType("text/html;charset=UTF-8"); //  JSP가 출력할 콘텐트의 MiMe 타입 설
-      RequestDispatcher 요청배달자 = req.getRequestDispatcher("/board/list.jsp");
-      요청배달자.include(req, resp); // JSP 실행후 리턴된다.
+      Board board = boardDao.findByNo(boardNo);
+
+      if (board == null) {
+        throw new Exception("해당 번호의 게시글이 없습니다!:");
+      }
+
+      request.setAttribute("board", board);
+
+      response.setContentType("text/html;charset=UTF-8"); //  JSP가 출력할 콘텐트의 MiMe 타입 설
+      request.getRequestDispatcher("/board/detail.jsp").include(request, response);
 
     } catch (Exception e) {
-
-      // 예외가 발생하면 예외를 처리하는 JSP에게 UI 생성을 위임한다.
-      RequestDispatcher 요청배달자 = req.getRequestDispatcher("/error.jsp");
-
-      // JSP를 실행하기 전에 ServletRequest 보관소에 오류 정보를 담는다.
-      req.setAttribute("exception", e);
-
-      // forward():
-      // - 예외가 발생하면 기존의 출력 내용을 모두 버린다.
-      // -JSP에게 처음부터 새로 출력하게 전권을 위임한다.
-      요청배달자.forward(req, resp); // JSP를 실행한 후 리턴된다.
+      request.setAttribute("exception", e);
+      request.getRequestDispatcher("/error.jsp").forward(request, response); // JSP를 실행한 후 리턴된다.
     } 
   }
 }
