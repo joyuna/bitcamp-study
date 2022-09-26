@@ -6,7 +6,7 @@
 <%@ page import = "com.bitcamp.board.domain.Board"%>
 
 <%!
-
+List<Board> boards = request.getAttribute("boards");
 %>
 <!DOCTYPE html>
 <html>
