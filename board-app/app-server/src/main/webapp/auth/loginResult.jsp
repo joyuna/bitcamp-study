@@ -12,7 +12,7 @@
 <body>
 <h1>로그인</h1>
 <c:choose>
-  <c:when test=${not empty member}">
+  <c:when test="${not empty member}">
    <p>로그인 성공입니다.</p>
   </c:when>
   <c:otherwise>
