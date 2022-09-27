@@ -25,7 +25,7 @@ tr:hover {
     <th>이름</th>
     <th>이메일</th>
   </tr>
-<c:forEach items="${boards}" var="board">
+<c:forEach items="${members}" var="member">
   <tr>
     <td>${member.no}</td>
     <td><a href='detail?no=${member.no}'>${member.name}</a></td>
