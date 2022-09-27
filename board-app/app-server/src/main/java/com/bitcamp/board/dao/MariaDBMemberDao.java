@@ -122,8 +122,11 @@ public class MariaDBMemberDao implements MemberDao {
   public Member findByEmailPassword(String email, String password) {
     try (PreparedStatement pstmt = con.prepareStatement(
         "select mno,name,email,cdt from app_member where email=? and pwd=sha2(?,256)");
-
         ) {
+
+      pstmt.setString(1,email);
+      pstmt.setString(2,password);
+
       ResultSet rs = pstmt.executeQuery()
           if (!rs.next()) {
             return null;
