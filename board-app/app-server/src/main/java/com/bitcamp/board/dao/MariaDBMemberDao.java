@@ -126,7 +126,7 @@ public class MariaDBMemberDao implements MemberDao {
       pstmt.setString(1,email);
       pstmt.setString(2,password);
 
-      try ResultSet rs = pstmt.executeQuery()) {
+      try (ResultSet rs = pstmt.executeQuery()) {
         if (!rs.next()) {
           return null;
         }
