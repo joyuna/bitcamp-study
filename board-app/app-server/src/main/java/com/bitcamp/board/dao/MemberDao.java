@@ -14,7 +14,10 @@ public interface MemberDao {
   int delete(int no) throws Exception;
 
   List<Member> findAll() throws Exception;
+
+  Member findByEmailPassword(String email, String password);
 }
+
 
 
 
