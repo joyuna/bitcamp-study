@@ -15,7 +15,6 @@ public class BoardUpdateController extends HttpServlet {
 
   BoardDao boardDao;
 
-
   @Override
   public void init() {
     boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
@@ -58,13 +57,19 @@ public class BoardUpdateController extends HttpServlet {
       //      </html>
       //
       // 자바 코드:
-      response.setHeader("Refresh", "1;url=list");
-      response.setContentType("text/html;charset=UTF-8"); 
-      request.getRequestDispatcher("/board/update.jsp").include(request, response);
+      response.setHeader("Refresh", "1;url=list"); // 응답 헤더에 refresh를 삽입한다.
+      response.setContentType("text/html;charset=UTF-8");
+      request.getRequestDispatcher("/board/update.jsp").include(request, response); 
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response); 
-    } 
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
+    }
   }
 }
+
+
+
+
+
+

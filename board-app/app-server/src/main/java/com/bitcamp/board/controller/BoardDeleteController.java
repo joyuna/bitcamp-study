@@ -10,7 +10,6 @@ import com.bitcamp.board.dao.BoardDao;
 
 @WebServlet("/board/delete")
 public class BoardDeleteController extends HttpServlet {
-
   private static final long serialVersionUID = 1L;
 
   BoardDao boardDao;
@@ -30,7 +29,6 @@ public class BoardDeleteController extends HttpServlet {
         throw new Exception("게시글 삭제 실패!");
       }
 
-
       // Redirect:
       // - 클라이언트에게 콘텐트를 보내지 않는다.
       // - 응답 프로토콜
@@ -48,7 +46,13 @@ public class BoardDeleteController extends HttpServlet {
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response); 
-    } 
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
+    }
   }
 }
+
+
+
+
+
+

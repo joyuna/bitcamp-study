@@ -11,7 +11,6 @@ import com.bitcamp.board.domain.Board;
 
 @WebServlet("/board/add")
 public class BoardAddController extends HttpServlet {
-
   private static final long serialVersionUID = 1L;
 
   BoardDao boardDao;
@@ -33,7 +32,6 @@ public class BoardAddController extends HttpServlet {
       if (boardDao.insert(board) == 0) {
         throw new Exception("게시글 등록 실패!");
       }
-
 
       // Refresh:
       // - 응답 헤더 또는 HTML 문서에 refresh 명령을 삽입할 수 있다.
@@ -60,17 +58,33 @@ public class BoardAddController extends HttpServlet {
       //
       // 자바 코드:
       //      response.setHeader("Refresh", "1;url=list"); // 응답 헤더에 refresh를 삽입할 수 있다.
-      response.setContentType("text/html;charset=UTF-8"); 
-      request.getRequestDispatcher("/board/add.jsp").include(request, response);
+      response.setContentType("text/html;charset=UTF-8");
+      request.getRequestDispatcher("/board/add.jsp").include(request, response); 
 
       // Redirect:
-      //- 클라이언트에게 콘텐트를 보내지 않는다.
-      //- 응답 프로토콜
+      // - 클라이언트에게 콘텐트를 보내지 않는다.
+      // - 응답 프로토콜
+      //      HTTP/1.1 302   <=== 응답 상태 코드
+      //      Location: list  <=== 자동으로 요청할 URL
+      //      Content-Length: 0  <=== 콘텐트는 보내지 않는다.
+      //      Date: Mon, 26 Sep 2022 05:21:22 GMT
+      //      Keep-Alive: timeout=20
+      //      Connection: keep-alive
+      // 
+      //      (콘텐트 없음!)
+      //
+      // 자바 코드:
       //      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response); 
-    } 
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
+    }
   }
 }
+
+
+
+
+
+
