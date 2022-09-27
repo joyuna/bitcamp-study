@@ -16,7 +16,7 @@
     <th>이메일</th><td><input name='email' type='email' size='30'></td>
   </tr>
   <tr>
-    <th>암호</th><td><textarea name='password' type='passwoard' cols='20'></td>
+    <th>암호</th><td><input name='password' type='password' size='20'></td>
   </tr>
 </table>
 <p>
