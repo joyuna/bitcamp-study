@@ -30,6 +30,8 @@ tr:hover {
 List<Member> members = (List<Member>) request.getAttribute("members");
 for (Member member : members) {
   pageContext.setAttribute("member", member);
+  // ServletRequest보관소에서  members를 꺼내오고
+  // member 객체 하나하나 꺼내오기 위해 pagecontext 보관소에 member로 저장해서 EL로 꺼내온다.
 %>
   <tr>
     <td>${member.no}</td>

@@ -9,10 +9,6 @@
 </head>
 <body>
 <h1>회원 상세 정보(JSP + Servlet + EL)</h1>
-<% 
-Member member = (Member) request.getAttribute("member");
-  pageContext.setAttribute("member", member);
-%>
 <form action='update'>
 <table border='1'>
   <tr>
