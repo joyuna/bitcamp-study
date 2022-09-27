@@ -25,12 +25,9 @@ public class LogoutController extends HttpServlet {
       throws ServletException, IOException {
     try {
       HttpSession session = request.getSession(); // 요청한 클라이언트의 전용 HttpSession 보관소를 얻는다.
-      session.invalidate(); // 현재 세을 무효화시킨다.
+      session.invalidate(); // 현재 세션을 무효화시킨다.
 
-      request.setAttribute("member", member);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/auth/loginResult.jsp").include(request, response);
+      response.sendRedirect("../");// 로그아웃 한 후 메인 페이지를 요청하라고 응답한다.
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
