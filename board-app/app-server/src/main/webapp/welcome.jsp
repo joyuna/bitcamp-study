@@ -14,20 +14,14 @@
 <ul>
   <li><a href='board/list'>게시글</a></li>
   <li><a href='member/list'>회원</a></li>
-
-<%
-HttpSession clientSession = request.getSession();
-Member member = (Member) clientSession.getAttribute("loginMember");  
-pageContext.setAttribute("member", member); //expression session에서 쓰려고 pageContext에 담는다. 
-%>
 <c:choose>
-  <c:when test="${not empty member }">
+  <c:when test="${not empty sessionScope.member}">
     <li><a href='auth/logout'>${member.name}(로그아웃)</a></li>
     </c:when>
   <c:otherwise>
     <li><a href='auth/form.jsp'>로그인</a></li>
   </c:otherwise>
-</c:choose>
+  </c:choose>
 </ul>
 </body>
 </html>
