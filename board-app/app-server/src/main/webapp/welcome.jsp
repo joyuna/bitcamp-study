@@ -15,7 +15,7 @@
   <li><a href='board/list'>게시글</a></li>
   <li><a href='member/list'>회원</a></li>
 <c:choose>
-  <c:when test="${not empty sessionScope.member}">
+  <c:when test="${not empty sessionScope.loginMember}">
     <li><a href='auth/logout'>${member.name}(로그아웃)</a></li>
     </c:when>
   <c:otherwise>
