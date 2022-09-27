@@ -32,6 +32,7 @@ List<Board> boards = (List<Board>) request.getAttribute("boards");
 for (Board board : boards) {
   pageContext.setAttribute("board", board); // 보관소에 담아야만 EL로 꺼낼 수 있다.
 %>
+<c:forEach items="${boards}">
     <tr>
       <td>${board.no}</td>
       <td><a href='detail?no=${board.no}'>${board.title}</a></td>
@@ -39,6 +40,7 @@ for (Board board : boards) {
       <td>${board.memberNo}</td>
       <td>${board.createdDate}</td>
     </tr>
+</c:forEach>
 <%   
 }
 %>
