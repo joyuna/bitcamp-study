@@ -118,8 +118,29 @@ public class MariaDBMemberDao implements MemberDao {
       return list;
     }
   }
-}
 
+
+
+  @Override
+  public Member findByNo(int no) throws Exception {
+
+    try (PreparedStatement pstmt = con.prepareStatement(
+        "select mno,name,email,cdt from app_member where mno=" + no);
+        ResultSet rs = pstmt.executeQuery()) {
+
+      if (!rs.next()) {
+        return null;
+      }
+
+      Member member = new Member();
+      member.no = rs.getInt("mno");
+      member.name = rs.getString("name");
+      member.email = rs.getString("email");
+      member.createdDate = rs.getDate("cdt");
+      return member;
+    }
+  }
+}
 
 
 
