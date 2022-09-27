@@ -29,7 +29,7 @@ tr:hover {
 <% 
 List<Board> boards = (List<Board>) request.getAttribute("boards");
 for (Board board : boards) {
-  pageContext.setAttirbute("board", board); // 보관소에 담아야만 EL로 꺼낼 수 있다.
+  pageContext.setAttribute("board", board); // 보관소에 담아야만 EL로 꺼낼 수 있다.
 %>
     <tr>
       <td>${board.no}</td>
