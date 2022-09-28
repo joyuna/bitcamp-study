@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.domain.Member;
 
 @WebServlet("/board/update")
 public class BoardUpdateController extends HttpServlet {
@@ -28,6 +29,13 @@ public class BoardUpdateController extends HttpServlet {
       board.no = Integer.parseInt(request.getParameter("no"));
       board.title = request.getParameter("title");
       board.content = request.getParameter("content");
+
+      // 1. 세션에서 로그인 사용자 정보를 꺼낸다.
+      Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+      // 2.
+      if (boardDao.findByNo(board.no).getMemberNo() == loginMember.getNo()) {
+        throw new Exception("게시글 작성자가 아닙니다.");
+      }
 
       if (boardDao.update(board) == 0) {
         throw new Exception("게시글 변경 실패!");
