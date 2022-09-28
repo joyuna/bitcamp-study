@@ -2,6 +2,10 @@ package com.bitcamp.board.domain;
 
 import java.sql.Date;
 
+/**
+ * @author younga
+ *
+ */
 public class Board {
 
   public int no;
@@ -13,13 +17,13 @@ public class Board {
   public Date createdDate;
   public Member writer;
 
+
   @Override
   public String toString() {
-    return "Board [no=" + no + ", title=" + title + ", content=" + content + ", memberNo="
-        + memberNo + ", password=" + password + ", viewCount=" + viewCount + ", createdDate="
-        + createdDate + "]";
+    return "Board [no=" + no + ", title=" + title + ", content=" + content + ", memberNo=" + memberNo
+        + ", password=" + password + ", viewCount=" + viewCount + ", createdDate=" + createdDate
+        + ", writer=" + writer + "]";
   }
-
   public int getNo() {
     return no;
   }
@@ -74,6 +78,14 @@ public class Board {
 
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+
+  public Member getWriter() {
+    return writer;
+  }
+
+  public void setWriter(Member writer) {
+    this.writer = writer;
   }
 
 
