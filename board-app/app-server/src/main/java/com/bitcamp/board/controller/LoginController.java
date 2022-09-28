@@ -42,6 +42,9 @@ public class LoginController extends HttpServlet {
 
       if (request.getParameter("saveEmail") == null) {
         cookie.setMaxAge(0); // 클라이언트에게 해당 이름의 쿠키를 지울 것을 명령한다.-2
+      } else {
+        // 쿠키의 지속시간을 설정하지 않으면 웹브라우저가 실행되는 동안만 유효하다.-> 웹브라우저가 꺼지면 날아감
+        cookie.setMaxAge(60 * 60 * 24 * 7); // 유지시간을 7일로 저장
       }
       response.addCookie(cookie); // 응답헤더에 쿠키를 포함시킨다.-1
 
