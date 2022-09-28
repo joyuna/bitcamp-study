@@ -31,7 +31,17 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public Board findByNo(int no) throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
-        "select bno,title,cont,mno,cdt,vw_cnt from app_board where bno=" + no);
+        "select"
+            + "        b.bno,"
+            + "        b.title,"
+            + "        b.cont," // contend 추가 
+            + "        b.cdt,"
+            + "        b.vw_cnt,"
+            + "        m.mno,"
+            + "        m.name"
+            + "        from app_board b"
+            + "        join app_member m on b.mno = m.mno"
+            + "where b.bno=" +no); // where 절 추가
         ResultSet rs = pstmt.executeQuery()) {
 
       if (!rs.next()) {
@@ -95,16 +105,16 @@ public class MariaDBBoardDao implements BoardDao {
 
       while (rs.next()) {
         Board board = new Board();
-        board.no = rs.getInt("bno");
-        board.title = rs.getString("title");
-        board.createdDate = rs.getDate("cdt");
-        board.viewCount = rs.getInt("vw_cnt");
+        board.setNo(rs.getInt("bno"));
+        board.setTitle(rs.getString("title"));
+        board.setCreatedDate(rs.getDate("cdt"));
+        board.setViewCount(rs.getInt("vw_cnt"));
 
         Member writer = new Member();
-        writer.no= rs.getInt("mno");
-        writer.name = rs.getString("name");
+        writer.setNo(rs.getInt("mno"));
+        writer.setName(rs.getString("name"));
 
-        board.writer =writer;
+        board.setWriter(writer);
 
         list.add(board);
       }
