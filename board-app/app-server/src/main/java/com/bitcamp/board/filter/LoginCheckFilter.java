@@ -41,7 +41,7 @@ public class LoginCheckFilter implements Filter{
 
       Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
       if (loginMember == null) { // 로그인하지 않았다면
-        httpResponse.sendRedirect("");
+        httpResponse.sendRedirect("/app/auth/form.jsp");
       }
 
 
