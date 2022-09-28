@@ -11,6 +11,7 @@
 <h1>게시글 입력-JSP</h1>
 
 <form action='add'>
+<input name='writerNo' type='number' size='5' value="${loginMember.no}"readonly>
 <table border='1'>
   <tr>
     <th>제목</th><td><input name='title' type='text' size='60'></td>
@@ -19,7 +20,6 @@
     <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>
   </tr>
   <tr>
-    <th>작성자</th><td><input name='writerNo' type='number' size='5' value="${loginMember.no}"readonly></td>
   </tr>
 </table>
 <p>
