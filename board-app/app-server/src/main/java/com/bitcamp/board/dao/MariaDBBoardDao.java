@@ -76,6 +76,19 @@ public class MariaDBBoardDao implements BoardDao {
     try (PreparedStatement pstmt = con.prepareStatement(
         "select bno,title,mno,cdt,vw_cnt from app_board");
         ResultSet rs = pstmt.executeQuery()) {
+      /*
+        select
+        b.bno,
+        b.title,
+        b.cdt,
+        b.vw_cnt,
+        m.mno,
+        m.name
+        from app_board b
+        inner join app_member m on b.mno = m.mno
+       */
+
+
 
       ArrayList<Board> list = new ArrayList<>();
 
