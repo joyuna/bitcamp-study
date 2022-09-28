@@ -21,9 +21,9 @@ public class MariaDBBoardDao implements BoardDao {
   public int insert(Board board) throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
         "insert into app_board(title,cont,mno) values(?,?,?)")) {
-      pstmt.setString(1, board.title);
-      pstmt.setString(2, board.content);
-      pstmt.setInt(3, board.memberNo);
+      pstmt.setString(1, board.getTitle());
+      pstmt.setString(2, board.getContent());
+      pstmt.setInt(3, board.getMemberNo());
       return pstmt.executeUpdate();
     }
   }
@@ -49,12 +49,18 @@ public class MariaDBBoardDao implements BoardDao {
       }
 
       Board board = new Board();
-      board.no = rs.getInt("bno");
-      board.title = rs.getString("title");
-      board.content = rs.getString("cont");
-      board.memberNo = rs.getInt("mno");
-      board.createdDate = rs.getDate("cdt");
-      board.viewCount = rs.getInt("vw_cnt");
+      board.setNo(rs.getInt("bno"));
+      board.setTitle(rs.getString("title"));
+      board.setContent(rs.getString("cont"));
+      board.setMemberNo(rs.getInt("mno"));
+      board.setCreatedDate(rs.getDate("cdt"));
+      board.setViewCount(rs.getInt("vw_cnt"));
+
+      Member writer = new Member();
+      writer.setNo(rs.getInt("mno"));
+      writer.setName(rs.getString("name"));
+
+      board.setWriter(writer);
 
       return board;
     }
