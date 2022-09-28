@@ -70,9 +70,9 @@ public class MariaDBBoardDao implements BoardDao {
     try (PreparedStatement pstmt = con.prepareStatement(
         "update app_board set title=?, cont=? where bno=?")) {
 
-      pstmt.setString(1, board.title);
-      pstmt.setString(2, board.content);
-      pstmt.setInt(3, board.no);
+      pstmt.setString(1, board.gettitle);
+      pstmt.setString(2, board.getcontent);
+      pstmt.setInt(3, board.getno);
 
       return pstmt.executeUpdate();
     }
