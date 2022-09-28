@@ -23,7 +23,7 @@ public class MariaDBBoardDao implements BoardDao {
         "insert into app_board(title,cont,mno) values(?,?,?)")) {
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
-      pstmt.setInt(3, board.getMemberNo());
+      pstmt.setInt(3, board.getWriter().getNo());
       return pstmt.executeUpdate();
     }
   }
@@ -34,14 +34,14 @@ public class MariaDBBoardDao implements BoardDao {
         "select"
             + "        b.bno,"
             + "        b.title,"
-            + "        b.cont," // contend 추가 
+            + "        b.cont,"
             + "        b.cdt,"
             + "        b.vw_cnt,"
             + "        m.mno,"
             + "        m.name"
             + "        from app_board b"
             + "        join app_member m on b.mno = m.mno"
-            + "where b.bno=" +no); // where 절 추가
+            + " where b.bno=" +no); 
         ResultSet rs = pstmt.executeQuery()) {
 
       if (!rs.next()) {
@@ -52,7 +52,6 @@ public class MariaDBBoardDao implements BoardDao {
       board.setNo(rs.getInt("bno"));
       board.setTitle(rs.getString("title"));
       board.setContent(rs.getString("cont"));
-      board.setMemberNo(rs.getInt("mno"));
       board.setCreatedDate(rs.getDate("cdt"));
       board.setViewCount(rs.getInt("vw_cnt"));
 
