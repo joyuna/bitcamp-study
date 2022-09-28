@@ -74,18 +74,18 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public List<Board> findAll() throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
-        "select bno,title,mno,cdt,vw_cnt from app_board");
+        "select"
+            + "        b.bno,"
+            + "        b.title,"
+            + "        b.cdt,"
+            + "        b.vw_cnt,"
+            + "        m.mno,"
+            + "        m.name"
+            + "        from app_board b"
+            + "        join app_member m on b.mno = m.mno");
         ResultSet rs = pstmt.executeQuery()) {
       /*
-        select
-        b.bno,
-        b.title,
-        b.cdt,
-        b.vw_cnt,
-        m.mno,
-        m.name
-        from app_board b
-        join app_member m on b.mno = m.mno
+
        */
 
 
@@ -96,9 +96,10 @@ public class MariaDBBoardDao implements BoardDao {
         Board board = new Board();
         board.no = rs.getInt("bno");
         board.title = rs.getString("title");
-        board.memberNo = rs.getInt("mno");
         board.createdDate = rs.getDate("cdt");
         board.viewCount = rs.getInt("vw_cnt");
+        board.memberNo = rs.getInt("mno");
+        board.memberName = rs.getString("name");
 
         list.add(board);
       }
