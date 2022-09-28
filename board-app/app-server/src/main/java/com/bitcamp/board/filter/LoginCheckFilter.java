@@ -18,7 +18,7 @@ public class LoginCheckFilter implements Filter{
     // 세션처럼 HTTP 프로토콜과 관련된 기능을 쓰고 싶다면,
     // 원래 타입으로 형변환 한 다음에 사용하라!
     HttpServletRequest httpRequest = (HttpServletRequest) request;
-    request.getSession()
+    Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
 
   }
 
