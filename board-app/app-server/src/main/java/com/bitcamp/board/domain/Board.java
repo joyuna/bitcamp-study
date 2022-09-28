@@ -8,10 +8,10 @@ public class Board {
   public String title;
   public String content;
   public int memberNo;
-  public String memberName;
   public String password;
   public int viewCount;
   public Date createdDate;
+  public Member writer;
 
   @Override
   public String toString() {
@@ -76,13 +76,6 @@ public class Board {
     this.createdDate = createdDate;
   }
 
-  public String getMemberName() {
-    return memberName;
-  }
-
-  public void setMemberName(String memberName) {
-    this.memberName = memberName;
-  }
 
 
 
