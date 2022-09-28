@@ -26,14 +26,14 @@ public class BoardUpdateController extends HttpServlet {
       throws ServletException, IOException {
     try {
       Board board = new Board();
-      board.no = Integer.parseInt(request.getParameter("no"));
-      board.title = request.getParameter("title");
-      board.content = request.getParameter("content");
+      board.setNo(Integer.parseInt(request.getParameter("no")));
+      board.setTitle(request.getParameter("title"));
+      board.setContent(request.getParameter("content"));
 
       // 1. 세션에서 로그인 사용자 정보를 꺼낸다. => 본인 게시글만 바꿀수 있게 설정
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
       // 2.
-      if (boardDao.findByNo(board.no).getWriter().getNo() == loginMember.getNo()) {
+      if (boardDao.findByNo(board.getNo()).getWriter().getNo() != loginMember.getNo()) {
         throw new Exception("게시글 작성자가 아닙니다.");
       }
 
