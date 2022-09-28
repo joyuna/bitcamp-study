@@ -13,7 +13,7 @@
 <form action='login'>
 <table border='1'>
   <tr>
-    <th>이메일</th><td><input name='email' type='email' size='30'></td>
+    <th>이메일</th><td><input name='email' type='email' size='30' value="${cookie.email.value}"></td>
   </tr>
   <tr>
     <th>암호</th><td><input name='password' type='password' size='20'></td>
