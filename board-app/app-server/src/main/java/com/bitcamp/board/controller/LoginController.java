@@ -39,6 +39,8 @@ public class LoginController extends HttpServlet {
       // 클라이언트에게 쿠키 보내기
       // 쿠키는 문자열이다. 객체 안됨, 숫자도 문자열로 바꿔서 저장해야
       Cookie cookie = new Cookie("email", email); // 클라이언트 쪽에 저장할 쿠키 생성
+      response.addCookie(cookie); // 응답헤더에 쿠키를 포함시킨다.
+
 
       request.setAttribute("member", member);
 
