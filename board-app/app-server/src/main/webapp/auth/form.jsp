@@ -19,6 +19,7 @@
     <th>암호</th><td><input name='password' type='password' size='20'></td>
   </tr>
 </table>
+<input type="checkbox" name="saveEmail">이메일 저장<br>
 <p>
   <button type='submit'>로그인</button>
   <a href='..'>취소</a>
