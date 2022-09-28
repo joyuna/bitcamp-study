@@ -85,7 +85,7 @@ public class MariaDBBoardDao implements BoardDao {
         m.mno,
         m.name
         from app_board b
-        join app_member m on b.mno = m.mno
+        left outer join app_member m on b.mno = m.mno
        */
 
 
