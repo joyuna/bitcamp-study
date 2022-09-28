@@ -8,6 +8,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.bitcamp.board.domain.Member;
 
 @WebFilter("*")
 public class LoginCheckFilter implements Filter{
@@ -24,6 +26,9 @@ public class LoginCheckFilter implements Filter{
     // 원래 타입으로 형변환 한 다음에 사용하라!
     HttpServletRequest httpRequest = (HttpServletRequest) request;
 
+    // 응답 기능에 대해서도 HTTP 관련 메서드를 사용하고 싶다면 형변환 하라!
+    HttpServletResponse httpResponse = (HttpServletResponse) response;
+
     // 요청 URL에서 서블릿 경로만 추출한다.
     // 예) 요청 URL   : http://localhost:8888/app/board/add?title=aaa&content=bbb
     //    서블릿 경로 : /board/add <= 웹 애플리케이션 경로는 뺀다.
@@ -34,10 +39,13 @@ public class LoginCheckFilter implements Filter{
         servletPath.endsWith("update") ||
         servletPath.endsWith("delete")) {
 
+      Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
+      if (loginMember == null) { // 로그인하지 않았다면
+        httpResponse.sendRedirect("");
+      }
+
+
     }
-
-
-    // Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
 
     // 다음 필터를 실행한다.
     // 다음에 실행할 필터가 없다면 원래 목적지인 서블릿이 실행될 것이다.=> 이게 없어서 화면이 멈춤
