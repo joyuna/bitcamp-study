@@ -26,11 +26,22 @@ public class LoginCheckFilter implements Filter{
 
     // 요청 URL에서 서블릿 경로만 추출한다.
     // 예) 요청 URL   : http://localhost:8888/app/board/add?title=aaa&content=bbb
-    //    서블릿 경로 : /board/add <= 웹 애플리케이션
+    //    서블릿 경로 : /board/add <= 웹 애플리케이션 경로는 뺀다.
     String servletPath = httpRequest.getServletPath();
-    System.out.println(servletPath);
+    // System.out.println(servletPath);
 
-    //   Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
+    if (servletPath.endsWith("add") ||
+        servletPath.endsWith("update") ||
+        servletPath.endsWith("delete")) {
+
+    }
+
+
+    // Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
+
+    // 다음 필터를 실행한다.
+    // 다음에 실행할 필터가 없다면 원래 목적지인 서블릿이 실행될 것이다.=> 이게 없어서 화면이 멈춤
+    chain.doFilter(request, response);
   }
 
 }
