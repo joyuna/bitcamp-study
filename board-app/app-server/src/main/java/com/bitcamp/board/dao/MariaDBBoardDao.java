@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.domain.Member;
 
 public class MariaDBBoardDao implements BoardDao {
 
@@ -98,8 +99,12 @@ public class MariaDBBoardDao implements BoardDao {
         board.title = rs.getString("title");
         board.createdDate = rs.getDate("cdt");
         board.viewCount = rs.getInt("vw_cnt");
-        board.memberNo = rs.getInt("mno");
-        board.memberName = rs.getString("name");
+
+        Member writer = new Member();
+        writer.no= rs.getInt("mno");
+        writer.name = rs.getString("name");
+
+        board.writer =writer;
 
         list.add(board);
       }
