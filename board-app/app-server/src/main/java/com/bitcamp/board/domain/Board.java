@@ -2,19 +2,15 @@ package com.bitcamp.board.domain;
 
 import java.sql.Date;
 
-/**
- * @author younga
- *
- */
 public class Board {
 
-  public int no;
-  public String title;
-  public String content;
-  public String password;
-  public int viewCount;
-  public Date createdDate;
-  public Member writer;
+  private int no;
+  private String title;
+  private String content;
+  private String password;
+  private int viewCount;
+  private Date createdDate;
+  private Member writer;
 
 
 
