@@ -19,7 +19,7 @@
     <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>
   </tr>
   <tr>
-    <th>작성자</th><td><input name='writerNo' type='number' size='5' value="${sessionScope.loginMember.email}"></td>
+    <th>작성자</th><td><input name='writerNo' type='number' size='5' value="${sessionScope.loginMember.no}"></td>
   </tr>
 </table>
 <p>
