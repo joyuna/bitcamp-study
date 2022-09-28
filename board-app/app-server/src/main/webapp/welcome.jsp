@@ -16,12 +16,16 @@
   <li><a href='member/list'>회원</a></li>
 <c:choose>
   <c:when test="${not empty sessionScope.loginMember}">
-    <li><a href='auth/logout'>${sessionScope.loginMember.name}(로그아웃)</a></li>
-    </c:when>
+    <li><a href="auth/logout">${sessionScope.loginMember.name}(로그아웃)</a></li>
+  </c:when>
   <c:otherwise>
     <li><a href='auth/form.jsp'>로그인</a></li>
   </c:otherwise>
-  </c:choose>
+</c:choose>
 </ul>
 </body>
 </html>
+
+
+
+

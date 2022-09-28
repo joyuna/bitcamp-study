@@ -31,17 +31,17 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public Board findByNo(int no) throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
-        "select"
-            + "        b.bno,"
-            + "        b.title,"
-            + "        b.cont,"
-            + "        b.cdt,"
-            + "        b.vw_cnt,"
-            + "        m.mno,"
-            + "        m.name"
-            + "        from app_board b"
-            + "        join app_member m on b.mno = m.mno"
-            + " where b.bno=" +no); 
+        "select "
+            + "   b.bno,"
+            + "   b.title,"
+            + "   b.cont,"
+            + "   b.cdt,"
+            + "   b.vw_cnt,"
+            + "   m.mno,"
+            + "   m.name"
+            + " from app_board b"
+            + "   join app_member m on b.mno = m.mno"
+            + " where b.bno=" + no);
         ResultSet rs = pstmt.executeQuery()) {
 
       if (!rs.next()) {
@@ -70,9 +70,9 @@ public class MariaDBBoardDao implements BoardDao {
     try (PreparedStatement pstmt = con.prepareStatement(
         "update app_board set title=?, cont=? where bno=?")) {
 
-      pstmt.setString(1, board.gettitle);
-      pstmt.setString(2, board.getcontent);
-      pstmt.setInt(3, board.getno);
+      pstmt.setString(1, board.getTitle());
+      pstmt.setString(2, board.getContent());
+      pstmt.setInt(3, board.getNo());
 
       return pstmt.executeUpdate();
     }
@@ -90,21 +90,16 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public List<Board> findAll() throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
-        "select"
-            + "        b.bno,"
-            + "        b.title,"
-            + "        b.cdt,"
-            + "        b.vw_cnt,"
-            + "        m.mno,"
-            + "        m.name"
-            + "        from app_board b"
-            + "        join app_member m on b.mno = m.mno");
+        "select "
+            + "   b.bno,"
+            + "   b.title,"
+            + "   b.cdt,"
+            + "   b.vw_cnt,"
+            + "   m.mno,"
+            + "   m.name"
+            + " from app_board b"
+            + "   join app_member m on b.mno = m.mno");
         ResultSet rs = pstmt.executeQuery()) {
-      /*
-
-       */
-
-
 
       ArrayList<Board> list = new ArrayList<>();
 

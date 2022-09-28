@@ -12,8 +12,6 @@ public class Board {
   private Date createdDate;
   private Member writer;
 
-
-
   @Override
   public String toString() {
     return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password="
@@ -44,7 +42,6 @@ public class Board {
   public void setContent(String content) {
     this.content = content;
   }
-
 
   public String getPassword() {
     return password;
@@ -77,8 +74,6 @@ public class Board {
   public void setWriter(Member writer) {
     this.writer = writer;
   }
-
-
 
 
 }

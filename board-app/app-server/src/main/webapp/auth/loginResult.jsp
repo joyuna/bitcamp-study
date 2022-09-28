@@ -13,15 +13,11 @@
 <h1>로그인</h1>
 <c:choose>
   <c:when test="${not empty member}">
-   <p>로그인 성공입니다.</p>
+    <p>로그인 성공입니다!</p>
   </c:when>
   <c:otherwise>
-   <p>회원이 존재하지 않습니다!</p>
- </c:otherwise>
+    <p>회원이 존재하지 않습니다!</p>
+  </c:otherwise>
 </c:choose>
 </body>
 </html>
-
-
-
-    

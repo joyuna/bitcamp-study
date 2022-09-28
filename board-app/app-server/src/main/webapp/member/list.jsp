@@ -29,7 +29,7 @@ tr:hover {
   <tr>
     <td>${member.no}</td>
     <td><a href='detail?no=${member.no}'>${member.name}</a></td>
-    <td>${member.email }</td>
+    <td>${member.email}</td>
   </tr>
 </c:forEach>
 </table>

@@ -18,8 +18,6 @@
   <tr>
     <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>
   </tr>
-  <tr>
-  </tr>
 </table>
 <p>
   <button type='submit'>등록</button>
