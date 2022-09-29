@@ -18,7 +18,7 @@ public class LoginCheckFilter implements Filter{
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     System.out.println("LoginCheckFilter.init() 실행!");
-  }// 이호출이 됐다는건 객체가 생성됐다는거라 test로 넣어봄
+  }// 이 호출이 됐다는건 객체가 생성됐다는거라 test로 넣어봄
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
