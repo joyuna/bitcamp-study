@@ -3,6 +3,7 @@ package com.bitcamp.board.filter;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,9 +16,14 @@ import com.bitcamp.board.domain.Member;
 public class AdminCheckFilter implements Filter{
 
   @Override
+  public void init(FilterConfig filterConfig) throws ServletException {
+    System.out.println("AdminCheckFilter.init() 실행!");
+  }// 이호출이 됐다는건 객체가 생성됐다는거라 test로 넣어봄
+
+  @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    System.out.println("AdminCheckFilter 실행!");
+    System.out.println("AdminCheckFilter.doFilter() 실행!");
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
