@@ -39,33 +39,7 @@ public class BoardUpdateController extends HttpServlet {
         throw new Exception("게시글 변경 실패!");
       }
 
-      // Refresh:
-      // - 응답 헤더 또는 HTML 문서에 refresh 명령을 삽입할 수 있다.
-      // - 응답 프로토콜
-      //      HTTP/1.1 200
-      //      Content-Type: text/html;charset=UTF-8
-      //      Refresh: 30;url=list   <=== 응답 헤더에 refresh 명령을 삽입한다.
-      //      Content-Length: 244
-      //      Date: Mon, 26 Sep 2022 05:24:29 GMT
-      //      Keep-Alive: timeout=20
-      //      Connection: keep-alive
-      //
-      //      <!DOCTYPE html>
-      //      <html>
-      //      <head>
-      //      <meta charset="UTF-8">
-      //      <title>bitcamp</title>
-      //      </head>
-      //      <body>
-      //      <h1>게시글 변경-JSP</h1>
-      //      <p>게시글을 변경했습니다.</p>
-      //      </body>
-      //      </html>
-      //
-      // 자바 코드:
-      response.setHeader("Refresh", "1;url=list"); // 응답 헤더에 refresh를 삽입한다.
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/update.jsp").include(request, response); 
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
