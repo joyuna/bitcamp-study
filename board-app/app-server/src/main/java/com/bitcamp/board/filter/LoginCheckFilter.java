@@ -17,7 +17,7 @@ public class LoginCheckFilter implements Filter{
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-
+    System.out.println("LoginCheckFilter 실행!");
     // 요청 URL을 통해 로그인 여부를 검사할 지 결정한다.
     // 요청 URL은 HTTP 프로토콜과 관련된 값이다.
     // ServletRequest 타입은 HTTP 프로토콜과 관련된 기능을 다룰 수 있는 메서드가 없다.
