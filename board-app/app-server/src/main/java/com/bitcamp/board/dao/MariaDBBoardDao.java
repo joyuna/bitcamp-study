@@ -98,7 +98,8 @@ public class MariaDBBoardDao implements BoardDao {
             + "   m.mno,"
             + "   m.name"
             + " from app_board b"
-            + "   join app_member m on b.mno = m.mno");
+            + "   join app_member m on b.mno = m.mno"
+            + " order by bno desc"); // 여러줄로 이어진 SQL에 앞에 공백 줘야한당!
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Board> list = new ArrayList<>();
