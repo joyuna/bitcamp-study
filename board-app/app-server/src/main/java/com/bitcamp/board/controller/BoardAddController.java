@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
 
@@ -57,7 +58,7 @@ public class BoardAddController extends HttpServlet {
       Board board = new Board();
 
       // 첨부파일명을 저장할 컬렉션 객체를 준비
-      List<String> filenames = new ArrayList<>();
+      List<AttachedFile> attachedFiles = new ArrayList<>();
 
       // 각 파트의 데이터를 꺼내 Board 객체에 담는다.
       for (FileItem item : items) {
@@ -73,8 +74,12 @@ public class BoardAddController extends HttpServlet {
           // 다른 클라이언트가 보낸 파일명과 중복되지 않도록 임의의 새 파일명을 생성한다.
           String filename = UUID.randomUUID().toString();
 
-          // 파일이름을 DB에 저장할 수 있도록 이름 컬렉션에 저장한다.
-          filenames.add(filename);
+          // 파일이름을 AttachedFile 객체에 담은 후  
+          // DB에 저장할 수 있도록 이름 컬렉션에 저장한다.
+          AttachedFile attachedFile = new AttachedFile();
+          attachedFile.setFilepath(filename);
+
+          attachedFiles.add(attachedFile);
 
           // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
           String dirPath = this.getServletContext().getRealPath("/board/files");
