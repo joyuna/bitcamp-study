@@ -76,10 +76,7 @@ public class BoardAddController extends HttpServlet {
 
           // 파일이름을 AttachedFile 객체에 담은 후  
           // DB에 저장할 수 있도록 이름 컬렉션에 저장한다.
-          AttachedFile attachedFile = new AttachedFile();
-          attachedFile.setFilepath(filename);
-
-          attachedFiles.add(attachedFile);
+          attachedFiles.add(new AttachedFile(filename));
 
           // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
           String dirPath = this.getServletContext().getRealPath("/board/files");
@@ -91,7 +88,6 @@ public class BoardAddController extends HttpServlet {
           // 이 때 파일명은 원래의 이름 대신 UUID로 생성한 이름을 사용한다.
           item.write(new File(dirPath + "/" + filename));
 
-          // 중요한건! 
         }
       }
       //      board.setTitle(request.getParameter("title"));
@@ -100,6 +96,10 @@ public class BoardAddController extends HttpServlet {
       //      // 로그인 사용자 정보는 파라미터로 받아서는 안된다.
       //      // 반드시 세션에서 꺼내 써야 한다.
       //      // 왜? 클라이언트가 다른 사용자 정보를 보낼 수 있기 때문이다. 
+
+      // Board 객체에서 파일명 목록을 담고 있는 컬렉션 객체를 저장한다.
+      board.setAttachedFiles(attachedFiles);
+
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
       board.setWriter(loginMember);
 
