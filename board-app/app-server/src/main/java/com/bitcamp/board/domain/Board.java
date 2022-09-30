@@ -1,6 +1,7 @@
 package com.bitcamp.board.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Board {
 
@@ -11,6 +12,10 @@ public class Board {
   private int viewCount;
   private Date createdDate;
   private Member writer;
+
+  // 첨부파일명 저장
+  private List<String> filenames;
+
 
   @Override
   public String toString() {
