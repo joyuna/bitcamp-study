@@ -2,6 +2,7 @@ package com.bitcamp.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletException;
@@ -55,6 +56,9 @@ public class BoardAddController extends HttpServlet {
       // 클라이언트가 멀티파트로 보낸 데이터를 저장할 도메인 객체를 준비한다.
       Board board = new Board();
 
+      // 첨부파일명을 저장할 컬렉션 객체를 준비
+      List<String> filenames = new ArrayList<>();
+
       // 각 파트의 데이터를 꺼내 Board 객체에 담는다.
       for (FileItem item : items) {
         if (item.isFormField()) { // 일반 입력 값이라면
@@ -68,6 +72,9 @@ public class BoardAddController extends HttpServlet {
         } else { // 파일이라면
           // 다른 클라이언트가 보낸 파일명과 중복되지 않도록 임의의 새 파일명을 생성한다.
           String filename = UUID.randomUUID().toString();
+
+          // 파일이름을 DB에 저장할 수 있도록 이름 컬렉션에 저장한다.
+          filenames.add(filename);
 
           // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
           String dirPath = this.getServletContext().getRealPath("/board/files");
