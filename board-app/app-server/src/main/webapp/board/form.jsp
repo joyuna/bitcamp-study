@@ -18,6 +18,9 @@
   <tr>
     <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>
   </tr>
+    <tr>
+    <th>첨부파일</th><td><input name='files' type="file"></td>
+  </tr>
 </table>
 <p>
   <button type='submit'>등록</button>
