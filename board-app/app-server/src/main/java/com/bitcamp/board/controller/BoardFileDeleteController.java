@@ -31,12 +31,11 @@ public class BoardFileDeleteController extends HttpServlet {
       // 첨부파일 정보를 가져온다.
       AttachedFile attachedFile = boardDao.findFileByNo(no);
 
-      // 첨부파일의 게시글 정보를 가져온다.
-      Board board = boardDao.findByNo(attachedFile.getBoardNo());
-
       // 게시글의 작성자가 로그인 사용자인지 검사한다.
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
-      if (boardDao.findByNo(attachedFile.getBoardNo()).getWriter().getNo() != loginMember.getNo()) {
+      Board board = boardDao.findByNo(attachedFile.getBoardNo());
+
+      if (board.getWriter().getNo() != loginMember.getNo()) {
         throw new Exception("게시글 작성자가 아닙니다.");
       }
 
@@ -45,20 +44,7 @@ public class BoardFileDeleteController extends HttpServlet {
         throw new Exception("게시글 첨부파일 삭제 실패!");
       }
 
-      // Redirect:
-      // - 클라이언트에게 콘텐트를 보내지 않는다.
-      // - 응답 프로토콜
-      //      HTTP/1.1 302   <=== 응답 상태 코드
-      //      Location: list  <=== 자동으로 요청할 URL
-      //      Content-Length: 0  <=== 콘텐트는 보내지 않는다.
-      //      Date: Mon, 26 Sep 2022 05:21:22 GMT
-      //      Keep-Alive: timeout=20
-      //      Connection: keep-alive
-      // 
-      //      (콘텐트 없음!)
-      //
-      // 자바 코드:
-      response.sendRedirect("list");
+      response.sendRedirect("detail?no=" + board.getNo());
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
