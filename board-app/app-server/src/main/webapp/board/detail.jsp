@@ -28,6 +28,16 @@
   <tr>
     <th>등록일</th><td>${board.createdDate}</td>
   </tr>
+  <tr>
+    <th>첨부파일</th>
+    <td>
+      <ul>
+      <li><a href = "files/a.gif">a.gif</a></li>
+      <li><a href = "files/b.gif">a.gif</a></li>
+      <li><a href = "files/c.gif">a.gif</a></li>
+      </ul>
+    </td>
+  </tr>
 </table>
 <p>
   <button type='submit'>변경</button>
