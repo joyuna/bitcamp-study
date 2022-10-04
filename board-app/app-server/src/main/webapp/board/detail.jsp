@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,9 +33,9 @@
     <th>첨부파일</th>
     <td>
       <ul>
-      <li><a href = "files/a.gif">a.gif</a></li>
-      <li><a href = "files/b.gif">a.gif</a></li>
-      <li><a href = "files/c.gif">a.gif</a></li>
+      <c:forEach items="${board.attachedFiles}" var="file">
+      <li><a href = "files/${file.filepath}">${file.filepath}</a></li>
+      </c:forEach>
       </ul>
     </td>
   </tr>

@@ -3,9 +3,9 @@ package com.bitcamp.board.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.mariadb.jdbc.Statement;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
@@ -87,7 +87,7 @@ public class MariaDBBoardDao implements BoardDao {
 
       // 게시글 첨부파일 가져오기
       try(PreparedStatement pstmt2 = con.prepareStatement(
-          "select bfno, filepath, bno from app_board_file wgere bno = " + no);
+          "select bfno, filepath, bno from app_board_file where bno = " + no);
           ResultSet rs2 = pstmt2.executeQuery()) {
 
 
