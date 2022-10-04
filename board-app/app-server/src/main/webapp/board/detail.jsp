@@ -34,8 +34,12 @@
     <td>
       <ul>
       <c:forEach items="${board.attachedFiles}" var="file">
-      <li><a href = "files/${file.filepath}">${file.filepath}</a></li>
+      <li>
+        <a href = "files/${file.filepath}">${file.filepath}</a>
+        <a href = "deleteFile?no="{$file.no}">삭제</a>
+      </li>
       </c:forEach>
+      <input name='files' type="file" multiple>
       </ul>
     </td>
   </tr>
