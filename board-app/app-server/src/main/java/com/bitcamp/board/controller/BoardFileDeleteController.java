@@ -26,10 +26,11 @@ public class BoardFileDeleteController extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      int no = Integer.parseInt(request.getParameter("no"));
+      int no = Integer.parseInt(request.getParameter("no")); // no는 삭제할 첨부파일 번호다3
 
       // 첨부파일 정보를 가져온다.
       AttachedFile attachedFile = boardDao.findFileByNo(no);
+
 
       // 게시글의 작성자가 로그인 사용자인지 검사한다.
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
