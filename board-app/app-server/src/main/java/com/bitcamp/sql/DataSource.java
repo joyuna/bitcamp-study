@@ -1,5 +1,6 @@
 package com.bitcamp.sql;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 
 // 스레드 전용 DB 커넥션을 제공하는 일을 한다.
@@ -10,7 +11,10 @@ public class DataSource {
   String username;
   String password;
 
-  public DataSource(String driver, String jdbcUrl, String username, String password) throws Exception{
+  // 스레드 전용 DB 커넥션 보관소 객체 준비
+  ThreadLocal<Connection> conStore = new ThreadLocal<>();
+
+  public DataSource(String driver, String jdbcUrl, String username, String password) throws Exception {
     // JDBC Driver 클래스 로딩하기
     Class.forName(driver);
 
@@ -20,7 +24,16 @@ public class DataSource {
   }
 
   public Connection getConnection() throws Exception {
-    return DriverManager.getConnection(jdbcUrl, username, password);
+    Thread currThread = Thread.currentThread();
+    System.out.printf("%s=> getConnection() 호출\n", currThread.getName());
 
+    // 현재 스레드의 DB 보관소에서 객체를 꺼낸다.
+    Connection con = conStore.get();
+    if (con == null) { // 현재 스레드 보관소에 커넥션 객체가 없다면,
+      con = DriverManager.getConnection(jdbcUrl, username, password); // 새로생성
+      conStore.set(con); // 새로 만든 DB 커넥션 객체를 다음에 다시 사용할 수 있도록 보관한다.
+      System.out.printf("%s=> getConnection() 객체 생성\n", currThread.getName());
+    }
+    return con;
   }
 }
