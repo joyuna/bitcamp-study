@@ -4,12 +4,11 @@ public class AttachedFile {
   private int no;
   private String filepath;
   private int boardNo;
-  //* private Board board; // 쌍방향 참조 ..=> 이렇게 하면 안됩니다.
 
-  public AttachedFile() {} // 기본 생성자
+  public AttachedFile() {}
 
   public AttachedFile(String filepath) {
-    this.filepath = filepath; // 파일명을 받아 생성하는 생성자
+    this.filepath = filepath;
   }
 
   @Override
@@ -20,12 +19,15 @@ public class AttachedFile {
   public int getNo() {
     return no;
   }
+
   public void setNo(int no) {
     this.no = no;
   }
+
   public String getFilepath() {
     return filepath;
   }
+
   public void setFilepath(String filepath) {
     this.filepath = filepath;
   }
@@ -37,7 +39,6 @@ public class AttachedFile {
   public void setBoardNo(int boardNo) {
     this.boardNo = boardNo;
   }
-
 
 
 }

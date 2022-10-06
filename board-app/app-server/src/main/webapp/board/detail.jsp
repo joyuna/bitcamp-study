@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>게시글 상세 정보(JSP + Servlet + EL)</h1>
-<form action='update' method='post'>
+<form action='update' method="post" enctype="multipart/form-data">
 <table border='1'>
   <tr>
     <th>번호</th><td><input name='no' type='number' value='${board.no}' readonly></td>
@@ -34,13 +34,13 @@
     <td>
       <ul>
       <c:forEach items="${board.attachedFiles}" var="file">
-      <li>
-        <a href = "files/${file.filepath}">${file.filepath}</a>
-        []<a href = "fileDelete?no="{$file.no}">삭제</a>]
-      </li>
+        <li>
+          <a href="files/${file.filepath}">${file.filepath}</a>
+          [<a href="fileDelete?no=${file.no}">삭제</a>]
+        </li>
       </c:forEach>
       </ul>
-      파일 추가 : <input name='files' type="file" multiple>
+      파일 추가: <input name='files' type="file" multiple>
     </td>
   </tr>
 </table>
