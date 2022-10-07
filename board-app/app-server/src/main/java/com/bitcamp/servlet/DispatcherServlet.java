@@ -17,7 +17,7 @@ public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest req, HttpServletResponse resp)
+  protected void service(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
     // 프론트 컨트롤러를 경유해서 실행할 페이지 컨트롤러의 경로를 알아낸다.
@@ -29,6 +29,13 @@ public class DispatcherServlet extends HttpServlet {
     RequestDispatcher 요청배달자 = req.getRequestDispatcher(pathInfo);
     요청배달자.include(req, resp);
 
-  }
+    // 페이지 컨트롤러를 실행한 후에 페이지 컨트롤러가 지정한 뷰 컴포넌트를 실행한다.
+    String viewName = (String)req.getAttribute("viewName");
+    if (viewName != null) {
+      req.getRequestDispatcher(viewName).include(req, resp);
+    } else { // 페이지 컨트롤러를 실행하다가 오류가 발생했다
+      req.getRequestDispatcher(viewName).include(req, resp);
+    }
 
+  }
 }
