@@ -70,12 +70,10 @@ public class BoardAddController extends HttpServlet {
 
       // 서비스 객체에 업무를 맡긴다.
       boardService.add(board);
-
-      response.sendRedirect("list");
+      request.setAttribute("viewName", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

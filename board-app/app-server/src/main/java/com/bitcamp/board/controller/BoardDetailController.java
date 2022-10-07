@@ -33,13 +33,11 @@ public class BoardDetailController extends HttpServlet {
       }
 
       request.setAttribute("board", board);
+      request.setAttribute("viewName", "/board/detail.jsp");
 
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/detail.jsp").include(request, response);
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }
