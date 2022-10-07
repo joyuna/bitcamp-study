@@ -11,6 +11,5 @@ public class TransactionStatus {
 
   public Connection get() {
     return this.con;
-
   }
 }

@@ -35,7 +35,6 @@ public class BoardDetailController extends HttpServlet {
       request.setAttribute("board", board);
       request.setAttribute("viewName", "/board/detail.jsp");
 
-
     } catch (Exception e) {
       request.setAttribute("exception", e);
     }

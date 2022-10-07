@@ -17,10 +17,9 @@ public class LogoutController extends HttpServlet {
       throws ServletException, IOException {
     HttpSession session = request.getSession();
     session.invalidate(); // 현재 세션을 무효화시킨다.
-    request.setAttribute("viewName", "redirect: ../../"); // 로그아웃 한 후 메인 페이지를 요청하라고 응답한다.
+    request.setAttribute("viewName", "redirect:../../"); // 로그아웃 한 후 메인 페이지를 요청하라고 응답한다.
   }
 }
-
 
 
 

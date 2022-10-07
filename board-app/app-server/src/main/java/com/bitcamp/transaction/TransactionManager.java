@@ -11,7 +11,7 @@ public class TransactionManager {
   }
 
   public TransactionStatus getTransaction() throws Exception {
-    // 현재 스레드에서 사용할 DB커넥션 객체를 꺼낸다.
+    // 현재 스레드에서 사용할 DB 커넥션 객체를 꺼낸다.
     Connection con = ds.getConnection();
 
     // 트랜잭션을 수행할 수 있도록 수동 커밋 상태로 변경한다.

@@ -14,7 +14,6 @@ public class MariaDBBoardDao implements BoardDao {
 
   DataSource ds;
 
-  //DAO가 사용할 의존 객체 Connection을 생성자의 파라미터로 받는다.
   public MariaDBBoardDao(DataSource ds) {
     this.ds = ds;
   }

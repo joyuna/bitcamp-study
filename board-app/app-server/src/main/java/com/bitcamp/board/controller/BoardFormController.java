@@ -14,7 +14,7 @@ public class BoardFormController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.setAttribute("viewName", "/board/form.jsp");  // 어느 jsp를 실행하는지 알려주기만 
+    req.setAttribute("viewName", "/board/form.jsp");
   }
 }
 

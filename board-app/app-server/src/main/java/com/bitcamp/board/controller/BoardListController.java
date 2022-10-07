@@ -28,7 +28,6 @@ public class BoardListController extends HttpServlet {
 
     } catch (Exception e) {
       req.setAttribute("exception", e);
-
     }
   }
 }

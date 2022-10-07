@@ -7,9 +7,9 @@ import com.bitcamp.board.domain.Board;
 import com.bitcamp.transaction.TransactionManager;
 import com.bitcamp.transaction.TransactionStatus;
 
-public class DefaultBoardService implements BoardService  {
+public class DefaultBoardService implements BoardService {
 
-  TransactionManager txManager;
+  TransactionManager txManager; 
   BoardDao boardDao;
 
   public DefaultBoardService(BoardDao boardDao, TransactionManager txManager) {
@@ -100,6 +100,7 @@ public class DefaultBoardService implements BoardService  {
   public boolean deleteAttachedFile(int fileNo) throws Exception {
     return boardDao.deleteFile(fileNo) > 0;
   }
+
 }
 
 
