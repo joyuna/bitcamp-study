@@ -1,34 +1,25 @@
 package com.bitcamp.board.service;
 
 import java.util.List;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.transaction.TransactionManager;
+import com.bitcamp.transaction.TransactionStatus;
 
 public class DefaultBoardService implements BoardService {
 
-  PlatformTransactionManager txManager; 
+  TransactionManager txManager; 
   BoardDao boardDao;
 
-  public DefaultBoardService(BoardDao boardDao, PlatformTransactionManager txManager) {
+  public DefaultBoardService(BoardDao boardDao, TransactionManager txManager) {
     this.boardDao = boardDao;
     this.txManager = txManager;
   }
 
   @Override
   public void add(Board board) throws Exception {
-    // 스프링에서 제공하는 트랜잭션을 사용할 때는
-    // 트랜잭션 실행 정책을 정의해야 한다.
-    // 어떻게?
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-
-    TransactionStatus status = txManager.getTransaction(def);
+    TransactionStatus status = txManager.getTransaction();
     try {
       // 1) 게시글 등록
       if (boardDao.insert(board) == 0) {
@@ -47,11 +38,7 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public boolean update(Board board) throws Exception {
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-
-    TransactionStatus status = txManager.getTransaction(def);
+    TransactionStatus status = txManager.getTransaction();
 
     try {
       // 1) 게시글 변경
@@ -82,11 +69,7 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public boolean delete(int no) throws Exception {
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-
-    TransactionStatus status = txManager.getTransaction(def);
+    TransactionStatus status = txManager.getTransaction();
     try {
       // 1) 첨부파일 삭제
       boardDao.deleteFiles(no);
