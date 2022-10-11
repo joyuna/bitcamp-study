@@ -7,21 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 
-// 역할:
-// - 페이지 컨트롤러의 앞쪽에서 클라이언트 요청을 받는 일을 한다.
-// - 클라이언트가 요청한 경로에 따라 적절한 페이지 컨트롤러를 실행한다.
-// - 페이지 컨트롤러의 공통 기능을 수행한다.
-//
 //@MultipartConfig(maxFileSize = 1024 * 1024 * 10) 
 //@WebServlet(value = "/service/*")
 public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  ApplicationContext iocContext; // 인터페이스로 받아라.
+  ApplicationContext iocContainer;
 
   public DispatcherServlet(ApplicationContext iocContainer) {
     // Spring IoC 컨테이너를 주입 받는다.
-    this.iocContext = iocContainer;
+    this.iocContainer = iocContainer;
   }
 
   @Override
@@ -34,10 +29,8 @@ public class DispatcherServlet extends HttpServlet {
       String pathInfo = req.getPathInfo();
 
       // 페이지 컨트롤러를 찾는다.
-      Controller controller = (Controller) req.getServletContext().getAttribute(pathInfo);
-      if (controller == null) {
-        throw new Exception("페이지 컨트롤러가 없습니다!");
-      }
+      // - Spring IoC 컨테이너는 객체를 찾지 못할 때 예외를 발생시킨다.
+      Controller controller = (Controller) iocContainer.getBean(pathInfo);
 
       // 페이지 컨트롤러를 실행한다.
       resp.setContentType("text/html;charset=UTF-8");
