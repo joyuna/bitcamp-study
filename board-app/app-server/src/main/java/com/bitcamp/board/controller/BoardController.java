@@ -111,6 +111,7 @@ public class BoardController {
 
   @GetMapping("/board/delete")
   public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    request.setCharacterEncoding("UTF-8");
     int no = Integer.parseInt(request.getParameter("no"));
 
     checkOwner(no, request.getSession());

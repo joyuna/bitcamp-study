@@ -23,7 +23,6 @@ public class MemberController {
 
   @PostMapping("/member/add")
   public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setCharacterEncoding("UTF-8");
 
     Member member = new Member();
     member.setName(request.getParameter("name"));
@@ -56,7 +55,6 @@ public class MemberController {
 
   @GetMapping("/member/update")
   public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setCharacterEncoding("UTF-8");
 
     Member member = new Member();
     member.setNo(Integer.parseInt(request.getParameter("no")));
