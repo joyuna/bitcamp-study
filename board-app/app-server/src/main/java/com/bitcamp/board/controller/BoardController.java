@@ -35,7 +35,6 @@ public class BoardController {
 
   @PostMapping("/board/add")
   public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setCharacterEncoding("UTF-8");
 
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
@@ -87,7 +86,6 @@ public class BoardController {
 
   @GetMapping("/board/update")
   public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setCharacterEncoding("UTF-8");
 
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
@@ -113,7 +111,6 @@ public class BoardController {
 
   @GetMapping("/board/delete")
   public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setCharacterEncoding("UTF-8");
     int no = Integer.parseInt(request.getParameter("no"));
 
     checkOwner(no, request.getSession());
