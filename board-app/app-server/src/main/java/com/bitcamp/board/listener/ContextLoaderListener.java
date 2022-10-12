@@ -1,5 +1,8 @@
 package com.bitcamp.board.listener;
 
+import java.util.EnumSet;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -8,6 +11,7 @@ import javax.servlet.ServletRegistration.Dynamic;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import com.bitcamp.board.conifg.AppConfig;
 
@@ -35,6 +39,16 @@ public class ContextLoaderListener implements ServletContextListener {
       config.setMultipartConfig(new MultipartConfigElement(
           this.getClass().getAnnotation(MultipartConfig.class)));
       config.setLoadOnStartup(1); // 웹 애플리케이션을 시작할 대 프론트 컨트롤러를 자동 생성한다.
+
+      // 필터 등록
+      CharacterEncodingFilter filter = new CharacterEncodingFilter("UTF-8");
+      FilterRegistration.Dynamic filterConfig = ctx.addFilter("CharacterEncodingFilter", filter);
+      filterConfig.addMappingForServletNames(
+          EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE),  // EumSet 상수들의 배열 
+          false, 
+          "DispatcherServlet");
+
+
 
     } catch (Exception e) {
       e.printStackTrace();
