@@ -13,6 +13,7 @@ import javax.servlet.http.Part;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
@@ -20,6 +21,7 @@ import com.bitcamp.board.service.BoardService;
 
 // CRUD 요청을 처리하는 페이지 컨트롤러들을 한 개의 클래스로 합친다.
 @Controller
+@RequestMapping("/board/")
 public class BoardController {
 
   BoardService boardService;
@@ -28,12 +30,12 @@ public class BoardController {
     this.boardService = boardService;
   }
 
-  @GetMapping("/board/form")
+  @GetMapping("form")
   public String form(HttpServletRequest request, HttpServletResponse response) throws Exception {
     return "/board/form.jsp";
   }
 
-  @PostMapping("/board/add")
+  @PostMapping("add")
   public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Board board = new Board();
@@ -64,13 +66,13 @@ public class BoardController {
     return attachedFiles;
   }
 
-  @GetMapping("/board/list") // 요청이 들어 왔을 때 호출될 메서드에 붙이는 애노테이션
+  @GetMapping("list") // 요청이 들어 왔을 때 호출될 메서드에 붙이는 애노테이션
   public String list(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     req.setAttribute("boards", boardService.list());
     return "/board/list.jsp";
   }
 
-  @GetMapping("/board/detail") 
+  @GetMapping("detail") 
   public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
     int boardNo = Integer.parseInt(request.getParameter("no"));
 
@@ -84,7 +86,7 @@ public class BoardController {
     return "/board/detail.jsp";
   }
 
-  @GetMapping("/board/update")
+  @PostMapping("update")
   public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Board board = new Board();
@@ -109,7 +111,7 @@ public class BoardController {
     }
   }
 
-  @GetMapping("/board/delete")
+  @GetMapping("delete")
   public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
     request.setCharacterEncoding("UTF-8");
     int no = Integer.parseInt(request.getParameter("no"));
@@ -123,7 +125,7 @@ public class BoardController {
     return "redirect:list";
   }
 
-  @GetMapping("/board/fileDelete")
+  @GetMapping("fileDelete")
   public String fileDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
     int no = Integer.parseInt(request.getParameter("no"));
     AttachedFile attachedFile = boardService.getAttachedFile(no); 
