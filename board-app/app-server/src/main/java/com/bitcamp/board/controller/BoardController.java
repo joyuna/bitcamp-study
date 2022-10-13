@@ -31,12 +31,12 @@ public class BoardController {
   }
 
   @GetMapping("form")
-  public String form(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String form(HttpServletResponse response) throws Exception {
     return "/board/form.jsp";
   }
 
   @PostMapping("add")
-  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String add(HttpServletRequest request) throws Exception {
 
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
@@ -73,7 +73,7 @@ public class BoardController {
   }
 
   @GetMapping("detail") 
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String detail(HttpServletRequest request) throws Exception {
     int boardNo = Integer.parseInt(request.getParameter("no"));
 
     Board board = boardService.get(boardNo);
@@ -87,7 +87,7 @@ public class BoardController {
   }
 
   @PostMapping("update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String update(HttpServletRequest request) throws Exception {
 
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
@@ -112,8 +112,7 @@ public class BoardController {
   }
 
   @GetMapping("delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setCharacterEncoding("UTF-8");
+  public String delete(HttpServletRequest request) throws Exception {
     int no = Integer.parseInt(request.getParameter("no"));
 
     checkOwner(no, request.getSession());
@@ -126,7 +125,7 @@ public class BoardController {
   }
 
   @GetMapping("fileDelete")
-  public String fileDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String fileDelete(HttpServletRequest request) throws Exception {
     int no = Integer.parseInt(request.getParameter("no"));
     AttachedFile attachedFile = boardService.getAttachedFile(no); 
 
