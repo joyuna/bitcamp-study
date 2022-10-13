@@ -53,7 +53,7 @@ public class AppConfig {
 
   // multipart/form-data 형식으로 보내온 요청 데이터를 
   // 도메인 객체로 받는 일을 할 도우미 객체를 등록한다.
-  // 이 객체가 등록 된 경우 multipart/form-data를 도메인 객체로 받을 수 있다.
+  // 이 객체가 등록된 경우 multipart/form-data를 도메인 객체로 받을 수 있다.
   @Bean("multipartResolver")
   public MultipartResolver createMultipartResolver() {
     return new StandardServletMultipartResolver();
@@ -63,7 +63,7 @@ public class AppConfig {
   @Bean("viewResolver")
   public ViewResolver createViewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-    viewResolver.setViewClass(JstlView.class); // 주어진 URL을 처리할 객체 => JSP를 실
+    viewResolver.setViewClass(JstlView.class); // 주어진 URL을 처리할 객체 => JSP를 실행시켜주는 객체
     viewResolver.setPrefix("/WEB-INF/jsp/"); // WEB_INF로 이동했으니 경로 설정해준다.
     viewResolver.setSuffix(".jsp");
     return viewResolver;
