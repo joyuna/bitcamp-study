@@ -64,7 +64,7 @@ public class AppConfig {
   public ViewResolver createViewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
     viewResolver.setViewClass(JstlView.class); // 주어진 URL을 처리할 객체 => JSP를 실
-    viewResolver.setPrefix("/");
+    viewResolver.setPrefix("/WEB-INF/jsp/"); // WEB_INF로 이동했으니 경로 설정해준다.
     viewResolver.setSuffix(".jsp");
     return viewResolver;
 
