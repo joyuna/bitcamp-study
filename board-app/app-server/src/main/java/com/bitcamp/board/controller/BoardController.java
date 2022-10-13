@@ -2,9 +2,9 @@ package com.bitcamp.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,10 +22,12 @@ import com.bitcamp.board.service.BoardService;
 @RequestMapping("/board/")
 public class BoardController {
 
+  ServletContext sc;
   BoardService boardService;
 
-  public BoardController(BoardService boardService) {
+  public BoardController(BoardService boardService, ServletContext sc) {
     this.boardService = boardService;
+    this.sc = sc;
   }
 
   @GetMapping("form")
@@ -35,10 +37,9 @@ public class BoardController {
 
   @PostMapping("add") 
   public String add(
-      /*@RequestParam("title")*/ String title, 
-      /*@RequestParam("content")*/ String content, 
+      String title, 
+      String content, 
       Part[] files,
-      HttpServletRequest request,
       HttpSession session) throws Exception {
     Board board = new Board();
     board.setTitle(title);
@@ -53,10 +54,9 @@ public class BoardController {
   private List<AttachedFile> saveAttachedFiles(Part[] files)
       throws IOException, ServletException {
     List<AttachedFile> attachedFiles = new ArrayList<>();
-    String dirPath = request.getServletContext().getRealPath("/board/files");
-    Collection<Part> parts = request.getParts();
+    String dirPath = sc.getRealPath("/board/files");
 
-    for (Part part : parts) {
+    for (Part part : files) {
       if (!part.getName().equals("files") || part.getSize() == 0) {
         continue;
       }
@@ -76,7 +76,7 @@ public class BoardController {
 
   @GetMapping("detail")
   public String detail(
-      /*@RequestParam("no")*/ int no, 
+      int no, 
       HttpServletRequest request) 
           throws Exception {
     Board board = boardService.get(no);
@@ -91,17 +91,17 @@ public class BoardController {
 
   @PostMapping("update")
   public String update(
-      /*@RequestParam("no")*/ int no,
-      /*@RequestParam("title")*/ String title,
-      /*@RequestParam("content")*/ String content,
-      HttpServletRequest request,
+      int no,
+      String title,
+      String content,
+      Part[] files,
       HttpSession session) 
           throws Exception {
     Board board = new Board();
     board.setNo(no);
     board.setTitle(title);
     board.setContent(content);
-    board.setAttachedFiles(saveAttachedFiles(request));
+    board.setAttachedFiles(saveAttachedFiles(files));
 
     checkOwner(board.getNo(), session);
 
@@ -121,7 +121,7 @@ public class BoardController {
 
   @GetMapping("delete")
   public String delete(
-      /*@RequestParam("no")*/ int no, 
+      int no, 
       HttpSession session) 
           throws Exception {
 
@@ -135,7 +135,7 @@ public class BoardController {
 
   @GetMapping("fileDelete")
   public String fileDelete(
-      /*@RequestParam("no")*/ int no,
+      int no,
       HttpSession session) 
           throws Exception {
 
