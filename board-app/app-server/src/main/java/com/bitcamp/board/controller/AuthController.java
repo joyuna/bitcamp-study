@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bitcamp.board.domain.Member;
 import com.bitcamp.board.service.MemberService;
 
-@Controller// 페이지 컨트롤러에 붙이는 애노테이션
+@Controller 
 @RequestMapping("/auth/")
 public class AuthController {
 
@@ -20,25 +20,28 @@ public class AuthController {
     this.memberService = memberService;
   }
 
-  @GetMapping("form")
-  public String form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    return "/auth/form.jsp"; // 프론트컨트롤러한테 보내는 경로
+  @GetMapping("form") 
+  public String form() throws Exception {
+    return "/auth/form.jsp";
   }
 
-  @PostMapping("login")
-  public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
+  @PostMapping("login") 
+  public String login(
+      String email, 
+      String password, 
+      String saveEmail, 
+      HttpServletRequest request,
+      HttpServletResponse response,
+      HttpSession session) throws Exception {
 
     Member member = memberService.get(email, password);
 
     if (member != null) {
-      HttpSession session = request.getSession(); 
       session.setAttribute("loginMember", member); 
     }
 
     Cookie cookie = new Cookie("email", email); 
-    if (request.getParameter("saveEmail") == null) {
+    if (saveEmail == null) {
       cookie.setMaxAge(0); 
     } else {
       cookie.setMaxAge(60 * 60 * 24 * 7); // 7일
@@ -49,11 +52,10 @@ public class AuthController {
     return "/auth/loginResult.jsp";
   }
 
-  @GetMapping("logout")
-  public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    HttpSession session = request.getSession();
-    session.invalidate(); // 현재 세션을 무효화시킨다.
-    return "redirect:../../"; // 로그아웃 한 후 메인 페이지를 요청하라고 응답한다.
+  @GetMapping("logout") 
+  public String logout(HttpSession session) throws Exception {
+    session.invalidate(); 
+    return "redirect:../../"; 
   }
 }
 

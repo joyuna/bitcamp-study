@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
@@ -40,9 +39,8 @@ public class BoardController {
 
   @PostMapping("add") 
   public String add(
-      Board board,      
-
-      @RequestParam("files") MultipartFile[] files, // 도메인 객체 따로 쓸때는 앞에 param 붙여주는걸로
+      Board board,
+      MultipartFile[] files,
       HttpSession session) throws Exception {
 
     board.setAttachedFiles(saveAttachedFiles(files));
@@ -59,7 +57,6 @@ public class BoardController {
 
     for (Part part : files) {
       if (part.getSize() == 0) {
-        // if (!part.getName().equals("files") || part.getSize() == 0) {
         continue;
       }
 
@@ -81,7 +78,7 @@ public class BoardController {
       }
 
       String filename = UUID.randomUUID().toString();
-      part.transferTo(new File(dirPath + "/" + filename)); // 파일객체에 담아서 보내야함.
+      part.transferTo(new File(dirPath + "/" + filename));
       attachedFiles.add(new AttachedFile(filename));
     }
     return attachedFiles;
