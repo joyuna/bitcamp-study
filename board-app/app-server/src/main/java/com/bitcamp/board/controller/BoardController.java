@@ -37,19 +37,20 @@ public class BoardController {
   public String add(
       /*@RequestParam("title")*/ String title, 
       /*@RequestParam("content")*/ String content, 
+      Part[] files,
       HttpServletRequest request,
       HttpSession session) throws Exception {
     Board board = new Board();
     board.setTitle(title);
     board.setContent(content);
-    board.setAttachedFiles(saveAttachedFiles(request));
+    board.setAttachedFiles(saveAttachedFiles(files));
     board.setWriter((Member) session.getAttribute("loginMember"));
 
     boardService.add(board);
     return "redirect:list";
   }
 
-  private List<AttachedFile> saveAttachedFiles(HttpServletRequest request)
+  private List<AttachedFile> saveAttachedFiles(Part[] files)
       throws IOException, ServletException {
     List<AttachedFile> attachedFiles = new ArrayList<>();
     String dirPath = request.getServletContext().getRealPath("/board/files");
