@@ -35,7 +35,7 @@ public class BoardController {
 
   @GetMapping("form")
   public String form() throws Exception {
-    return "/board/form.jsp";
+    return "board/form";
   }
 
   @PostMapping("add") 
@@ -89,7 +89,7 @@ public class BoardController {
   public ModelAndView list() throws Exception {
     ModelAndView mv = new ModelAndView();
     mv.addObject("boards", boardService.list());
-    mv.setViewName("/board/list.jsp");
+    mv.setViewName("board/list");
     return mv;
   }
 
@@ -105,7 +105,7 @@ public class BoardController {
 
     ModelAndView mv =new ModelAndView();
     mv.addObject("board", board);
-    mv.setViewName("/board/detail.jsp");
+    mv.setViewName("board/detail");
     return mv;
   }
 
