@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
@@ -85,13 +86,15 @@ public class BoardController {
   }
 
   @GetMapping("list")
-  public String list(HttpServletRequest req) throws Exception {
-    req.setAttribute("boards", boardService.list());
-    return "/board/list.jsp";
+  public ModelAndView list() throws Exception {
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("boards", boardService.list());
+    mv.setViewName("/board/list.jsp");
+    return mv;
   }
 
   @GetMapping("detail")
-  public String detail(
+  public ModelAndView detail(
       int no, 
       HttpServletRequest request) 
           throws Exception {
@@ -100,9 +103,10 @@ public class BoardController {
       throw new Exception("해당 번호의 게시글이 없습니다!");
     }
 
-    request.setAttribute("board", board);
-
-    return "/board/detail.jsp";
+    ModelAndView mv =new ModelAndView();
+    mv.addObject("board", board);
+    mv.setViewName("/board/detail.jsp");
+    return mv;
   }
 
   @PostMapping("update")
