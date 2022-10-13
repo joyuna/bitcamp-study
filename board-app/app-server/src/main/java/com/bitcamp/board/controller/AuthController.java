@@ -23,10 +23,10 @@ public class AuthController {
   // InternalResourceViewResolver 설정 전
   //  @GetMapping("form") 
   //  public View form() throws Exception { // 케이스1)
-  //    return new JstlView("auth/form"); 
+  //    return new JstlView("/auth/form.jsp"); 
   //  }
 
-  // InternalResourceViewResolver 설정 전
+  // InternalResourceViewResolver 설정 후
   @GetMapping("form") 
   public String form() throws Exception { 
     return "auth/form"; 
