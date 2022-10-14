@@ -44,8 +44,8 @@ public class AppWebApplicationInitializer implements WebApplicationInitializer {
     // 2) 멀티파트 설정 정보를 직접 지정하기
     config.setMultipartConfig(new MultipartConfigElement(
         System.getProperty("java.io.tmpdir"), // 클라이언트가 보낸 파일을 임시 저장할 디렉토리
-        1024 * 1024 * 10,  // 파일크기
-        1024 * 1024 * 10 * 5, // 첨부 파일을 포함한 전체 요청 데이터의 크기
+        1024 * 1024 * 5,  // 한 개 파일의 최대 크기
+        1024 * 1024 * 10, // 첨부 파일을 포함한 전체 요청 데이터의 크기
         1024 * 1024 // 첨부 파일 데이터를 일시적으로 보관할 버퍼 크기 
         ));
 
