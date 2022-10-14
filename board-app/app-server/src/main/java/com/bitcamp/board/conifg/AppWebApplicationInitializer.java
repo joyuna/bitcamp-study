@@ -11,6 +11,7 @@ import com.bitcamp.board.filter.AdminCheckFilter;
 import com.bitcamp.board.filter.LoginCheckFilter;
 
 // 서블릿 컨테이너에서 웹 애플리케이션을 시작할 때 :
+// 수퍼 클래스를 분석하시오!! 제 ~ 발!!
 // ===> SpringServletContainerInitializer.onStartup() 호출
 //   ===> AppWebApplicationInitializer.onStartup() 호출
 //     ===> AbstractContextLoaderInitializer.onStartup() 호출

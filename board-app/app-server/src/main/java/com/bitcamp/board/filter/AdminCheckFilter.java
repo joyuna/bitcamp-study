@@ -31,7 +31,7 @@ public class AdminCheckFilter implements Filter {
     // 필터 코드 안에서 URL을 제어해야한다.
     // 그래서 다음 코드에 if() {} 문이 있는 것이다.
     //    
-    if (httpRequest.getPathInfo().equals("/admin")) { // app 통해 들어온 거기 때문에 /admin이다.
+    if (httpRequest.getPathInfo().equals("/member")) { // app 통해 들어온 거기 때문에 /member이다.(기존 admin오류)
       System.out.println("AdminCheckFilter.doFilter() 실행!");      
       Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
       if (loginMember == null || // 로그인이 안됐거나 
