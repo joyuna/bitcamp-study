@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.domain.Member;
 
-// @WebFilter("/service/member/*")
+// @WebFilter("/service/member/*") => URL로 경로를 정교하게 제어하고 싶으면 여기를 살려라.
 public class AdminCheckFilter implements Filter {
 
   @Override
@@ -22,21 +22,27 @@ public class AdminCheckFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    System.out.println("AdminCheckFilter.doFilter() 실행!");
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-    Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
-    if (loginMember == null || // 로그인이 안됐거나 
-        !loginMember.getEmail().equals("admin@test.com")) { // 관리자가 아니라면
-      httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
-      return;
+    // 서블릿 컨테이너에 직접 등록하지 않고 스프링을 통해 등록한 경우에는
+    // 요청 URL에 따라 필터가 동작하도록 설정할 수 없다.
+    // 필터 코드 안에서 URL을 제어해야한다.
+    // 그래서 다음 코드에 if() {} 문이 있는 것이다.
+    //    
+    if (httpRequest.getPathInfo().equals("/admin")) { // app 통해 들어온 거기 때문에 /admin이다.
+      System.out.println("AdminCheckFilter.doFilter() 실행!");      
+      Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
+      if (loginMember == null || // 로그인이 안됐거나 
+          !loginMember.getEmail().equals("admin@test.com")) { // 관리자가 아니라면
+        httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
+        return;
+      }
     }
 
     chain.doFilter(request, response);
   }
-
 }
 
 
