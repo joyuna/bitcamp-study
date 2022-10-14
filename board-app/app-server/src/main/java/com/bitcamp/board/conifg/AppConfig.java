@@ -27,22 +27,17 @@ public class AppConfig {
     System.out.println("AppConfig() 생성자 호출됨!");
   }
 
-  @Bean("transactionManager")
-  public PlatformTransactionManager createTransactionManager(DataSource ds) {
-    // Spring IoC 컨테이너는 이 메서드를 호출하기 전에
-    // 이 메서드가 원하는 파라미터 값인 DataSource를 먼저 생성한다.
-    // => createDataSource() 메서드를 먼저 호출한다.
-    System.out.println("createTransactionManager() 호출됨!");
-
+  // @ Bean 애노테이션을 붙일 때 객체 이름을 지정하면
+  // 그 이름으로 리턴 값을 컨테이너에 보관한다.
+  // 이름을 지정하지 않으면 메서드 이름으로 보관한다.
+  // @Bean("transactionManager")
+  @Bean
+  public PlatformTransactionManager transactionManager(DataSource ds) {
     return new DataSourceTransactionManager(ds);
   }
 
-  // DataSource를 생성하는 메서드를 호출하라고 애노테이션으로 표시한다.
-  // 메서드가 리턴한 객체는 @Bean 애노테이션에 지정된 이름으로 컨테이너에 보관될 것이다.
-  @Bean("dataSource")
-  public DataSource createDataSource() {
-    System.out.println("createDataSource() 호출됨!");
-
+  @Bean
+  public DataSource dataSource() {
     DriverManagerDataSource ds = new DriverManagerDataSource();
     ds.setDriverClassName("org.mariadb.jdbc.Driver"); // 드라이버 클래스 이름은 따로 안줘도 되는데 이번엔 줘볼게
     ds.setUrl("jdbc:mariadb://localhost:3306/studydb");
@@ -54,14 +49,14 @@ public class AppConfig {
   // multipart/form-data 형식으로 보내온 요청 데이터를 
   // 도메인 객체로 받는 일을 할 도우미 객체를 등록한다.
   // 이 객체가 등록된 경우 multipart/form-data를 도메인 객체로 받을 수 있다.
-  @Bean("multipartResolver")
-  public MultipartResolver createMultipartResolver() {
+  @Bean
+  public MultipartResolver multipartResolver() {
     return new StandardServletMultipartResolver();
   }
 
   // Spring WebMVC의 기본 ViewResolver를 교체한다.
-  @Bean("viewResolver")
-  public ViewResolver createViewResolver() {
+  @Bean
+  public ViewResolver viewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
     viewResolver.setViewClass(JstlView.class); // 주어진 URL을 처리할 객체 => JSP를 실행시켜주는 객체
     viewResolver.setPrefix("/WEB-INF/jsp/"); // WEB_INF로 이동했으니 경로 설정해준다.
