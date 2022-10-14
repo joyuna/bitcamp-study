@@ -11,7 +11,6 @@
 <body>
 <h1>환영합니다!-JSP</h1>
 <p>비트캠프 게시판 관리 시스템 프로젝트입니다.</p>
-<c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 <ul>
   <li><a href='${contextPath}/app/board/list'>게시글</a></li>
   <li><a href='${contextPath}/app/member/list'>회원</a></li>
