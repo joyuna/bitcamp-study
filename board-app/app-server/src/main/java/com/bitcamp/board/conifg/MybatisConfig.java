@@ -31,7 +31,7 @@ public class MybatisConfig {
     //  Resource mapperLocation = iocContainer.getResource("com/bitcamp/board/mapper/*Mapper.xml"); => 쓸데없는 객체를 만들지 않기 위해 아래와 같이 줄임.
     //    factoryBean.setMapperLocations(mapperLocation);
     factoryBean.setMapperLocations(
-        iocContainer.getResource("classpath:com/bitcamp/board/mapper/*Mapper.xml")); // classpath: 접두어를 붙여주는 경우도 있고, 붙여도 된다.
+        iocContainer.getResources("classpath:com/bitcamp/board/mapper/*Mapper.xml")); // classpath: 접두어를 붙여주는 경우도 있고, 붙여도 된다.
 
     return factoryBean.getObject();
   }

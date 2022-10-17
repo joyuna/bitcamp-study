@@ -5,13 +5,13 @@
 <mapper namespace="MemberDao">
   <select id="findByEmailPassword" resultType="com.bitcamp.board.domain.Member"> 
   select 
-    mno,
+    mno no,
     name,
     email,
-    cdt 
+    cdt createdDate
   from 
     app_member 
   where
-    email=#{} and pwd=sha2(#{},256)
+    email=#{email} and pwd=sha2(#{password},256)
   </select>
 </mapper>
