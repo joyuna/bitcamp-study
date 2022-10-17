@@ -16,6 +16,11 @@ import com.bitcamp.board.service.MemberService;
 public class AuthController {
 
   MemberService memberService;
+
+  public MemberController() {
+    System.out.println("MemberController() 호출됨!");
+  }
+
   public AuthController(MemberService memberService) {
     this.memberService = memberService;
   }
