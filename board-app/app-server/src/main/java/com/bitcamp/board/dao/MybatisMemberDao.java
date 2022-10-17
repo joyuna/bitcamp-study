@@ -1,8 +1,6 @@
 package com.bitcamp.board.dao;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,22 +89,8 @@ public class MybatisMemberDao implements MemberDao {
 
   @Override
   public List<Member> findAll() throws Exception {
-    try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
-        "select mno,name,email from app_member order by name");
-        ResultSet rs = pstmt.executeQuery()) {
-
-      ArrayList<Member> list = new ArrayList<>();
-
-      while (rs.next()) {
-        Member member = new Member();
-        member.setNo(rs.getInt("mno"));
-        member.setName(rs.getString("name"));
-        member.setEmail(rs.getString("email"));
-
-        list.add(member);
-      }
-
-      return list;
+    try (SqlSession sqlSession =sqlSessionFactory.openSession()) {
+      return sqlSession.selectList("MemberDao.findAll");
     }
   }
 
