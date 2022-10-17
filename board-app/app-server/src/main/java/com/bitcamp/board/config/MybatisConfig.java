@@ -1,4 +1,4 @@
-package com.bitcamp.board.conifg;
+package com.bitcamp.board.config;
 
 import javax.sql.DataSource;
 import org.apache.ibatis.logging.LogFactory;

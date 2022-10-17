@@ -1,4 +1,4 @@
-package com.bitcamp.board.conifg;
+package com.bitcamp.board.config;
 
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
