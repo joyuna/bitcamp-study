@@ -13,7 +13,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[] {RootConfig.class, DatabaseConfig.class}; // 배열로 만들어서 리턴해야 함.
+    return new Class<?>[] {RootConfig.class, DatabaseConfig.class, MybatisConfig.class}; // 배열로 만들어서 리턴해야 함.
   }
 
   @Override

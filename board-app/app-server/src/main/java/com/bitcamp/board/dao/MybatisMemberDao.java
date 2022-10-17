@@ -5,17 +5,23 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import com.bitcamp.board.domain.Member;
 
-// @Repository // DAO 역할을 수행하는 객체에 붙이는 애노테이션
-public class MariaDBMemberDao implements MemberDao {
+@Repository // DAO 역할을 수행하는 객체에 붙이는 애노테이션
+public class MybatisMemberDao implements MemberDao {
 
-  DataSource ds;
+  @Autowired DataSource ds;
+  @Autowired SqlSessionFactory sqlSessionFactory; // setter가 안붙어도 Autowired 애노테이션이 붙으면 알아서 주입해준다.
 
-  public MariaDBMemberDao(DataSource ds) {
-    System.out.println("MariaDBMemberdDao() 호출됨!");
-    this.ds = ds;
-  }
+  // 실무에 가면 생성자를 못볼것이다. 대신 Autowired 애노테이션을 보게 될 것이다. 하지만 생성자 통해 엄격하게 주입하는걸 권장하긴 한다.
+  //  public MybatisMemberDao(DataSource ds, SqlSessionFactory sqlSessionFactory) {
+  //    System.out.println("MybatisMemberdDao() 호출됨!");
+  //    this.ds = ds;
+  //    this.sqlSessionFactory = sqlSessionFactory;
+  //  }
 
   @Override
   public int insert(Member member) throws Exception {

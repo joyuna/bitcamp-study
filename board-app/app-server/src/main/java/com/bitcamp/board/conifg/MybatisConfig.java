@@ -19,6 +19,8 @@ public class MybatisConfig {
       ApplicationContext iocContainer
       ) throws Exception {
 
+    System.out.println("sqlSessionFactory() 호출됨!");
+
     // SqlSessionFactory를 만들어 줄 객체를 준비한다.
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 
