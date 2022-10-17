@@ -5,7 +5,6 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import com.bitcamp.board.filter.AdminCheckFilter;
 import com.bitcamp.board.filter.LoginCheckFilter;
 
 
@@ -24,7 +23,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class<?>[] {AppConfig.class}; // 프론트 컨트롤러가 사용할 IoC 설정
+    return new Class<?>[] {AppWebConfig.class}; // 프론트 컨트롤러가 사용할 IoC 설정
   }
 
   @Override
@@ -36,7 +35,6 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
   protected Filter[] getServletFilters() {
     return new Filter[] {
         new CharacterEncodingFilter("UTF-8"),
-        new AdminCheckFilter(),
         new LoginCheckFilter()
     };
   }
