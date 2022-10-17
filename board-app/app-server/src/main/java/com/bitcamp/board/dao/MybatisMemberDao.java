@@ -28,14 +28,8 @@ public class MybatisMemberDao implements MemberDao {
 
   @Override
   public int insert(Member member) throws Exception {
-    try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
-        "insert into app_member(name,email,pwd) values(?,?,sha2(?,256))")) {
-
-      pstmt.setString(1, member.getName());
-      pstmt.setString(2, member.getEmail());
-      pstmt.setString(3, member.getPassword());
-
-      return pstmt.executeUpdate();
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.insert("MemberDao.insert", member); //네임스페이스.sqlID => 인터페이스 이름.메서드 이름이 아니라 일관성을 주려고 이름을 같게 한거다.
     }
   }
 
