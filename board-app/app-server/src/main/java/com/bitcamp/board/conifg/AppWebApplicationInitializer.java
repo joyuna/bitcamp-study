@@ -14,7 +14,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[] {RootConfig.class}; // 배열로 만들어서 리턴해야 함.
+    return new Class<?>[] {RootConfig.class, DatabaseConfig.class}; // 배열로 만들어서 리턴해야 함.
   }
 
   @Override
@@ -24,8 +24,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    // return new Class<?>[] {AppConfig.class}; // 프론트 컨트롤러가 사용할 IoC 설정
-    return null;
+    return new Class<?>[] {AppConfig.class}; // 프론트 컨트롤러가 사용할 IoC 설정
   }
 
   @Override
