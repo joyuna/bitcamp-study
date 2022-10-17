@@ -40,6 +40,9 @@ dependencies {
     // 프레임 워크나 라이브러리 등에서 출력하는 로그를 다루는 라이브러리
     implementation 'org.apache.logging.log4j:log4j-core:2.18.0'    
 
+    // SQL Mapper 라이브러리
+    implementation 'org.mybatis:mybatis:3.5.11'
+
     //implementation project(':app-common')
 }
 
