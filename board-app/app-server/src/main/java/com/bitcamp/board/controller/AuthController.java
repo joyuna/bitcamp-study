@@ -17,8 +17,8 @@ public class AuthController {
 
   MemberService memberService;
 
-  public MemberController() {
-    System.out.println("MemberController() 호출됨!");
+  public AuthController() {
+    System.out.println("AuthController() 호출됨!");
   }
 
   public AuthController(MemberService memberService) {
