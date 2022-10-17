@@ -35,21 +35,8 @@ public class MybatisMemberDao implements MemberDao {
 
   @Override
   public Member findByNo(int no) throws Exception {
-
-    try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
-        "select mno,name,email,cdt from app_member where mno=" + no);
-        ResultSet rs = pstmt.executeQuery()) {
-
-      if (!rs.next()) {
-        return null;
-      }
-
-      Member member = new Member();
-      member.setNo(rs.getInt("mno"));
-      member.setName(rs.getString("name"));
-      member.setEmail(rs.getString("email"));
-      member.setCreatedDate(rs.getDate("cdt"));
-      return member;
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectOne("MemberDao.findByNo", no);
     }
   }
 

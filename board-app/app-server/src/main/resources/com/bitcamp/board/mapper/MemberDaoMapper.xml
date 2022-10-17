@@ -9,6 +9,18 @@
   values(#{name},#{email},sha2(#{password},256))
   </insert>
   
+  <select id ="findByNo" resultType="com.bitcamp.board.domain.Member">
+  select
+   mno no,
+   name,
+   email,
+   cdt createdDate
+  from
+   app_member
+  where 
+   mno=#{value}
+  </select>
+  
   <select id="findByEmailPassword" resultType="com.bitcamp.board.domain.Member"> 
   select 
     mno no,
