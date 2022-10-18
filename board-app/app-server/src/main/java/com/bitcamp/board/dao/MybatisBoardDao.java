@@ -2,7 +2,6 @@ package com.bitcamp.board.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
@@ -49,27 +48,19 @@ public class MybatisBoardDao implements BoardDao {
   public Board findByNo(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 
+      // 게시글 가져오기
       Board board = sqlSession.selectOne("BoardDao.findByNo", no);
 
       // 게시글 첨부파일 가져오기
-      try (PreparedStatement pstmt2 = ds.getConnection().prepareStatement(
-          "" + no);
-          ResultSet rs2 = pstmt2.executeQuery()) {
+      List<AttachedFile> attachedFiles = 
+          sqlSession.selectList("BoardDao.findAttachedFilesByBoard", no);
 
-        ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-        while (rs2.next()) {
-          AttachedFile file = new AttachedFile();
-          file.setNo(rs2.getInt("bfno"));
-          file.setFilepath(rs2.getString("filepath"));
-          attachedFiles.add(file);
-        }
-        board.setAttachedFiles(attachedFiles);
-      }
+      board.setAttachedFiles(attachedFiles);
+
 
       return board;
     }
   }
-
   @Override
   public int update(Board board) throws Exception {
     try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
