@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
-import com.bitcamp.board.domain.Member;
 
 @Repository // DAO 역할을 수행하는 객체에 붙이는 애노테이션
 public class MybatisBoardDao implements BoardDao {
@@ -48,40 +47,13 @@ public class MybatisBoardDao implements BoardDao {
 
   @Override
   public Board findByNo(int no) throws Exception {
-    try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
-        "select "
-            + "   b.bno,"
-            + "   b.title,"
-            + "   b.cont,"
-            + "   b.cdt,"
-            + "   b.vw_cnt,"
-            + "   m.mno,"
-            + "   m.name"
-            + " from app_board b"
-            + "   join app_member m on b.mno = m.mno"
-            + " where b.bno=" + no);
-        ResultSet rs = pstmt.executeQuery()) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 
-      if (!rs.next()) {
-        return null;
-      }
-
-      Board board = new Board();
-      board.setNo(rs.getInt("bno"));
-      board.setTitle(rs.getString("title"));
-      board.setContent(rs.getString("cont"));
-      board.setCreatedDate(rs.getDate("cdt"));
-      board.setViewCount(rs.getInt("vw_cnt"));
-
-      Member writer = new Member();
-      writer.setNo(rs.getInt("mno"));
-      writer.setName(rs.getString("name"));
-
-      board.setWriter(writer);
+      Board board = sqlSession.selectOne("BoardDao.findByNo", no);
 
       // 게시글 첨부파일 가져오기
       try (PreparedStatement pstmt2 = ds.getConnection().prepareStatement(
-          "select bfno, filepath, bno from app_board_file where bno = " + no);
+          "" + no);
           ResultSet rs2 = pstmt2.executeQuery()) {
 
         ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
