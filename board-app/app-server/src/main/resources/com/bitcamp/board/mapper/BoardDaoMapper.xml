@@ -31,7 +31,7 @@
       b.cdt,
       b.vw_cnt,
       m.mno,
-      m.name"
+      m.name
     from 
       app_board b
       join app_member m on b.mno = m.mno
@@ -52,10 +52,10 @@
       app_board b
       join app_member m on b.mno = m.mno
     where
-      b.bno=#{value})
+      b.bno=#{value}
   </select>
   
-  <select id="findAttachedFilesByBoard" resultMap="attachedFileMap">
+  <select id="findFilesByBoard" resultMap="attachedFileMap">
     select
      bfno, 
      filepath, 
@@ -64,9 +64,8 @@
      app_board_file
     where
      bno = #{value}
-  
-  
   </select>
+  
   
   <delete id="deleteByMember">
    delete from app_board 

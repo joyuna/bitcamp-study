@@ -45,7 +45,7 @@ public class MybatisBoardDao implements BoardDao {
   }
 
   @Override
-  public Board findByNo(int no) throws Exception {
+  public Board findByNo1(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 
       // 게시글 가져오기
@@ -53,14 +53,21 @@ public class MybatisBoardDao implements BoardDao {
 
       // 게시글 첨부파일 가져오기
       List<AttachedFile> attachedFiles = 
-          sqlSession.selectList("BoardDao.findAttachedFilesByBoard", no);
+          sqlSession.selectList("BoardDao.findFilesByBoard", no);
 
       board.setAttachedFiles(attachedFiles);
-
 
       return board;
     }
   }
+
+  @Override
+  public Board findByNo2(int no) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectOne("BoardDao.findByNo", no);
+    }
+  }
+
   @Override
   public int update(Board board) throws Exception {
     try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
@@ -121,6 +128,13 @@ public class MybatisBoardDao implements BoardDao {
       file.setBoardNo(rs.getInt("bno"));
 
       return file;
+    }
+  }
+
+  @Override
+  public List<AttachedFile> findFilesByBoard(int boardNo) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectList("BoardDao.findFilesByBoard", boardNo);
     }
   }
 
