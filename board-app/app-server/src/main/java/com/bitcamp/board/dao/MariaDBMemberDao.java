@@ -13,7 +13,7 @@ public class MariaDBMemberDao implements MemberDao {
   DataSource ds;
 
   public MariaDBMemberDao(DataSource ds) {
-    System.out.println("MariaDBMemberdDao() 호출됨!");
+    System.out.println("MariaDBMemberDao() 호출됨!");
     this.ds = ds;
   }
 
