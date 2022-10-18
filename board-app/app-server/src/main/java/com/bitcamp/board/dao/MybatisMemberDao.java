@@ -40,15 +40,8 @@ public class MybatisMemberDao implements MemberDao {
 
   @Override
   public int update(Member member) throws Exception {
-    try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
-        "update app_member set name=?, email=?, pwd=sha2(?,256) where mno=?")) {
-
-      pstmt.setString(1, member.getName());
-      pstmt.setString(2, member.getEmail());
-      pstmt.setString(3, member.getPassword());
-      pstmt.setInt(4, member.getNo());
-
-      return pstmt.executeUpdate();
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.update("MemberDao.update", member);
     }
   }
 

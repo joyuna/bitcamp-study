@@ -45,4 +45,12 @@
   where
     email=#{email} and pwd=sha2(#{password},256)
   </select>
+  
+  <update id="update" parameterType="com.bitcamp.board.domain.Member">
+  update app_member set 
+    name=#{name},
+    email=#{email}, 
+    pwd=sha2(#{password},256) 
+   where 
+    mno=#{no}"
 </mapper>
