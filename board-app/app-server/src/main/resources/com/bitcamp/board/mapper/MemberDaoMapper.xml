@@ -4,12 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberDao">
 
-  <insert id="insert" parameterType="com.bitcamp.board.domain.Member">
+  <insert id="insert" parameterType="member">
   insert into app_member(name,email,pwd) 
   values(#{name},#{email},sha2(#{password},256))
   </insert>
   
-  <select id="findByNo" resultType="com.bitcamp.board.domain.Member">
+  <select id="findByNo" resultType="member">
   select
    mno no,
    name,
@@ -21,7 +21,7 @@
    mno=#{value}
   </select>
   
-  <select id="findAll" resultType="com.bitcamp.board.domain.Member">
+  <select id="findAll" resultType="Member">
   select
    mno no,
    name,
@@ -33,7 +33,7 @@
   
   </select>
   
-  <select id="findByEmailPassword" resultType="com.bitcamp.board.domain.Member"> 
+  <select id="findByEmailPassword" resultType="Member"> 
   select 
     mno no,
     name,
@@ -45,7 +45,7 @@
     email=#{email} and pwd=sha2(#{password},256)
   </select>
   
-  <update id="update" parameterType="com.bitcamp.board.domain.Member">
+  <update id="update" parameterType="Member">
   update app_member set 
     name=#{name},
     email=#{email}, 

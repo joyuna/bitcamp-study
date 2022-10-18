@@ -37,6 +37,11 @@ public class MybatisConfig {
     factoryBean.setMapperLocations(
         iocContainer.getResources("classpath:com/bitcamp/board/mapper/*Mapper.xml")); // classpath: 접두어를 붙여주는 경우도 있고, 붙여도 된다.
 
+    // 도메인 클래스의 별명을 자동으로 부여한다.
+    // - 패키지 명을 제외한 클래스 이름이 별명으로 사용된다.
+    // - 별명은 대소문자를 구분하지 않는다.
+    factoryBean.setTypeAliasesPackage("com.bitcamp.board.domain");
+
     return factoryBean.getObject();
   }
 }
