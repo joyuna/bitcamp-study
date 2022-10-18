@@ -29,7 +29,7 @@
    mno=#{value}
   </select>
   
-  <select id="findAll" resultMAp="memberMap">
+  <select id="findAll" resultMap="memberMap">
   select
    mno,
    name,
@@ -59,7 +59,7 @@
     email=#{email}, 
     pwd=sha2(#{password},256) 
    where 
-    mno=#{no}"
+    mno=#{no}
   </update>
   
   <delete id="delete">

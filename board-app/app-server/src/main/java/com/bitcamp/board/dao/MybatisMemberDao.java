@@ -3,7 +3,6 @@ package com.bitcamp.board.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import com.bitcamp.board.domain.Member;
 @Repository // DAO 역할을 수행하는 객체에 붙이는 애노테이션
 public class MybatisMemberDao implements MemberDao {
 
-  @Autowired DataSource ds;
   @Autowired SqlSessionFactory sqlSessionFactory; // setter가 안붙어도 Autowired 애노테이션이 붙으면 알아서 주입해준다.
 
   // 실무에 가면 생성자를 못볼것이다. 대신 Autowired 애노테이션을 보게 될 것이다. 하지만 생성자 통해 엄격하게 주입하는걸 권장하긴 한다.
