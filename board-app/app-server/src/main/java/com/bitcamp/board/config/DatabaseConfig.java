@@ -5,7 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+// @Transactional 애노테이션으로 트랜젝션을 제어할 수 있게 한다.
+@EnableTransactionManagement
 // DatabaseConfig와 DataSource만 설정
 public class DatabaseConfig {
 
