@@ -57,7 +57,7 @@ public class DefaultMemberService implements MemberService {
     TransactionStatus status = txManager.getTransaction(def);
 
     try {
-
+      boardDao.deleteFilesByMemberBoards(no); // 회원이 작성한 게시글의 모든 첨부파일 삭제
       boardDao.deleteFilesByMemberBoards(no); //회원이 작성한 게시글의 모두 첨부파일 삭제 
       boardDao.deleteByMember(no); //회원이 작성한 게시글 삭제
 
