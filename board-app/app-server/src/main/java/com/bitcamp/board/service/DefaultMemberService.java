@@ -3,12 +3,19 @@ package com.bitcamp.board.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.domain.Member;
 
 @Service // 서비스 역할을 수행하는 객체에 붙이는 애노테이션
 public class DefaultMemberService implements MemberService {
+
+  @Autowired 
+  PlatformTransactionManager txManager; // 트랜잭션을 다루려면 트랜잭션 매니저가 필요하다.
 
   @Autowired
   MemberDao memberDao;
@@ -42,14 +49,32 @@ public class DefaultMemberService implements MemberService {
 
   @Override
   public boolean delete(int no) throws Exception {
-    boardDao.deleteFilesByMemberBoards(no); // 회원이 작성한 게시글의 모든 첨부파일 삭제
-    boardDao.deleteByMember(no); // 회원이 작성한 게시글 삭제
-    return memberDao.delete(no) > 0; // 회원 삭제
+
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    TransactionStatus status = txManager.getTransaction(def);
+
+    try {
+
+      boardDao.deleteFilesByMemberBoards(no); //회원이 작성한 게시글의 모두 첨부파일 삭제 
+      boardDao.deleteByMember(no); //회원이 작성한 게시글 삭제
+
+      boolean result = memberDao.delete(no) > 0;
+      txManager.commit(status);
+      return result; //회원 삭제
+
+    } catch (Exception e) {
+      txManager.rollback(status);
+      throw e;
+    }
   }
 
   @Override
   public List<Member> list() throws Exception {
     return memberDao.findAll();
+
   }
 }
 
