@@ -2,7 +2,9 @@ package com.bitcamp.board;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableTransactionManagement
 // 방법1) @MapperScan("com.bitcamp.board.dao") 
 // 방법1)을 일단 빼고 BoardDao에 가서 방법2)로 진행(인터페이스에 @Mapper를 붙여주는거로 진행)
 @SpringBootApplication
