@@ -4,34 +4,33 @@ import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import com.bitcamp.board.filter.LoginCheckFilter;
 
 
 public class AppWebApplicationInitializer 
-extends AbstractAnnotationConfigDispatcherServletInitializer {
+/* extends AbstractAnnotationConfigDispatcherServletInitializer */{
 
-  @Override
+  //  @Override
   protected Class<?>[] getRootConfigClasses() {
     return new Class<?>[] {RootConfig.class, DatabaseConfig.class, MybatisConfig.class}; // 배열로 만들어서 리턴해야 함.
   }
 
-  @Override
+  //  @Override
   protected String getServletName() {
     return "app";
   }
 
-  @Override
+  //  @Override
   protected Class<?>[] getServletConfigClasses() {
     return new Class<?>[] {AppWebConfig.class}; // 프론트 컨트롤러가 사용할 IoC 설정
   }
 
-  @Override
+  //  @Override
   protected String[] getServletMappings() {
     return new String[] {"/app/*"}; // URL이 하나여도 배열로 리턴해야한다.
   }
 
-  @Override
+  //  @Override
   protected Filter[] getServletFilters() {
     return new Filter[] {
         new CharacterEncodingFilter("UTF-8"),
@@ -39,7 +38,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
     };
   }
 
-  @Override
+  //  @Override
   protected void customizeRegistration(Dynamic registration) {
     registration.setMultipartConfig(new MultipartConfigElement(
         System.getProperty("java.io.tmpdir"), // 클라이언트가 보낸 파일을 임시 저장할 때 사용할 디렉토리

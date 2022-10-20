@@ -3,12 +3,10 @@
  */
 package com.bitcamp.board;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        //App classUnderTest = new App();
-        //assertNotNull("app should have a greeting", classUnderTest.getGreeting());
-    }
+  // 지우라고 하셨지만 일단 주석처리
+  //    @Test public void appHasAGreeting() {
+  //        //App classUnderTest = new App();
+  //        //assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+  //    }
 }
