@@ -45,6 +45,7 @@ public class BoardController {
   // InternalResourceViewResolver 사용 후:
   @GetMapping("form")
   public void form() throws Exception {
+
   }
 
   @PostMapping("add") 
