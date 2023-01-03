@@ -1,3 +1,4 @@
+<!--페이지컨트롤러도 만들고 html도 만들고~~ -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@ var tag1 = document.getElementById("btn1");
 
 tag1.onclick = function() {
   // 서버에 요청
-  var xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest(); /* 옛날 도구 요즘은 패치라는 도구를 사용함 */
   xhr.open("GET", "/javascript/ex00/exam06", false);
   xhr.send();
 

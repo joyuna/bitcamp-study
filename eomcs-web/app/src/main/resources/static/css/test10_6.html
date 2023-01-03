@@ -1,3 +1,5 @@
+<!-- absolute쓸땐 min-height 쓰는게 좋다 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +16,8 @@
     border: 5px solid black;
     xmargin: 10px;
     position:relative;
-    xmin-height: 500px;
+    xmin-height: 550px;
+    min-width: 600px;
   }
 
   address {
@@ -42,6 +45,7 @@
     left: 0px; 
     top: 0px;
     xfloat: left;
+        min-width: 600px;
   }
 
   #menu ul > li {
@@ -57,7 +61,7 @@
     border: 1px solid red;
     margin-left: 184px;
     padding: 10px;
-    xheight: 500px;
+    xheight: 500px;/* context에 대해서 height 쓰면 안돼!! */
     min-height: 500px;
   }
 
@@ -66,7 +70,7 @@
     /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
         그 아래로 위치하도록 이동시킨다.
         단 왼쪽에 있는 것이 float 객체일 때!*/
-    xclear: left; 
+    clear: left; 
     text-align: center;
     border: 1px solid red;
   }
@@ -123,6 +127,34 @@
     <li>빅데이터 프로페셔널 과정</li>
   </ul>
   비트캠프는 우수한 개발자를 양성합니다.
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
+  a<br>
   </div>
 
   <div id="footer">
